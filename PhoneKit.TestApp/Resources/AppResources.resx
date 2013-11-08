@@ -128,10 +128,6 @@
   <data name="ApplicationTitle" xml:space="preserve">
     <value>TEST APP</value>
   </data>
-  <data name="InAppStoreBuy" xml:space="preserve">
-    <value>Buy now</value>
-    <comment>InAppStorePage</comment>
-  </data>
   <data name="InAppStoreNoProducts" xml:space="preserve">
     <value>There are currently no in-app purchases available. Please try again later.</value>
     <comment>InAppStorePage</comment>
@@ -167,5 +163,9 @@
   <data name="AppBarStore" xml:space="preserve">
     <value>In-App Store</value>
     <comment>AppBar</comment>
+  </data>
+  <data name="InAppStoreLoading" xml:space="preserve">
+    <value>Loading...</value>
+    <comment>InAppStorePage</comment>
   </data>
 </root>

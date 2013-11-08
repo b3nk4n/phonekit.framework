@@ -32,8 +32,14 @@ namespace PhoneKit.Framework.InAppPurchase
         {
             if (IsProductActive(productId))
                 return;
-
-            await Store.CurrentApp.RequestProductPurchaseAsync(productId, false);
+            try
+            {
+                await Store.CurrentApp.RequestProductPurchaseAsync(productId, false);
+            }
+            catch (Exception)
+            {
+                // thrown when the user cancels the pruchase...
+            }
         }
 
         /// <summary>

@@ -27,17 +27,5 @@ namespace PhoneKit.TestApp
         {
             InitializeComponent();
         }
-
-        /// <summary>
-        /// Updates the in-app store products when the page is navigated to.
-        /// </summary>
-        /// <param name="e">The event args.</param>
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
-        {
-            // update store items
-            InAppStore.UpdateProducts();
-
-            base.OnNavigatedTo(e);
-        }
     }
 }

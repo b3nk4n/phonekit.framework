@@ -52,8 +52,8 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,30,12,0">
             <framework:InAppStoreControl x:Name="InAppStore"
+                InAppStoreLoadingText="{Binding Path=LocalizedResources.InAppStoreLoading, Source={StaticResource LocalizedStrings}}"
                 InAppStoreNoProductsText="{Binding Path=LocalizedResources.InAppStoreNoProducts, Source={StaticResource LocalizedStrings}}"
-                InAppStoreBuyText="{Binding Path=LocalizedResources.InAppStoreBuy, Source={StaticResource LocalizedStrings}}"
                 InAppStorePurchasedText="{Binding Path=LocalizedResources.InAppStorePurchased, Source={StaticResource LocalizedStrings}}"
                 SupportedProductIds="ad_free,donate"/>
         </Grid>

@@ -124,11 +124,11 @@ namespace PhoneKit.TestApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy now.
+        ///   Looks up a localized string similar to Loading....
         /// </summary>
-        public static string InAppStoreBuy {
+        public static string InAppStoreLoading {
             get {
-                return ResourceManager.GetString("InAppStoreBuy", resourceCulture);
+                return ResourceManager.GetString("InAppStoreLoading", resourceCulture);
             }
         }
         

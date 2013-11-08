@@ -19,6 +19,16 @@ namespace PhoneKit.Framework.Controls
     /// </summary>
     public partial class InAppStoreControl : UserControl
     {
+        #region Members
+
+        /// <summary>
+        /// In localized loading text as a dependency property.
+        /// </summary>
+        public static readonly DependencyProperty InAppStoreLoadingTextProperty =
+            DependencyProperty.Register("InAppLoadingProductsText",
+            typeof(string), typeof(InAppStoreControl),
+            new PropertyMetadata("Loading..."));
+
         /// <summary>
         /// In localized no products text as a dependency property.
         /// </summary>
@@ -26,14 +36,6 @@ namespace PhoneKit.Framework.Controls
             DependencyProperty.Register("InAppStoreNoProductsText",
             typeof(string), typeof(InAppStoreControl),
             new PropertyMetadata("No in-app product available."));
-
-        /// <summary>
-        /// In localized buy button text as a dependency property.
-        /// </summary>
-        public static readonly DependencyProperty InAppStoreBuyTextProperty =
-            DependencyProperty.Register("InAppStoreBuyText",
-            typeof(string), typeof(InAppStoreControl),
-            new PropertyMetadata("Buy"));
 
         /// <summary>
         /// In localized purchased text as a dependency property.
@@ -44,9 +46,18 @@ namespace PhoneKit.Framework.Controls
             new PropertyMetadata("Purchased"));
 
         /// <summary>
+        /// The list of loaded products.
+        /// </summary>
+        private IList<ProductItem> _loadedProducts = new List<ProductItem>();
+
+        /// <summary>
         /// The supported product IDs as a comma seperated string list
         /// </summary>
         private string _supportedProductIds = string.Empty;
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Creates an InAppStoreControl instance.
@@ -54,45 +65,88 @@ namespace PhoneKit.Framework.Controls
         public InAppStoreControl()
         {
             InitializeComponent();
+            Loaded += InAppStoreControl_Loaded;
         }
+
+        #endregion
+
+        #region Private Methods
 
         /// <summary>
         /// Updates the products of the in-app store.
         /// </summary>
-        public async void UpdateProducts()
+        private async void UpdateProducts()
         {
             // verify supported product configuration
             if (string.IsNullOrEmpty(_supportedProductIds))
                 throw new InvalidOperationException("There are no supported products.");
 
+            _loadedProducts.Clear();
+
             // load products
-            IList<ProductItem> products = await InAppPurchaseHelper.LoadProductsAsync(_supportedProductIds.Split(',').ToList(),
+            _loadedProducts = await InAppPurchaseHelper.LoadProductsAsync(_supportedProductIds.Split(',').ToList(),
                 InAppStorePurchasedText);
 
-            if (products.Count > 0)
+            if (_loadedProducts.Count > 0)
             {
-                NoProductsInfo.Visibility = Visibility.Collapsed;
+                HideMessage();
 
                 // display loaded products
-                ProductItemsList.ItemsSource = products;
+                ProductItemsList.ItemsSource = _loadedProducts;
             }
             else
             {
-                NoProductsInfo.Visibility = Visibility.Visible;
+                ShowMessage(InAppStoreNoProductsText);
             }
         }
 
         /// <summary>
-        /// Click event handler for each BUY button.
+        /// Displays an info message.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        private void ShowMessage(string message)
+        {
+            MessageInfo.Visibility = Visibility.Visible;
+            MessageInfo.Text = message;
+        }
+
+        /// <summary>
+        /// Hides the info message.
+        /// </summary>
+        private void HideMessage()
+        {
+            MessageInfo.Visibility = Visibility.Collapsed;
+            MessageInfo.Text = string.Empty;
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <summary>
+        /// Called when the page was loaded.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event args.</param>
-        private async void BuyButton_Clicked(object sender, RoutedEventArgs e)
+        private void InAppStoreControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Button btn = sender as Button;
+            ShowMessage(InAppStoreLoadingText);
+            UpdateProducts();
+        }
+
+        /// <summary>
+        /// Called when a new products was selected.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        private async void ProductItemsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // If selected index is -1 (no selection) do nothing
+            if (ProductItemsList.SelectedIndex < 0)
+                return;
 
             // get the associated product ID
-            string productId = btn.Tag.ToString();
+            string productId = _loadedProducts[ProductItemsList.SelectedIndex].Id;
 
             // purchase product if possible
             if (!InAppPurchaseHelper.IsProductActive(productId))
@@ -101,6 +155,22 @@ namespace PhoneKit.Framework.Controls
 
                 UpdateProducts();
             }
+
+            // Reset selected index to -1 (no selection)
+            ProductItemsList.SelectedIndex = -1;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the localized loading text.
+        /// </summary>
+        public string InAppStoreLoadingText
+        {
+            get { return (string)GetValue(InAppStoreLoadingTextProperty); }
+            set { SetValue(InAppStoreLoadingTextProperty, value); }
         }
 
         /// <summary>
@@ -122,15 +192,6 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the localized buy button text.
-        /// </summary>
-        public string InAppStoreBuyText
-        {
-            get { return (string)GetValue(InAppStoreBuyTextProperty); }
-            set { SetValue(InAppStoreBuyTextProperty, value); }
-        }
-
-        /// <summary>
         /// Gets or sets the supported product IDs as a comma seperated string.
         /// </summary>
         public string SupportedProductIds
@@ -144,5 +205,7 @@ namespace PhoneKit.Framework.Controls
                 _supportedProductIds = value;
             }
         }
+
+        #endregion
     }
 }
