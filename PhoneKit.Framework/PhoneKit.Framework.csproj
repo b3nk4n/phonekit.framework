@@ -84,53 +84,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Audio\SoundEffects.cs" />
+    <Compile Include="Controls\InAppStoreControl.xaml.cs">
+      <DependentUpon>InAppStoreControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Conversion\StringListConverter.cs" />
+    <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
+    <Compile Include="MVVM\DelegateCommand.cs" />
+    <Compile Include="Conversion\ShortDateConverter.cs" />
+    <Compile Include="InAppPurchase\ProductItem.cs" />
+    <Compile Include="LockScreen\LockScreenHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\StoredObject.cs" />
+    <Compile Include="Tile\LiveTileHelper.cs" />
+    <Compile Include="Tile\TileData.cs" />
+    <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Voice\Speech.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\appbar.add.png" />
-    <Content Include="Assets\appbar.alarm.png" />
-    <Content Include="Assets\appbar.back.png" />
-    <Content Include="Assets\appbar.bell.png" />
-    <Content Include="Assets\appbar.calendar.png" />
-    <Content Include="Assets\appbar.camera.png" />
-    <Content Include="Assets\appbar.cancel.png" />
-    <Content Include="Assets\appbar.check.png" />
-    <Content Include="Assets\appbar.close.png" />
-    <Content Include="Assets\appbar.delete.png" />
-    <Content Include="Assets\appbar.download.png" />
-    <Content Include="Assets\appbar.edit.png" />
-    <Content Include="Assets\appbar.email.png" />
-    <Content Include="Assets\appbar.favs.addto.png" />
-    <Content Include="Assets\appbar.favs.png" />
-    <Content Include="Assets\appbar.ff.png" />
-    <Content Include="Assets\appbar.folder.png" />
-    <Content Include="Assets\appbar.like.png" />
-    <Content Include="Assets\appbar.microphone.png" />
-    <Content Include="Assets\appbar.minus.png" />
-    <Content Include="Assets\appbar.new.png" />
-    <Content Include="Assets\appbar.next.png" />
-    <Content Include="Assets\appbar.pause.png" />
-    <Content Include="Assets\appbar.phone.png" />
-    <Content Include="Assets\appbar.play.png" />
-    <Content Include="Assets\appbar.questionmark.png" />
-    <Content Include="Assets\appbar.refresh.png" />
-    <Content Include="Assets\appbar.rew.png" />
-    <Content Include="Assets\appbar.save.png" />
-    <Content Include="Assets\appbar.search.png" />
-    <Content Include="Assets\appbar.settings.png" />
-    <Content Include="Assets\appbar.share.png" />
-    <Content Include="Assets\appbar.stop.png" />
-    <Content Include="Assets\appbar.sync.png" />
-    <Content Include="Assets\appbar.upload.png" />
-    <Content Include="Assets\appbar.video.png" />
-    <Content Include="Assets\MetroAlignmentGrid.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Folder Include="Advertising\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Advertising\" />
+    <Page Include="Controls\InAppStoreControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
