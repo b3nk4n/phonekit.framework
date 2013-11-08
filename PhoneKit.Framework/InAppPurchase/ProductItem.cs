@@ -36,8 +36,8 @@ namespace PhoneKit.Framework.InAppPurchase
         public Uri ImageUri { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the b
+        /// Gets or sets whether the product has been pruchased.
         /// </summary>
-        public System.Windows.Visibility BuyNowButtonVisible { get; set; }
+        public bool IsActive { get; set; }
     }
 }

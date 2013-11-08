@@ -65,7 +65,12 @@ namespace PhoneKit.Framework.Controls
         public InAppStoreControl()
         {
             InitializeComponent();
-            Loaded += InAppStoreControl_Loaded;
+
+            // shoe loading message und update products when page has loaded
+            Loaded += (s, e) => {
+                ShowMessage(InAppStoreLoadingText);
+                UpdateProducts();
+            };
         }
 
         #endregion
@@ -122,17 +127,6 @@ namespace PhoneKit.Framework.Controls
         #endregion
 
         #region Events
-
-        /// <summary>
-        /// Called when the page was loaded.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The event args.</param>
-        private void InAppStoreControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            ShowMessage(InAppStoreLoadingText);
-            UpdateProducts();
-        }
 
         /// <summary>
         /// Called when a new products was selected.

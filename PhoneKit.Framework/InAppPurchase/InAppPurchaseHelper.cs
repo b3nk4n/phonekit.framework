@@ -71,7 +71,7 @@ namespace PhoneKit.Framework.InAppPurchase
                             Description = product.Description,
                             Status = status,
                             Id = id,
-                            BuyNowButtonVisible = Store.CurrentApp.LicenseInformation.ProductLicenses[id].IsActive ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible
+                            IsActive = Store.CurrentApp.LicenseInformation.ProductLicenses[id].IsActive
                         }
                     );
                 }

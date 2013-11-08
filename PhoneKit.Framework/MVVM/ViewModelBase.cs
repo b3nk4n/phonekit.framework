@@ -24,7 +24,6 @@ namespace SeeMensa.ViewModels
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
-
         }
     }
 }
