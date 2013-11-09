@@ -10,7 +10,8 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="480" d:DesignWidth="480">
     
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot"
+          toolkit:TurnstileFeatherEffect.FeatheringIndex="1">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="2*" />
@@ -48,6 +49,6 @@
         <TextBlock x:Name="MessageInfo" Grid.Row="1" Visibility="Collapsed"
                    VerticalAlignment="Top" HorizontalAlignment="Center"
                    TextWrapping="Wrap" MaxWidth="420" TextAlignment="Left"
-                   Style="{StaticResource PhoneTextLargeStyle}" />
+                   Style="{StaticResource PhoneTextSubtleStyle}" />
     </Grid>
 </UserControl>

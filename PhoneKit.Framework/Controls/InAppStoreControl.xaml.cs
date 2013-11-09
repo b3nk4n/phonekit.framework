@@ -22,7 +22,7 @@ namespace PhoneKit.Framework.Controls
         #region Members
 
         /// <summary>
-        /// In localized loading text as a dependency property.
+        /// The localized loading text as a dependency property.
         /// </summary>
         public static readonly DependencyProperty InAppStoreLoadingTextProperty =
             DependencyProperty.Register("InAppLoadingProductsText",
@@ -30,7 +30,7 @@ namespace PhoneKit.Framework.Controls
             new PropertyMetadata("Loading..."));
 
         /// <summary>
-        /// In localized no products text as a dependency property.
+        /// The localized no products text as a dependency property.
         /// </summary>
         public static readonly DependencyProperty InAppStoreNoProductsTextProperty =
             DependencyProperty.Register("InAppStoreNoProductsText",
@@ -38,7 +38,7 @@ namespace PhoneKit.Framework.Controls
             new PropertyMetadata("No in-app product available."));
 
         /// <summary>
-        /// In localized purchased text as a dependency property.
+        /// The localized purchased text as a dependency property.
         /// </summary>
         public static readonly DependencyProperty InAppStorePurchasedTextProperty =
             DependencyProperty.Register("InAppStorePurchasedText",
@@ -66,9 +66,10 @@ namespace PhoneKit.Framework.Controls
         {
             InitializeComponent();
 
+            ShowMessage(InAppStoreLoadingText);
+
             // shoe loading message und update products when page has loaded
             Loaded += (s, e) => {
-                ShowMessage(InAppStoreLoadingText);
                 UpdateProducts();
             };
         }

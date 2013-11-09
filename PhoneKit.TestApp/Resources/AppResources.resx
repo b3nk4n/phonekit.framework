@@ -127,6 +127,7 @@
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
     <value>TEST APP</value>
+    <comment>General</comment>
   </data>
   <data name="InAppStoreNoProducts" xml:space="preserve">
     <value>There are currently no in-app purchases available. Please try again later.</value>
@@ -140,32 +141,36 @@
     <value>In-App Store</value>
     <comment>InAppStorePage</comment>
   </data>
-  <data name="AppBarAbout" xml:space="preserve">
-    <value>About</value>
-    <comment>AppBar</comment>
-  </data>
-  <data name="AppBarHelp" xml:space="preserve">
-    <value>Help</value>
-    <comment>AppBar</comment>
-  </data>
-  <data name="AppBarMore" xml:space="preserve">
-    <value>More apps</value>
-    <comment>AppBar</comment>
-  </data>
-  <data name="AppBarRefresh" xml:space="preserve">
-    <value>refresh</value>
-    <comment>AppBar</comment>
-  </data>
-  <data name="AppBarSettings" xml:space="preserve">
-    <value>settings</value>
-    <comment>AppBar</comment>
-  </data>
-  <data name="AppBarStore" xml:space="preserve">
-    <value>In-App Store</value>
-    <comment>AppBar</comment>
+  <data name="MoreApps" xml:space="preserve">
+    <value>more apps</value>
+    <comment>AboutPage</comment>
   </data>
   <data name="InAppStoreLoading" xml:space="preserve">
     <value>Loading...</value>
     <comment>InAppStorePage</comment>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>About</value>
+    <comment>AboutPage</comment>
+  </data>
+  <data name="ApplicationAuthor" xml:space="preserve">
+    <value>by Benjamin Sautermeister</value>
+    <comment>AboutPage</comment>
+  </data>
+  <data name="PrivacyInfo" xml:space="preserve">
+    <value>privacy info</value>
+    <comment>About Page</comment>
+  </data>
+  <data name="RateAndReview" xml:space="preserve">
+    <value>rate and review</value>
+    <comment>AboutPage</comment>
+  </data>
+  <data name="SupportAndFeedback" xml:space="preserve">
+    <value>support and feedback</value>
+    <comment>About Page</comment>
+  </data>
+  <data name="ApplicationDescription" xml:space="preserve">
+    <value>This is a test application for the PhoneKit Framework.</value>
+    <comment>AboutPage</comment>
   </data>
 </root>

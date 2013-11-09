@@ -40,11 +40,19 @@ namespace PhoneKit.TestApp
             //appBarButton.Text = AppResources.AppBarButtonText;
             //ApplicationBar.Buttons.Add(appBarButton);
 
-            // Create a new menu item with the localized string from AppResources.
-            ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarStore);
-            ApplicationBar.MenuItems.Add(appBarMenuItem);
-            appBarMenuItem.Click += (s, e) => {
+            // in-app sotre
+            ApplicationBarMenuItem appBarMenuItem1 = new ApplicationBarMenuItem(AppResources.InAppStoreTitle);
+            ApplicationBar.MenuItems.Add(appBarMenuItem1);
+            appBarMenuItem1.Click += (s, e) => {
                 NavigationService.Navigate(new Uri("/InAppStorePage.xaml", UriKind.Relative));
+            };
+
+            // about
+            ApplicationBarMenuItem appBarMenuItem2 = new ApplicationBarMenuItem(AppResources.AboutTitle);
+            ApplicationBar.MenuItems.Add(appBarMenuItem2);
+            appBarMenuItem2.Click += (s, e) =>
+            {
+                NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
             };
         }
     }

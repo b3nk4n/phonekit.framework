@@ -63,54 +63,27 @@ namespace PhoneKit.TestApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
-        public static string AppBarAbout {
+        public static string AboutTitle {
             get {
-                return ResourceManager.GetString("AppBarAbout", resourceCulture);
+                return ResourceManager.GetString("AboutTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Help.
+        ///   Looks up a localized string similar to by Benjamin Sautermeister.
         /// </summary>
-        public static string AppBarHelp {
+        public static string ApplicationAuthor {
             get {
-                return ResourceManager.GetString("AppBarHelp", resourceCulture);
+                return ResourceManager.GetString("ApplicationAuthor", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to More apps.
+        ///   Looks up a localized string similar to This is a test application for the PhoneKit Framework..
         /// </summary>
-        public static string AppBarMore {
+        public static string ApplicationDescription {
             get {
-                return ResourceManager.GetString("AppBarMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to refresh.
-        /// </summary>
-        public static string AppBarRefresh {
-            get {
-                return ResourceManager.GetString("AppBarRefresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to settings.
-        /// </summary>
-        public static string AppBarSettings {
-            get {
-                return ResourceManager.GetString("AppBarSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In-App Store.
-        /// </summary>
-        public static string AppBarStore {
-            get {
-                return ResourceManager.GetString("AppBarStore", resourceCulture);
+                return ResourceManager.GetString("ApplicationDescription", resourceCulture);
             }
         }
         
@@ -160,6 +133,33 @@ namespace PhoneKit.TestApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to more apps.
+        /// </summary>
+        public static string MoreApps {
+            get {
+                return ResourceManager.GetString("MoreApps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to privacy info.
+        /// </summary>
+        public static string PrivacyInfo {
+            get {
+                return ResourceManager.GetString("PrivacyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rate and review.
+        /// </summary>
+        public static string RateAndReview {
+            get {
+                return ResourceManager.GetString("RateAndReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LeftToRight.
         /// </summary>
         public static string ResourceFlowDirection {
@@ -174,6 +174,15 @@ namespace PhoneKit.TestApp.Resources {
         public static string ResourceLanguage {
             get {
                 return ResourceManager.GetString("ResourceLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to support and feedback.
+        /// </summary>
+        public static string SupportAndFeedback {
+            get {
+                return ResourceManager.GetString("SupportAndFeedback", resourceCulture);
             }
         }
     }
