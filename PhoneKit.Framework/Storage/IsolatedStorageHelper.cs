@@ -67,7 +67,7 @@ namespace PhoneKit.Framework.Storage
         }
 
         /// <summary>
-        /// Verifies whether the an value in the isolated storage settings
+        /// Verifies whether the an value in the isolated storage settings.
         /// for the given key exists.
         /// </summary>
         /// <param name="key">The key.</param>
@@ -79,9 +79,9 @@ namespace PhoneKit.Framework.Storage
         }
 
         /// <summary>
-        /// 
+        /// Deletes a value from isolated storage settings.
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">The key.</param>
         public static void DeleteValue(string key)
         {
             var store = IsolatedStorageSettings.ApplicationSettings;

@@ -99,6 +99,8 @@
     <Compile Include="InAppPurchase\ProductItem.cs" />
     <Compile Include="LockScreen\LockScreenHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\IsolatedStorageHelper.cs" />
+    <Compile Include="Storage\PhoneStateHelper.cs" />
     <Compile Include="Storage\StoredObject.cs" />
     <Compile Include="Tile\LiveTileHelper.cs" />
     <Compile Include="Tile\TileData.cs" />
