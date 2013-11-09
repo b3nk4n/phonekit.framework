@@ -65,7 +65,7 @@ namespace PhoneKit.Framework.Controls
         public InAppStoreControl()
         {
             InitializeComponent();
-
+            
             ShowMessage(InAppStoreLoadingText);
 
             // shoe loading message und update products when page has loaded
@@ -99,6 +99,8 @@ namespace PhoneKit.Framework.Controls
 
                 // display loaded products
                 ProductItemsList.ItemsSource = _loadedProducts;
+
+                ProductsInTransition.Begin();
             }
             else
             {
