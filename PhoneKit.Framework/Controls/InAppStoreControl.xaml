@@ -18,8 +18,7 @@
 		</Storyboard>
 	</UserControl.Resources>
     
-    <Grid x:Name="LayoutRoot"
-          toolkit:TurnstileFeatherEffect.FeatheringIndex="1">
+    <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="2*" />
