@@ -20,7 +20,7 @@ namespace PhoneKit.Framework.Net
         /// <summary>
         /// The isolated storage scheme.
         /// </summary>
-        public const string ISTORAGE_SCHEME = "istorage://";
+        public const string ISTORAGE_SCHEME = "isostore:";
 
         /// <summary>
         /// The local appdata scheme.
@@ -100,29 +100,23 @@ namespace PhoneKit.Framework.Net
         private static string VerifyUniqueFileName(Uri mustBeDifferentFromLocal, string basePath,
             string fileNameWithoutExt, string extension)
         {
-            string localPath;
-            string oldFileName = Path.GetFileNameWithoutExtension(mustBeDifferentFromLocal.LocalPath);
-
             // verify if a unique name is required
-            if (mustBeDifferentFromLocal != null &&
-                oldFileName.StartsWith(fileNameWithoutExt))
+            if (mustBeDifferentFromLocal != null)
             {
-                // toggle suffix
-                if (Path.GetFileNameWithoutExtension(mustBeDifferentFromLocal.LocalPath).EndsWith("_A"))
+                string oldFileName = Path.GetFileNameWithoutExtension(mustBeDifferentFromLocal.LocalPath);
+
+                if (oldFileName.StartsWith(fileNameWithoutExt))
                 {
-                    localPath = string.Format("{0}{1}_B{2}", basePath, fileNameWithoutExt, extension);
-                }
-                else
-                {
-                    localPath = string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
+                    // toggle suffix
+                    if (Path.GetFileNameWithoutExtension(mustBeDifferentFromLocal.LocalPath).EndsWith("_A"))
+                        return string.Format("{0}{1}_B{2}", basePath, fileNameWithoutExt, extension);
+                    else
+                        return string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
                 }
             }
-            else
-            {
-                // giva all new lockscreen images with an '_A' suffix
-                localPath = string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
-            }
-            return localPath;
+
+            // giva all new lockscreen images with an '_A' suffix
+            return string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
         }
 
         /// <summary>
@@ -166,9 +160,10 @@ namespace PhoneKit.Framework.Net
                 }
             });
 
+            // select required scheme prefix
             string scheme = downloadLocation == DownloadLocation.IsolatedStorage ? ISTORAGE_SCHEME : APPDATA_SCHEME;
 
-            return new Uri(scheme + localPath, UriKind.Absolute);
+            return new Uri(scheme + localPath, UriKind.RelativeOrAbsolute);
         }
     }
 }
