@@ -37,18 +37,39 @@ namespace PhoneKit.TestApp
             ApplicationBar = new ApplicationBar();
 
             // Create a new button and set the text value to the localized string from AppResources.
-            ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
-            appBarButton.Text = "PinToStart";
-            ApplicationBar.Buttons.Add(appBarButton);
-            appBarButton.Click += (s, e) =>
+            ApplicationBarIconButton appBarButton1 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
+            appBarButton1.Text = "Pin Standard";
+            ApplicationBar.Buttons.Add(appBarButton1);
+            appBarButton1.Click += (s, e) =>
             {
                 LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
-                    new StandardTileData {
+                    new StandardTileData
+                    {
                         Title = "TEST TILE",
                         Count = 1,
                         BackTitle = "TEST BACK",
                         BackgroundImage = new Uri("http://bsautermeister.de/scribblehunter/images/branding/logo.png", UriKind.Absolute)
                     });
+            };
+
+            ApplicationBarIconButton appBarButton2 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
+            appBarButton2.Text = "Pin Iconic";
+            ApplicationBar.Buttons.Add(appBarButton2);
+            appBarButton2.Click += (s, e) =>
+            {
+                LiveTileHelper.PinOrUpdateTile(new Uri("/InAppStorePage.xaml", UriKind.Relative),
+                    new IconicTileData
+                    {
+                        Title = "TEST TILE",
+                        Count = 1,
+                        WideContent1 = "Stammessen",
+                        WideContent2 = "Spätzle mit Soße",
+                        WideContent3 = "mit Bratkartoffeln",
+                        IconImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
+                        SmallIconImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
+                        BackgroundColor = System.Windows.Media.Color.FromArgb(255, 50, 50, 50)
+                    },
+                    true);
             };
 
             // in-app sotre
