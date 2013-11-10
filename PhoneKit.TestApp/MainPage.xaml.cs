@@ -10,6 +10,9 @@ using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
 using PhoneKit.Framework.Tile;
 using PhoneKit.Framework.LockScreen;
+using PhoneKit.Framework.Graphics;
+using PhoneKit.TestApp.ImageControls;
+using PhoneKit.Framework.Storage;
 
 namespace PhoneKit.TestApp
 {
@@ -39,11 +42,14 @@ namespace PhoneKit.TestApp
 
             // Create a new button and set the text value to the localized string from AppResources.
             ApplicationBarIconButton appBarButton1 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
-            appBarButton1.Text = "Pin Standard";
+            appBarButton1.Text = "Pin Custom";
             ApplicationBar.Buttons.Add(appBarButton1);
             appBarButton1.Click += (s, e) =>
             {
                 LiveTileHelper.ClearStorage();
+
+                var image = GraphicsHelper.Create(new CusomTile());
+                Uri imageUri = StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test.jpeg", image);
 
                 LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
                     new StandardTileData
@@ -51,7 +57,9 @@ namespace PhoneKit.TestApp
                         Title = "TEST TILE",
                         Count = 1,
                         BackTitle = "TEST BACK",
-                        BackgroundImage = new Uri("http://bsautermeister.de/scribblehunter/images/branding/logo.png", UriKind.Absolute)
+                        BackgroundImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
+                        //new Uri("http://bsautermeister.de/scribblehunter/images/branding/logo.png", UriKind.Absolute),
+                        BackBackgroundImage = imageUri
                     });
             };
 
@@ -60,6 +68,8 @@ namespace PhoneKit.TestApp
             ApplicationBar.Buttons.Add(appBarButton2);
             appBarButton2.Click += (s, e) =>
             {
+                LiveTileHelper.ClearStorage();
+
                 LiveTileHelper.PinOrUpdateTile(new Uri("/InAppStorePage.xaml", UriKind.Relative),
                     new IconicTileData
                     {

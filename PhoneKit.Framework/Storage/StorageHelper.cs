@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 
 namespace PhoneKit.Framework.Storage
@@ -9,8 +10,27 @@ namespace PhoneKit.Framework.Storage
     /// <summary>
     /// Helper class for accessing the isolated storage more easy.
     /// </summary>
-    public static class IsolatedStorageHelper
+    public static class StorageHelper
     {
+        #region Members
+
+        /// <summary>
+        /// The isolated storage scheme.
+        /// </summary>
+        public const string ISTORAGE_SCHEME = "isostore://";
+
+        /// <summary>
+        /// The local resource scheme.
+        /// </summary>
+        public const string APPX_SCHEME = "ms-appx://";
+
+        /// <summary>
+        /// The local appdata scheme.
+        /// </summary>
+        public const string APPDATA_LOCAL_SCHEME = "ms-appdata:///local";
+
+        #endregion
+
         #region Isolated Storage Settings
 
         /// <summary>
@@ -168,6 +188,31 @@ namespace PhoneKit.Framework.Storage
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Saves an JPEG image to isolated storage.
+        /// </summary>
+        /// <param name="path">The full image path of the JPEG image.</param>
+        /// <param name="image">The image to save.</param>
+        /// <returns>Returns the image URI in isolated storage when successful, else null.</returns>
+        public static Uri SaveJpeg(string path, WriteableBitmap image)
+        {
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+            using (IsolatedStorageFileStream fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+            {
+                try
+                {
+                    image.SaveJpeg(fileStream, image.PixelWidth, image.PixelHeight, 0, 100);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
+                    return null;
+                }
+            }
+
+            return new Uri(ISTORAGE_SCHEME + path, UriKind.Absolute);
         }
 
         /// <summary>

@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.IsolatedStorage;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -29,16 +28,6 @@ namespace PhoneKit.Framework.Net
         /// The base folder path.
         /// </summary>
         private string _baseFolderPath;
-
-        /// <summary>
-        /// The isolated storage scheme.
-        /// </summary>
-        public const string ISTORAGE_SCHEME = "isostore://";
-
-        /// <summary>
-        /// The local appdata scheme.
-        /// </summary>
-        public const string APPDATA_SCHEME = "ms-appdata:///local";
 
         /// <summary>
         /// The web http scheme.
@@ -103,12 +92,11 @@ namespace PhoneKit.Framework.Net
                 // check if it is an image from web
                 if (IsWebFile(fileUri))
                 {
-                    string localPath;
                     string fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileUri.LocalPath.Replace('/', '_').Replace('\\', '_'));
                     string extension = Path.GetExtension(fileUri.LocalPath);
 
                     // verify unique image file name
-                    localPath = VerifyUniqueFileName(mustBeDifferentFromLocal, fileNameWithoutExt, extension);
+                    string localPath = VerifyUniqueFileName(mustBeDifferentFromLocal, fileNameWithoutExt, extension);
 
                     return await LoadFileAsync(fileUri, localPath, DownloadStorage);
                 }
@@ -131,7 +119,7 @@ namespace PhoneKit.Framework.Net
         /// </remarks>
         public void Clear()
         {
-            IsolatedStorageHelper.TryDeleteAllDirectoryFiles(BaseFolderPath);
+            StorageHelper.TryDeleteAllDirectoryFiles(BaseFolderPath);
         }
 
         #endregion
@@ -189,7 +177,7 @@ namespace PhoneKit.Framework.Net
                 {
                     var stream = task.Result.GetResponseStream();
 
-                    if (!IsolatedStorageHelper.SaveFileFromStream(localPath, stream))
+                    if (!StorageHelper.SaveFileFromStream(localPath, stream))
                     {
                         Debug.WriteLine("Saving the downloaded file not successful");
                     }
@@ -201,9 +189,9 @@ namespace PhoneKit.Framework.Net
             }
 
             // select required scheme prefix
-            string scheme = downloadStorage == DownloadStorageLocation.IsolatedStorage ? ISTORAGE_SCHEME : APPDATA_SCHEME;
+            string scheme = downloadStorage == DownloadStorageLocation.IsolatedStorage ? StorageHelper.ISTORAGE_SCHEME : StorageHelper.APPDATA_LOCAL_SCHEME;
 
-            return new Uri(scheme + localPath, UriKind.RelativeOrAbsolute);
+            return new Uri(scheme + localPath, UriKind.Absolute);
         }
 
 

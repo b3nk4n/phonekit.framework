@@ -1,9 +1,4 @@
 using System;
-using System.Diagnostics;
-using System.IO;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
 using PhoneKit.Framework.Net;
@@ -20,10 +15,15 @@ namespace PhoneKit.Framework.Tile
         #region Members
 
         /// <summary>
+        /// The base path of the shared shell content, which is the root for all live tile images.
+        /// </summary>
+        public const string SHARED_SHELL_CONTENT_PATH = "/shared/shellcontent/";
+
+        /// <summary>
         /// The download manager.
         /// </summary>
         private static readonly DownloadManager _downloadManager = new DownloadManager(
-            "/shared/shellcontent/",
+            SHARED_SHELL_CONTENT_PATH,
             DownloadStorageLocation.IsolatedStorage);
 
         #endregion

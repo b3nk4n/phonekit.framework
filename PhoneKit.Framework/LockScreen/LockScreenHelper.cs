@@ -1,4 +1,5 @@
 using PhoneKit.Framework.Net;
+using PhoneKit.Framework.Storage;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -13,11 +14,6 @@ namespace PhoneKit.Framework.LockScreen
     public static class LockScreenHelper
     {
         #region Members
-
-        /// <summary>
-        /// The local resource scheme.
-        /// </summary>
-        public const string APPX_SCHEME = "ms-appx://";
 
         /// <summary>
         /// The download manager.
@@ -64,8 +60,8 @@ namespace PhoneKit.Framework.LockScreen
                 }
                 else
                 {
-                    if (!imageUri.OriginalString.StartsWith(APPX_SCHEME))
-                        sourceUri = new Uri(APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                    if (!imageUri.OriginalString.StartsWith(StorageHelper.APPX_SCHEME))
+                        sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);
                     else
                         sourceUri = new Uri(imageUri.OriginalString, UriKind.Absolute);
                 }
