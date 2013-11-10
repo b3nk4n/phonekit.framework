@@ -32,32 +32,27 @@ namespace PhoneKit.Framework.Net
         /// <summary>
         /// The isolated storage scheme.
         /// </summary>
-        public const string ISTORAGE_SCHEME = "isostore:";
+        public const string ISTORAGE_SCHEME = "isostore://";
 
         /// <summary>
         /// The local appdata scheme.
         /// </summary>
-        public const string APPDATA_SCHEME = "ms-appdata:///Local";
+        public const string APPDATA_SCHEME = "ms-appdata:///local";
 
         /// <summary>
         /// The web http scheme.
         /// </summary>
         public const string HTTP_SCHEME = "http://";
 
-        /// <summary>
-        /// The shared shell content base path.
-        /// </summary>
-        public const string SHARED_SHELL_CONTENT_BASE_PATH = "/shared/shellcontent/";
-
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Creates a new DownloadManager instance with isolated storage shared shell conenten as default.
+        /// Creates a new DownloadManager instance with isolated storage root as default.
         /// </summary>
         public DownloadManager()
-            : this(SHARED_SHELL_CONTENT_BASE_PATH, DownloadStorageLocation.IsolatedStorage)
+            : this("/", DownloadStorageLocation.IsolatedStorage)
         { }
 
         /// <summary>
@@ -186,6 +181,13 @@ namespace PhoneKit.Framework.Net
                         {
                             try
                             {
+                                string directory = Path.GetDirectoryName(localPath);
+                                if (!isoStore.DirectoryExists(directory))
+                                {
+                                    isoStore.CreateDirectory(directory);
+                                    Debug.WriteLine("Directory "+ directory + "has been created.");
+                                }
+
                                 using (var isoStoreFile = isoStore.OpenFile(localPath,
                                     FileMode.Create,
                                     FileAccess.ReadWrite))
@@ -235,6 +237,8 @@ namespace PhoneKit.Framework.Net
                 _baseFolderPath = value;
                 if (!_baseFolderPath.EndsWith("/"))
                     _baseFolderPath += "/";
+                if (!_baseFolderPath.StartsWith("/"))
+                    _baseFolderPath = "/" + _baseFolderPath;
             }
         }
 

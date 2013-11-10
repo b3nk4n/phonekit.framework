@@ -23,7 +23,7 @@ namespace PhoneKit.Framework.LockScreen
         /// The download manager.
         /// </summary>
         private static readonly DownloadManager _downloadManager = new DownloadManager(
-            DownloadManager.SHARED_SHELL_CONTENT_BASE_PATH,
+            "/lockscreen/",
             DownloadStorageLocation.LocalAppData);
 
         #endregion

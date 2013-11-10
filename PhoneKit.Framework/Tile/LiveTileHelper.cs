@@ -22,7 +22,9 @@ namespace PhoneKit.Framework.Tile
         /// <summary>
         /// The download manager.
         /// </summary>
-        private static readonly DownloadManager _downloadManager = new DownloadManager();
+        private static readonly DownloadManager _downloadManager = new DownloadManager(
+            "/shared/shellcontent/",
+            DownloadStorageLocation.IsolatedStorage);
 
         #endregion
 
