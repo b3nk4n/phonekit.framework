@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace PhoneKit.Framework.Storage
@@ -111,6 +108,13 @@ namespace PhoneKit.Framework.Storage
             {
                 using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
                 {
+                    // verify directory exists
+                    string directory = Path.GetDirectoryName(path);
+                    if (!store.DirectoryExists(directory))
+                    {
+                        store.CreateDirectory(directory);
+                    }
+
                     using (IsolatedStorageFileStream fileStream = store.OpenFile(path, FileMode.Create, FileAccess.Write))
                     {
                         XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -122,6 +126,48 @@ namespace PhoneKit.Framework.Storage
             catch (Exception) { }
 
             return false;
+        }
+
+        /// <summary>
+        /// Saves a file from stream.
+        /// </summary>
+        /// <param name="path">The local path to store the file.</param>
+        /// <param name="stream">The source file stream.</param>
+        public static bool SaveFileFromStream(string path, Stream stream)
+        {
+            using (var responseStream = stream)
+            {
+                using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    try
+                    {
+                        // verify directory exists
+                        string directory = Path.GetDirectoryName(path);
+                        if (!store.DirectoryExists(directory))
+                        {
+                            store.CreateDirectory(directory);
+                        }
+
+                        using (var isoStoreFile = store.OpenFile(path,
+                            FileMode.Create,
+                            FileAccess.ReadWrite))
+                        {
+                            // store loaded data in isolated storage
+                            var dataBuffer = new byte[1024];
+                            while (responseStream.Read(dataBuffer, 0, dataBuffer.Length) > 0)
+                            {
+                                isoStoreFile.Write(dataBuffer, 0, dataBuffer.Length);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Saving the downloaded file failed with error: " + ex.Message);
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         /// <summary>
@@ -180,6 +226,68 @@ namespace PhoneKit.Framework.Storage
             {
                 if (store.FileExists(path))
                     store.DeleteFile(path);
+            }
+        }
+
+        /// <summary>
+        /// Verifies whether the directory exists.
+        /// </summary>
+        /// <param name="path">The file or directory path.</param>
+        /// <returns>Returns true if the directory exists, else false.</returns>
+        public static bool DirectoryExists(string path)
+        {
+            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                string directory = Path.GetDirectoryName(path);
+                return store.DirectoryExists(directory);
+            }
+        }
+
+        /// <summary>
+        /// Deletes a directory and its files.
+        /// </summary>
+        /// <param name="path">The directory or file path.</param>
+        public static void DeleteDirectory(string path)
+        {
+            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                string directory = Path.GetDirectoryName(path);
+                if (store.DirectoryExists(directory))
+                {
+                    store.DeleteDirectory(directory);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Deletes the foldes containing files.
+        /// </summary>
+        /// <param name="path">The file or directory path.</param>
+        public static void TryDeleteAllDirectoryFiles(string path)
+        {
+            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                string directory = Path.GetDirectoryName(path);
+                if (store.DirectoryExists(directory))
+                {
+                    try
+                    {
+                        string[] fileNames = store.GetFileNames(path);
+
+                        foreach (var fileName in fileNames)
+                        {
+                            string fullFilePath = path + fileName;
+                            if (FileExists(fullFilePath))
+                            {
+                                store.DeleteFile(fullFilePath);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Deleting all files failed. One file might be in use. Error: " + ex.Message);
+                    }
+                }
             }
         }
 

@@ -52,12 +52,12 @@ namespace PhoneKit.Framework.LockScreen
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        Debug.WriteLine("Setting lockscreen image failed caused by unauthorized acces with error: "
+                        Debug.WriteLine("Retrieving previous lock screen image failed caused by unauthorized acces with error: "
                             + ex.Message);
                     }
                     catch(Exception ex)
                     {
-                        Debug.WriteLine("Setting lockscreen failed with error: " + ex.Message);
+                        Debug.WriteLine("Retrieving previous lock screen image failed with error: " + ex.Message);
                     }
 
                     sourceUri = await _downloadManager.LoadFileAsync(imageUri, previousLockScreenImageUri);
@@ -103,6 +103,14 @@ namespace PhoneKit.Framework.LockScreen
         public static bool HasAccess()
         {
             return LockScreenManager.IsProvidedByCurrentApplication;
+        }
+
+        /// <summary>
+        /// Clears the used storage of downloaded files.
+        /// </summary>
+        public static void ClearStorage()
+        {
+            _downloadManager.Clear();
         }
 
         #endregion

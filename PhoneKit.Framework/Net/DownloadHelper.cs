@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhoneKit.Framework.Storage;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
@@ -122,6 +123,17 @@ namespace PhoneKit.Framework.Net
             }
         }
 
+        /// <summary>
+        /// Clears all downloaded files.
+        /// </summary>
+        /// <remarks>
+        /// If the folder is shared with another download manager, remark that ALL files are deleted.
+        /// </remarks>
+        public void Clear()
+        {
+            IsolatedStorageHelper.TryDeleteAllDirectoryFiles(BaseFolderPath);
+        }
+
         #endregion
 
         #region Private Methods
@@ -175,36 +187,11 @@ namespace PhoneKit.Framework.Net
             {
                 await task.ContinueWith(t =>
                 {
-                    using (var responseStream = task.Result.GetResponseStream())
-                    {
-                        using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
-                        {
-                            try
-                            {
-                                string directory = Path.GetDirectoryName(localPath);
-                                if (!isoStore.DirectoryExists(directory))
-                                {
-                                    isoStore.CreateDirectory(directory);
-                                    Debug.WriteLine("Directory "+ directory + "has been created.");
-                                }
+                    var stream = task.Result.GetResponseStream();
 
-                                using (var isoStoreFile = isoStore.OpenFile(localPath,
-                                    FileMode.Create,
-                                    FileAccess.ReadWrite))
-                                {
-                                    // store loaded data in isolated storage
-                                    var dataBuffer = new byte[1024];
-                                    while (responseStream.Read(dataBuffer, 0, dataBuffer.Length) > 0)
-                                    {
-                                        isoStoreFile.Write(dataBuffer, 0, dataBuffer.Length);
-                                    }
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Debug.WriteLine("Saving the downloaded file failed with error: " + ex.Message);
-                            }
-                        }
+                    if (!IsolatedStorageHelper.SaveFileFromStream(localPath, stream))
+                    {
+                        Debug.WriteLine("Saving the downloaded file not successful");
                     }
                 });
             }
@@ -218,6 +205,7 @@ namespace PhoneKit.Framework.Net
 
             return new Uri(scheme + localPath, UriKind.RelativeOrAbsolute);
         }
+
 
         #endregion
 

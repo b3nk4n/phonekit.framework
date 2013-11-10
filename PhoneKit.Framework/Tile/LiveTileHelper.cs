@@ -154,6 +154,14 @@ namespace PhoneKit.Framework.Tile
             return GetTile(navigationUri) != null;
         }
 
+        /// <summary>
+        /// Clears the used storage of downloaded files.
+        /// </summary>
+        public static void ClearStorage()
+        {
+            _downloadManager.Clear();
+        }
+
         #endregion
 
         #region Private Methods

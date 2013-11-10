@@ -43,6 +43,8 @@ namespace PhoneKit.TestApp
             ApplicationBar.Buttons.Add(appBarButton1);
             appBarButton1.Click += (s, e) =>
             {
+                LiveTileHelper.ClearStorage();
+
                 LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
                     new StandardTileData
                     {
@@ -79,9 +81,13 @@ namespace PhoneKit.TestApp
             appBarButton3.Click += async (s, e) =>
             {
                 if (await LockScreenHelper.VerifyAccessAsync())
+                {
+                    LockScreenHelper.ClearStorage();
+
                     LockScreenHelper.SetLockScreenImage(new Uri("http://imagelib.de/forum/colorscale_n.png", UriKind.Absolute));
                     //LockScreenHelper.SetLockScreenImage(new Uri("/Assets/MetroAlignmentGrid.png"));
                     //LockScreenHelper.SetLockScreenImage(new Uri("ms-appdata:///Assets/MetroAlignmentGrid.png"));
+                }
             };
 
             // in-app sotre
