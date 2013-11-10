@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
+using PhoneKit.Framework.Tile;
 
 namespace PhoneKit.TestApp
 {
@@ -36,14 +37,25 @@ namespace PhoneKit.TestApp
             ApplicationBar = new ApplicationBar();
 
             // Create a new button and set the text value to the localized string from AppResources.
-            //ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-            //appBarButton.Text = AppResources.AppBarButtonText;
-            //ApplicationBar.Buttons.Add(appBarButton);
+            ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
+            appBarButton.Text = "PinToStart";
+            ApplicationBar.Buttons.Add(appBarButton);
+            appBarButton.Click += (s, e) =>
+            {
+                LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
+                    new StandardTileData {
+                        Title = "TEST TILE",
+                        Count = 1,
+                        BackTitle = "TEST BACK",
+                        BackgroundImage = new Uri("http://bsautermeister.de/scribblehunter/images/branding/logo.png", UriKind.Absolute)
+                    });
+            };
 
             // in-app sotre
             ApplicationBarMenuItem appBarMenuItem1 = new ApplicationBarMenuItem(AppResources.InAppStoreTitle);
             ApplicationBar.MenuItems.Add(appBarMenuItem1);
-            appBarMenuItem1.Click += (s, e) => {
+            appBarMenuItem1.Click += (s, e) =>
+            {
                 NavigationService.Navigate(new Uri("/InAppStorePage.xaml", UriKind.Relative));
             };
 

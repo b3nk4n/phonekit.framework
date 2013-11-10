@@ -132,7 +132,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Properties\AppManifest.xml" />
+    <None Include="Properties\AppManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
@@ -156,13 +158,16 @@
     <Content Include="Assets\AppBar\appbar.favs.png" />
     <Content Include="Assets\AppBar\appbar.ff.png" />
     <Content Include="Assets\AppBar\appbar.folder.png" />
+    <Content Include="Assets\AppBar\appbar.home.png" />
     <Content Include="Assets\AppBar\appbar.like.png" />
+    <Content Include="Assets\AppBar\appbar.lock.png" />
     <Content Include="Assets\AppBar\appbar.microphone.png" />
     <Content Include="Assets\AppBar\appbar.minus.png" />
     <Content Include="Assets\AppBar\appbar.new.png" />
     <Content Include="Assets\AppBar\appbar.next.png" />
     <Content Include="Assets\AppBar\appbar.pause.png" />
     <Content Include="Assets\AppBar\appbar.phone.png" />
+    <Content Include="Assets\AppBar\appbar.pin.png" />
     <Content Include="Assets\AppBar\appbar.play.png" />
     <Content Include="Assets\AppBar\appbar.questionmark.png" />
     <Content Include="Assets\AppBar\appbar.refresh.png" />
@@ -171,8 +176,10 @@
     <Content Include="Assets\AppBar\appbar.search.png" />
     <Content Include="Assets\AppBar\appbar.settings.png" />
     <Content Include="Assets\AppBar\appbar.share.png" />
+    <Content Include="Assets\AppBar\appbar.source.png" />
     <Content Include="Assets\AppBar\appbar.stop.png" />
     <Content Include="Assets\AppBar\appbar.sync.png" />
+    <Content Include="Assets\AppBar\appbar.text.png" />
     <Content Include="Assets\AppBar\appbar.upload.png" />
     <Content Include="Assets\AppBar\appbar.video.png" />
     <Content Include="Assets\ApplicationIcon.png">

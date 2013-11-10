@@ -98,6 +98,7 @@
     <Compile Include="Conversion\ShortDateConverter.cs" />
     <Compile Include="InAppPurchase\ProductItem.cs" />
     <Compile Include="LockScreen\LockScreenHelper.cs" />
+    <Compile Include="Net\DownloadHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\IsolatedStorageHelper.cs" />
     <Compile Include="Storage\PhoneStateHelper.cs" />
