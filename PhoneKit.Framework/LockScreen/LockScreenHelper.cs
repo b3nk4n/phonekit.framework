@@ -1,5 +1,6 @@
 using PhoneKit.Framework.Net;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Phone.System.UserProfile;
 using UserProfile = Windows.Phone.System.UserProfile;
@@ -11,10 +12,23 @@ namespace PhoneKit.Framework.LockScreen
     /// </summary>
     public static class LockScreenHelper
     {
+        #region Members
+
         /// <summary>
         /// The local resource scheme.
         /// </summary>
         public const string APPX_SCHEME = "ms-appx://";
+
+        /// <summary>
+        /// The download manager.
+        /// </summary>
+        private static readonly DownloadManager _downloadManager = new DownloadManager(
+            DownloadManager.SHARED_SHELL_CONTENT_BASE_PATH,
+            DownloadStorageLocation.LocalAppData);
+
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
         /// Sets the lock screen image.
@@ -27,7 +41,7 @@ namespace PhoneKit.Framework.LockScreen
             if (HasAccess())
             {
                 Uri sourceUri;
-                if (DownloadHelper.IsWebFile(imageUri))
+                if (_downloadManager.IsWebFile(imageUri))
                 {
                     Uri previousLockScreenImageUri = null;
 
@@ -36,11 +50,17 @@ namespace PhoneKit.Framework.LockScreen
                         // try to get the previous lockscreen image, if this app is the owner.
                         previousLockScreenImageUri = UserProfile.LockScreen.GetImageUri();
                     }
-                    catch(UnauthorizedAccessException) { }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Debug.WriteLine("Setting lockscreen image failed caused by unauthorized acces with error: "
+                            + ex.Message);
+                    }
+                    catch(Exception ex)
+                    {
+                        Debug.WriteLine("Setting lockscreen failed with error: " + ex.Message);
+                    }
 
-                    sourceUri = await DownloadHelper.LoadFileAsync(imageUri,
-                        DownloadLocation.LocalAppData,
-                        previousLockScreenImageUri);
+                    sourceUri = await _downloadManager.LoadFileAsync(imageUri, previousLockScreenImageUri);
                 }
                 else
                 {
@@ -84,5 +104,7 @@ namespace PhoneKit.Framework.LockScreen
         {
             return LockScreenManager.IsProvidedByCurrentApplication;
         }
+
+        #endregion
     }
 }

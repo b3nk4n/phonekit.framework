@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PhoneKit.Framework.Net
 {
-    public enum DownloadLocation
+    public enum DownloadStorageLocation
     {
         IsolatedStorage,
         LocalAppData
@@ -15,8 +15,20 @@ namespace PhoneKit.Framework.Net
     /// <summary>
     /// Helper class for downloading items.
     /// </summary>
-    public static class DownloadHelper
+    public class DownloadManager
     {
+        #region Members
+
+        /// <summary>
+        /// The download location.
+        /// </summary>
+        private DownloadStorageLocation _downloadStorage;
+
+        /// <summary>
+        /// The base folder path.
+        /// </summary>
+        private string _baseFolderPath;
+
         /// <summary>
         /// The isolated storage scheme.
         /// </summary>
@@ -33,11 +45,42 @@ namespace PhoneKit.Framework.Net
         public const string HTTP_SCHEME = "http://";
 
         /// <summary>
+        /// The shared shell content base path.
+        /// </summary>
+        public const string SHARED_SHELL_CONTENT_BASE_PATH = "/shared/shellcontent/";
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Creates a new DownloadManager instance with isolated storage shared shell conenten as default.
+        /// </summary>
+        public DownloadManager()
+            : this(SHARED_SHELL_CONTENT_BASE_PATH, DownloadStorageLocation.IsolatedStorage)
+        { }
+
+        /// <summary>
+        /// Creates a new DownloadManager instance.
+        /// </summary>
+        /// <param name="baseFolderPath">The base folder path for the downloaded files.</param>
+        /// <param name="downloadStorage">The download storage location.</param>
+        public DownloadManager(string baseFolderPath, DownloadStorageLocation downloadStorage)
+        {
+            BaseFolderPath = baseFolderPath;
+            DownloadStorage = downloadStorage;
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
         /// Verifies whether the file is from the web or not.
         /// </summary>
         /// <param name="fileUri">The file URI.</param>
         /// <returns>Returns true, if the file if from web, else false.</returns>
-        public static bool IsWebFile(Uri fileUri)
+        public bool IsWebFile(Uri fileUri)
         {
             if (fileUri == null)
                 return false;
@@ -51,14 +94,13 @@ namespace PhoneKit.Framework.Net
         /// <param name="fileUri">
         /// The image of the tile or if empty, the one of the life tile data is used.
         /// </param>
-        /// <param name="downloadLocation">The local download location.</param>
         /// <param name="mustBeDifferentFromLocal">
         /// Makes the file name unique using A/B switching, which is required for example for lockscreen images.
         /// </param>
         /// <returns>
         /// The local file path of the downloaded file, eighter from isolated storage or from resources.
         /// </returns>
-        public static async Task<Uri> LoadFileAsync(Uri fileUri, DownloadLocation downloadLocation, Uri mustBeDifferentFromLocal=null)
+        public async Task<Uri> LoadFileAsync(Uri fileUri, Uri mustBeDifferentFromLocal=null)
         {
             try
             {
@@ -66,14 +108,13 @@ namespace PhoneKit.Framework.Net
                 if (IsWebFile(fileUri))
                 {
                     string localPath;
-                    string basePath = "/shared/shellcontent/";
                     string fileNameWithoutExt = Path.GetFileNameWithoutExtension(fileUri.LocalPath.Replace('/', '_').Replace('\\', '_'));
                     string extension = Path.GetExtension(fileUri.LocalPath);
 
                     // verify unique image file name
-                    localPath = VerifyUniqueFileName(mustBeDifferentFromLocal, basePath, fileNameWithoutExt, extension);
+                    localPath = VerifyUniqueFileName(mustBeDifferentFromLocal, fileNameWithoutExt, extension);
 
-                    return await DownloadHelper.LoadFileAsync(fileUri, localPath, downloadLocation);
+                    return await LoadFileAsync(fileUri, localPath, DownloadStorage);
                 }
 
                 // get image from resources
@@ -86,6 +127,10 @@ namespace PhoneKit.Framework.Net
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         /// <summary>
         /// Verifies that the file name is unique by A/B-suffixing.
         /// </summary>
@@ -97,8 +142,7 @@ namespace PhoneKit.Framework.Net
         /// <param name="fileNameWithoutExt">The file name without extension.</param>
         /// <param name="extension">The file extension.</param>
         /// <returns></returns>
-        private static string VerifyUniqueFileName(Uri mustBeDifferentFromLocal, string basePath,
-            string fileNameWithoutExt, string extension)
+        private string VerifyUniqueFileName(Uri mustBeDifferentFromLocal, string fileNameWithoutExt, string extension)
         {
             // verify if a unique name is required
             if (mustBeDifferentFromLocal != null)
@@ -109,14 +153,14 @@ namespace PhoneKit.Framework.Net
                 {
                     // toggle suffix
                     if (Path.GetFileNameWithoutExtension(mustBeDifferentFromLocal.LocalPath).EndsWith("_A"))
-                        return string.Format("{0}{1}_B{2}", basePath, fileNameWithoutExt, extension);
+                        return string.Format("{0}{1}_B{2}", BaseFolderPath, fileNameWithoutExt, extension);
                     else
-                        return string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
+                        return string.Format("{0}{1}_A{2}", BaseFolderPath, fileNameWithoutExt, extension);
                 }
             }
 
             // giva all new lockscreen images with an '_A' suffix
-            return string.Format("{0}{1}_A{2}", basePath, fileNameWithoutExt, extension);
+            return string.Format("{0}{1}_A{2}", BaseFolderPath, fileNameWithoutExt, extension);
         }
 
         /// <summary>
@@ -124,46 +168,91 @@ namespace PhoneKit.Framework.Net
         /// </summary>
         /// <param name="webUri">The web URI.</param>
         /// <param name="localPath">The local desired path in isolated storage.</param>
-        /// <param name="downloadLocation">The local download location.</param>
+        /// <param name="downloadStorage">The local download storage location.</param>
         /// <returns>The local Uri in isolated storage of the downloaded file.</returns>
-        private static async Task<Uri> LoadFileAsync(Uri webUri, string localPath, DownloadLocation downloadLocation)
+        private async Task<Uri> LoadFileAsync(Uri webUri, string localPath, DownloadStorageLocation downloadStorage)
         {
             var request = WebRequest.CreateHttp(webUri);
             var task = Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse,
                 request.EndGetResponse,
                 null);
-            await task.ContinueWith(t =>
+            try
             {
-                using (var responseStream = task.Result.GetResponseStream())
+                await task.ContinueWith(t =>
                 {
-                    using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
+                    using (var responseStream = task.Result.GetResponseStream())
                     {
-                        try
+                        using (var isoStore = IsolatedStorageFile.GetUserStoreForApplication())
                         {
-                            using (var isoStoreFile = isoStore.OpenFile(localPath,
-                                FileMode.Create,
-                                FileAccess.ReadWrite))
+                            try
                             {
-                                // store loaded data in isolated storage
-                                var dataBuffer = new byte[1024];
-                                while (responseStream.Read(dataBuffer, 0, dataBuffer.Length) > 0)
+                                using (var isoStoreFile = isoStore.OpenFile(localPath,
+                                    FileMode.Create,
+                                    FileAccess.ReadWrite))
                                 {
-                                    isoStoreFile.Write(dataBuffer, 0, dataBuffer.Length);
+                                    // store loaded data in isolated storage
+                                    var dataBuffer = new byte[1024];
+                                    while (responseStream.Read(dataBuffer, 0, dataBuffer.Length) > 0)
+                                    {
+                                        isoStoreFile.Write(dataBuffer, 0, dataBuffer.Length);
+                                    }
                                 }
                             }
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine("Download file with tile data failed with error: " + ex.Message);
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Saving the downloaded file failed with error: " + ex.Message);
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Download file with tile data failed with error: " + ex.Message);
+            }
 
             // select required scheme prefix
-            string scheme = downloadLocation == DownloadLocation.IsolatedStorage ? ISTORAGE_SCHEME : APPDATA_SCHEME;
+            string scheme = downloadStorage == DownloadStorageLocation.IsolatedStorage ? ISTORAGE_SCHEME : APPDATA_SCHEME;
 
             return new Uri(scheme + localPath, UriKind.RelativeOrAbsolute);
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the bbase folder path.
+        /// </summary>
+        public string BaseFolderPath
+        {
+            get
+            {
+                return _baseFolderPath;
+            }
+            private set
+            {
+                _baseFolderPath = value;
+                if (!_baseFolderPath.EndsWith("/"))
+                    _baseFolderPath += "/";
+            }
+        }
+
+        /// <summary>
+        /// Gets the download location.
+        /// </summary>
+        public DownloadStorageLocation DownloadStorage
+        {
+            get
+            {
+                return _downloadStorage;
+            }
+            set
+            {
+                _downloadStorage = value;
+            }
+        }
+
+        #endregion
     }
 }

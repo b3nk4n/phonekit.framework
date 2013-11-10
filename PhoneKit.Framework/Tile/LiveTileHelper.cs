@@ -17,6 +17,15 @@ namespace PhoneKit.Framework.Tile
     /// </summary>
     public static class LiveTileHelper
     {
+        #region Members
+
+        /// <summary>
+        /// The download manager.
+        /// </summary>
+        private static readonly DownloadManager _downloadManager = new DownloadManager();
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>
@@ -194,15 +203,13 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(StandardTileData tileData)
         {
-            if (DownloadHelper.IsWebFile(tileData.BackBackgroundImage))
-                tileData.BackBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.BackBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackBackgroundImage);
 
-            if (DownloadHelper.IsWebFile(tileData.BackgroundImage))
-                tileData.BackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.BackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackgroundImage);
         }
 
         /// <summary>
@@ -212,18 +219,16 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(CycleTileData tileData)
         {
-            if (DownloadHelper.IsWebFile(tileData.SmallBackgroundImage))
-                tileData.SmallBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.SmallBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.SmallBackgroundImage);
 
             IList<Uri> cycleImages = new List<Uri>(tileData.CycleImages);
             for (int i = 0; i < cycleImages.Count; ++i)
             {
-                if (DownloadHelper.IsWebFile(cycleImages[i]))
-                    cycleImages[i] = await DownloadHelper.LoadFileAsync(
-                        cycleImages[i],
-                        DownloadLocation.IsolatedStorage);
+                if (_downloadManager.IsWebFile(cycleImages[i]))
+                    cycleImages[i] = await _downloadManager.LoadFileAsync(
+                        cycleImages[i]);
             }
             tileData.CycleImages = cycleImages;
         }
@@ -235,30 +240,25 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(FlipTileData tileData)
         {
-            if (DownloadHelper.IsWebFile(tileData.SmallBackgroundImage))
-                tileData.SmallBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.SmallBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.SmallBackgroundImage);
 
-            if (DownloadHelper.IsWebFile(tileData.BackBackgroundImage))
-                tileData.BackBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.BackBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackBackgroundImage);
 
-            if (DownloadHelper.IsWebFile(tileData.BackgroundImage))
-                tileData.BackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.BackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackgroundImage);
 
-            if (DownloadHelper.IsWebFile(tileData.WideBackgroundImage))
-                tileData.WideBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.WideBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.WideBackgroundImage))
+                tileData.WideBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.WideBackgroundImage);
 
-            if (DownloadHelper.IsWebFile(tileData.WideBackBackgroundImage))
-                tileData.WideBackBackgroundImage = await DownloadHelper.LoadFileAsync(
-                    tileData.WideBackBackgroundImage,
-                    DownloadLocation.IsolatedStorage);
+            if (_downloadManager.IsWebFile(tileData.WideBackBackgroundImage))
+                tileData.WideBackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.WideBackBackgroundImage);
         }
 
         #endregion
