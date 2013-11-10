@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
 using PhoneKit.Framework.Tile;
+using PhoneKit.Framework.LockScreen;
 
 namespace PhoneKit.TestApp
 {
@@ -70,6 +71,17 @@ namespace PhoneKit.TestApp
                         BackgroundColor = System.Windows.Media.Color.FromArgb(255, 50, 50, 50)
                     },
                     true);
+            };
+
+            ApplicationBarIconButton appBarButton3 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.lock.png", UriKind.Relative));
+            appBarButton3.Text = "Lockscreen";
+            ApplicationBar.Buttons.Add(appBarButton3);
+            appBarButton3.Click += async (s, e) =>
+            {
+                if (await LockScreenHelper.VerifyAccessAsync())
+                    LockScreenHelper.SetLockScreenImage(new Uri("http://imagelib.de/forum/colorscale_n.png", UriKind.Absolute));
+                    //LockScreenHelper.SetLockScreenImage(new Uri("/Assets/MetroAlignmentGrid.png"));
+                    //LockScreenHelper.SetLockScreenImage(new Uri("ms-appdata:///Assets/MetroAlignmentGrid.png"));
             };
 
             // in-app sotre

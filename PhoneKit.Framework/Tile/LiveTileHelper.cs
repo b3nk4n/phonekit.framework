@@ -194,11 +194,15 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(StandardTileData tileData)
         {
-            if (tileData.BackBackgroundImage != null)
-                tileData.BackBackgroundImage = await GetTileImagePathAsync(tileData.BackBackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.BackBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
-            if (tileData.BackgroundImage != null)
-                tileData.BackgroundImage = await GetTileImagePathAsync(tileData.BackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.BackgroundImage,
+                    DownloadLocation.IsolatedStorage);
         }
 
         /// <summary>
@@ -208,14 +212,18 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(CycleTileData tileData)
         {
-            if (tileData.SmallBackgroundImage != null)
-                tileData.SmallBackgroundImage = await GetTileImagePathAsync(tileData.SmallBackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.SmallBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
             IList<Uri> cycleImages = new List<Uri>(tileData.CycleImages);
             for (int i = 0; i < cycleImages.Count; ++i)
             {
-                if (cycleImages[i] != null)
-                    cycleImages[i] = await GetTileImagePathAsync(cycleImages[i]);
+                if (DownloadHelper.IsWebFile(cycleImages[i]))
+                    cycleImages[i] = await DownloadHelper.LoadFileAsync(
+                        cycleImages[i],
+                        DownloadLocation.IsolatedStorage);
             }
             tileData.CycleImages = cycleImages;
         }
@@ -227,47 +235,30 @@ namespace PhoneKit.Framework.Tile
         /// <returns></returns>
         private static async Task CheckRemoteImagesAsync(FlipTileData tileData)
         {
-            if (tileData.SmallBackgroundImage != null)
-                tileData.SmallBackgroundImage = await GetTileImagePathAsync(tileData.SmallBackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.SmallBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
-            if (tileData.BackBackgroundImage != null)
-                tileData.BackBackgroundImage = await GetTileImagePathAsync(tileData.BackBackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.BackBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
-            if (tileData.BackgroundImage != null)
-                tileData.BackgroundImage = await GetTileImagePathAsync(tileData.BackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.BackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
-            if (tileData.WideBackgroundImage != null)
-                tileData.WideBackgroundImage = await GetTileImagePathAsync(tileData.WideBackgroundImage);
+            if (DownloadHelper.IsWebFile(tileData.WideBackgroundImage))
+                tileData.WideBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.WideBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
 
-            if (tileData.WideBackBackgroundImage != null)
-                tileData.WideBackBackgroundImage = await GetTileImagePathAsync(tileData.WideBackBackgroundImage);
-        }
-
-        /// <summary>
-        /// Gets the live tiels image path.
-        /// </summary>
-        /// <param name="tileData">The live tile data.</param>
-        /// <param name="image">The image of the tile or if empty, the one of the life tile data is used.</param>
-        /// <returns>The tiles image path, eighter from isolated storage or from resources.</returns>
-        private static async Task<Uri> GetTileImagePathAsync(Uri imageUri)
-        {
-            try
-            {
-                // check if it is an image from web
-                if (imageUri.OriginalString.StartsWith("http"))
-                {
-                    var localUri = "/shared/shellcontent/" + imageUri.LocalPath.Replace('/','_').Replace('\\', '_');
-                    return await DownloadHelper.LoadFileAsync(imageUri, localUri);                
-                }
-
-                // get image from resources
-                return imageUri;
-            }
-            catch (Exception ex)
-            {
-				Debug.WriteLine("Getting the tile image path failed with error: " + ex.Message);
-                return null;
-            }
+            if (DownloadHelper.IsWebFile(tileData.WideBackBackgroundImage))
+                tileData.WideBackBackgroundImage = await DownloadHelper.LoadFileAsync(
+                    tileData.WideBackBackgroundImage,
+                    DownloadLocation.IsolatedStorage);
         }
 
         #endregion
