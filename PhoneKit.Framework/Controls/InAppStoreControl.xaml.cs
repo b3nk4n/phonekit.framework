@@ -99,8 +99,6 @@ namespace PhoneKit.Framework.Controls
 
                 // display loaded products
                 ProductItemsList.ItemsSource = _loadedProducts;
-
-                ProductsInTransition.Begin();
             }
             else
             {

@@ -85,6 +85,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Advertising\DoubleClickAdControl.xaml.cs">
+      <DependentUpon>DoubleClickAdControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Advertising\Extensions\LinqToVisualTree.cs" />
     <Compile Include="Audio\SoundEffects.cs" />
     <Compile Include="Controls\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
@@ -109,10 +113,12 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Voice\Speech.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Advertising\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Page Include="Advertising\DoubleClickAdControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\AboutControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -123,6 +129,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Advertising\test_sc.html" />
     <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

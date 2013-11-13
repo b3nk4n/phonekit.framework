@@ -116,5 +116,10 @@ namespace PhoneKit.TestApp
                 NavigationService.Navigate(new Uri("/AboutPage.xaml", UriKind.Relative));
             };
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/AdvertsPage.xaml", UriKind.Relative));
+        }
     }
 }

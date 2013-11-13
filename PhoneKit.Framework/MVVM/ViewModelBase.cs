@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SeeMensa.ViewModels
+namespace PhoneKit.Framework.MVVM
 {
     /// <summary>
     /// The base class for every view model of the MVVM pattern.
