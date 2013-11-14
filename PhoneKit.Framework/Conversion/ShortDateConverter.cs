@@ -15,7 +15,7 @@ namespace PhoneKit.Framework.Conversion
         /// <param name="targetType">The target conversion type.</param>
         /// <param name="parameter">The parameter.</param>
         /// <param name="culture">The culture information.</param>
-        /// <returns></returns>
+        /// <returns>The short date time.</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value is DateTime)

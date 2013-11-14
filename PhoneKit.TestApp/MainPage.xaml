@@ -51,7 +51,9 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <StackPanel>
-                <Button Content="Advertising" Click="Button_Click" />
+                <Button Content="Advertising" Click="Advertising_Click" />
+                <Button Content="Voice" Click="Voice_Click" />
+                <Button Content="MVVM" Click="Mvvm_Click" />
             </StackPanel>
         </Grid>
 

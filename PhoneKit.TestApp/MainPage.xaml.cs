@@ -117,9 +117,19 @@ namespace PhoneKit.TestApp
             };
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Advertising_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/AdvertsPage.xaml", UriKind.Relative));
+        }
+
+        private void Voice_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/VoicePage.xaml", UriKind.Relative));
+        }
+
+        private void Mvvm_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/MvvmPage.xaml", UriKind.Relative));
         }
     }
 }

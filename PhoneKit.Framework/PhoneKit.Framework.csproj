@@ -99,7 +99,10 @@
     <Compile Include="Controls\InAppStoreControl.xaml.cs">
       <DependentUpon>InAppStoreControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Conversion\BooleanNegationConverter.cs" />
+    <Compile Include="Conversion\BooleanToVisibilityConverter.cs" />
     <Compile Include="Conversion\StringListConverter.cs" />
+    <Compile Include="Conversion\TimeToShapeConverter.cs" />
     <Compile Include="Graphics\GraphicsHelper.cs" />
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />

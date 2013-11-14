@@ -16,7 +16,7 @@ namespace PhoneKit.Framework.MVVM
         /// Notifies the binding system that the specified property was changed.
         /// </summary>
         /// <param name="propertyName">The name of the changed property.</param>
-        protected void RaisePropertyChanged(string propertyName)
+        protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
             if (handler != null)
