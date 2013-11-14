@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using PhoneKit.Framework.Advertising;
 
 namespace PhoneKit.TestApp
 {
@@ -21,6 +22,32 @@ namespace PhoneKit.TestApp
         public AdvertsPage()
         {
             InitializeComponent();
+
+            LoadDynamic();
+        }
+
+        /// <summary>
+        /// Loads the StudiCluster Web-Banner
+        /// </summary>
+        private void LoadDynamic()
+        {
+            if (DynamicContainer.Children.Count <= 1)
+            {
+                DoubleClickAdControl adControl = new DoubleClickAdControl();
+                adControl.Name = "WebBanner";
+                // hide for smooth slide in
+                adControl.Height = 0;
+
+                adControl.BannerUri = new Uri("http://bsautermeister.de/phonekit/adverts/test_sc.html", UriKind.Absolute);
+                adControl.AdReceived += (s, e) =>
+                {
+                    AdInTransition.Begin();
+                    DoubleClickDynamicStatus.Text = "Received!";
+                };
+                adControl.Start();
+
+                DynamicContainer.Children.Insert(0, adControl);
+            }
         }
 
         /// <summary>
@@ -29,6 +56,7 @@ namespace PhoneKit.TestApp
         private void DoubleClickAdControl_AdReceived(object sender, EventArgs e)
         {
             DoubleClickStatus.Text = "Received!";
+            StaticAdInTransition.Begin();
         }
 
         /// <summary>

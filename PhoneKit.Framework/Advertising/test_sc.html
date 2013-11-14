@@ -100,14 +100,10 @@
             var retiesCount = 9;
 
             function checkStatus() {
-                var elementes = document.getElementsByTagName('body');
+
+                var hasBanner = document.getElementsByTagName('iframe').length > 0;
                 
-                if (elementes == null || elementes.length == 0)
-                    return;
-
-                var body = elementes[0];
-
-                if (body.childNodes.length > 2)
+                if (hasBanner)
                     window.external.notify("ad_loaded");
                 else if (retiesCount > 0) {
                     retiesCount--;

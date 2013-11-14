@@ -8,8 +8,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="75" d:DesignWidth="480"
-    Width="480" Height="75">
+    d:DesignHeight="80" d:DesignWidth="480"
+    Height="75" Width="480">
     <phone:WebBrowser x:Name="WebBanner" IsScriptEnabled="true"
                       VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
 </UserControl>

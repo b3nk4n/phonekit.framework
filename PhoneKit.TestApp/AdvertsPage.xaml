@@ -13,7 +13,15 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
-
+    <phone:PhoneApplicationPage.Resources>
+        <Storyboard x:Name="AdInTransition">
+            <DoubleAnimation Duration="0:0:0.5" To="75" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="WebBanner" d:IsOptimized="True"/>
+        </Storyboard>
+        <Storyboard x:Name="StaticAdInTransition">
+            <DoubleAnimation Duration="0:0:0.5" To="75" Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="StaticWebBanner" d:IsOptimized="True"/>
+        </Storyboard>
+    </phone:PhoneApplicationPage.Resources>
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -32,13 +40,17 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
-                <framework:DoubleClickAdControl BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
-                                                AdReceived="DoubleClickAdControl_AdReceived" />
+            <StackPanel Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                <framework:DoubleClickAdControl x:Name="StaticWebBanner" BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
+                                                AdReceived="DoubleClickAdControl_AdReceived" Height="0" AutoStart="True" />
                 <TextBlock x:Name="DoubleClickStatus" Text="Loading..." />
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <StackPanel x:Name="DynamicContainer" Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                <TextBlock x:Name="DoubleClickDynamicStatus" Text="Loading..." />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
                 <framework:MsDuplexAdControl IsTest="True" AdReceived="MsDuplexAdControl_AdReceived" />
                 <TextBlock x:Name="MsDuplexStatus" Text="Loading..." />
             </StackPanel>
