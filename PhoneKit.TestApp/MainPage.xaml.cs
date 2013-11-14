@@ -63,26 +63,12 @@ namespace PhoneKit.TestApp
                     });
             };
 
-            ApplicationBarIconButton appBarButton2 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
-            appBarButton2.Text = "Pin Iconic";
+            ApplicationBarIconButton appBarButton2 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.settings.png", UriKind.Relative));
+            appBarButton2.Text = "Settings";
             ApplicationBar.Buttons.Add(appBarButton2);
             appBarButton2.Click += (s, e) =>
             {
-                LiveTileHelper.ClearStorage();
-
-                LiveTileHelper.PinOrUpdateTile(new Uri("/InAppStorePage.xaml", UriKind.Relative),
-                    new IconicTileData
-                    {
-                        Title = "TEST TILE",
-                        Count = 1,
-                        WideContent1 = "Stammessen",
-                        WideContent2 = "Spätzle mit Soße",
-                        WideContent3 = "mit Bratkartoffeln",
-                        IconImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
-                        SmallIconImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
-                        BackgroundColor = System.Windows.Media.Color.FromArgb(255, 50, 50, 50)
-                    },
-                    true);
+                NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
             };
 
             ApplicationBarIconButton appBarButton3 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.lock.png", UriKind.Relative));
