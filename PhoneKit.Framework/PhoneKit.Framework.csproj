@@ -89,6 +89,9 @@
       <DependentUpon>DoubleClickAdControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Advertising\Extensions\LinqToVisualTree.cs" />
+    <Compile Include="Advertising\MsDuplexAdControl.xaml.cs">
+      <DependentUpon>MsDuplexAdControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Audio\SoundEffects.cs" />
     <Compile Include="Controls\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
@@ -113,9 +116,17 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Voice\Speech.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="MSAdvertising, Version=6.1">
+      <Name>Microsoft Advertising SDK for Windows Phone 8 %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Advertising\DoubleClickAdControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Advertising\MsDuplexAdControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -138,6 +149,9 @@
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AdDuplex.WindowsPhone">
+      <HintPath>..\packages\AdDuplexWP8.2.8.0.3\lib\wp8\AdDuplex.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>

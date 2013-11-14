@@ -29,9 +29,18 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <StackPanel>
-                <framework:DoubleClickAdControl BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html" AdReceived="DoubleClickAdControl_AdReceived" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <framework:DoubleClickAdControl BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
+                                                AdReceived="DoubleClickAdControl_AdReceived" />
                 <TextBlock x:Name="DoubleClickStatus" Text="Loading..." />
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <framework:MsDuplexAdControl IsTest="True" AdReceived="MsDuplexAdControl_AdReceived" />
+                <TextBlock x:Name="MsDuplexStatus" Text="Loading..." />
             </StackPanel>
         </Grid>
     </Grid>
