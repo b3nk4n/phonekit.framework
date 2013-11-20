@@ -5,7 +5,7 @@ using System.IO.IsolatedStorage;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 
-namespace PhoneKit.Framework.Storage
+namespace PhoneKit.Framework.Core.Storage
 {
     /// <summary>
     /// Helper class for accessing the isolated storage more easy.

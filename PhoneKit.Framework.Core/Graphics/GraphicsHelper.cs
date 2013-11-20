@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace PhoneKit.Framework.Graphics
+namespace PhoneKit.Framework.Core.Graphics
 {
     /// <summary>
     /// Helper class for rendering images.

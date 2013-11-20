@@ -1,6 +1,6 @@
 using System.IO.IsolatedStorage;
 
-namespace PhoneKit.Framework.Storage
+namespace PhoneKit.Framework.Core.Storage
 {
     /// <summary>
     /// Encapsulates a key/value pair stored in isolated storage.

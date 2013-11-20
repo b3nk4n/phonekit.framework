@@ -1,11 +1,11 @@
-﻿using PhoneKit.Framework.Storage;
+﻿using PhoneKit.Framework.Core.Storage;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace PhoneKit.Framework.Net
+namespace PhoneKit.Framework.Core.Net
 {
     public enum DownloadStorageLocation
     {

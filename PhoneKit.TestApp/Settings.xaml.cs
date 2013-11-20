@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using PhoneKit.Framework.Storage;
+using PhoneKit.Framework.Core.Storage;
 
 namespace PhoneKit.TestApp
 {

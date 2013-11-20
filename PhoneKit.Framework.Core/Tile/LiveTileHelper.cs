@@ -1,15 +1,19 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
-using PhoneKit.Framework.Net;
 using System.Collections.Generic;
+using PhoneKit.Framework.Core.Net;
 
 
-namespace PhoneKit.Framework.Tile
+namespace PhoneKit.Framework.Core.Tile
 {
     /// <summary>
-    /// Implementation of a Live Tile service.
+    /// Implementation of a Live Tile helper class for live tile updating.
     /// </summary>
+    /// <remarks>
+    /// These helper methods have been extracted form the LiveTileHelper, because
+    /// a background task is just allowed to reference a subset of its functions
+    /// </remarks>
     public static class LiveTileHelper
     {
         #region Members
@@ -36,7 +40,7 @@ namespace PhoneKit.Framework.Tile
         /// <param name="tileData">The live tile data.</param>
         public static void UpdateDefaultTile(StandardTileData tileData)
         {
-            UpdateTile(new Uri("/", UriKind.Relative), tileData);
+            UpdateTileInternal(new Uri("/", UriKind.Relative), tileData);
         }
 
         /// <summary>
@@ -45,7 +49,7 @@ namespace PhoneKit.Framework.Tile
         /// <param name="tileData">The live tile data.</param>
         public static void UpdateDefaultTile(IconicTileData tileData)
         {
-            UpdateTile(new Uri("/", UriKind.Relative), tileData);
+            UpdateTileInternal(new Uri("/", UriKind.Relative), tileData);
         }
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace PhoneKit.Framework.Tile
         /// <param name="tileData">The live tile data.</param>
         public static void UpdateDefaultTile(CycleTileData tileData)
         {
-            UpdateTile(new Uri("/", UriKind.Relative), tileData);
+            UpdateTileInternal(new Uri("/", UriKind.Relative), tileData);
         }
 
         /// <summary>
@@ -63,85 +67,74 @@ namespace PhoneKit.Framework.Tile
         /// <param name="tileData">The live tile data.</param>
         public static void UpdateDefaultTile(FlipTileData tileData)
         {
-            UpdateTile(new Uri("/", UriKind.Relative), tileData);
+            UpdateTileInternal(new Uri("/", UriKind.Relative), tileData);
         }
 
         /// <summary>
-        /// Pins a tile to start page.
+        /// Updates a tile.
         /// </summary>
         /// <param name="navigationUri">The path to the page for the navigation when the pinned tile was clicked.</param>
         /// <param name="tileData">The tile data.</param>
-        public static async void PinOrUpdateTile(Uri navigationUri, StandardTileData tileData)
+        public static async Task<bool> UpdateTile(Uri navigationUri, StandardTileData tileData)
         {
             if (TileExists(navigationUri))
             {
                 await CheckRemoteImagesAsync(tileData);
-                UpdateTile(navigationUri, tileData);
+                UpdateTileInternal(navigationUri, tileData);
+                return true;
             }
-            else
-            {
-                await CheckRemoteImagesAsync(tileData);
-                CreateTile(navigationUri, tileData, false);
-            }
+            return false;
         }
 
         /// <summary>
-        /// Pins a tile to start page.
+        /// Updates a tile.
         /// </summary>
         /// <param name="navigationUri">The path to the page for the navigation when the pinned tile was clicked.</param>
         /// <param name="tileData">The tile data.</param>
         /// <param name="supportsWideTile">Whether the tile supports the wide mode.</param>
-        public static void PinOrUpdateTile(Uri navigationUri, IconicTileData tileData, bool supportsWideTile)
+        public static bool UpdateTile(Uri navigationUri, IconicTileData tileData, bool supportsWideTile)
         {
             // note: no web image check required, because not supported for iconic tile
             if (TileExists(navigationUri))
             {
-                UpdateTile(navigationUri, tileData);
+                UpdateTileInternal(navigationUri, tileData);
+                return true;
             }
-            else
-            {
-                CreateTile(navigationUri, tileData, supportsWideTile);
-            }
+            return false;
         }
 
         /// <summary>
-        /// Pins a tile to start page.
+        /// Updates a tile.
         /// </summary>
         /// <param name="navigationUri">The path to the page for the navigation when the pinned tile was clicked.</param>
         /// <param name="tileData">The tile data.</param>
         /// <param name="supportsWideTile">Whether the tile supports the wide mode.</param>
-        public static async void PinOrUpdateTile(Uri navigationUri, CycleTileData tileData, bool supportsWideTile)
+        public static async Task<bool> UpdateTile(Uri navigationUri, CycleTileData tileData, bool supportsWideTile)
         {
             if (TileExists(navigationUri))
             {
                 await CheckRemoteImagesAsync(tileData);
-                UpdateTile(navigationUri, tileData);
+                UpdateTileInternal(navigationUri, tileData);
+                return true;
             }
-            else
-            {
-                await CheckRemoteImagesAsync(tileData);
-                CreateTile(navigationUri, tileData, supportsWideTile);
-            }
+            return false;
         }
 
         /// <summary>
-        /// Pins a tile to start page.
+        /// Updates a tile.
         /// </summary>
         /// <param name="navigationUri">The path to the page for the navigation when the pinned tile was clicked.</param>
         /// <param name="tileData">The tile data.</param>
         /// <param name="supportsWideTile">Whether the tile supports the wide mode.</param>
-        public static async void PinOrUpdateTile(Uri navigationUri, FlipTileData tileData, bool supportsWideTile)
+        public static async Task<bool> UpdateTile(Uri navigationUri, FlipTileData tileData, bool supportsWideTile)
         {
             if (TileExists(navigationUri))
             {
                 await CheckRemoteImagesAsync(tileData);
-                UpdateTile(navigationUri, tileData);
+                UpdateTileInternal(navigationUri, tileData);
+                return true;
             }
-            else
-            {
-                await CheckRemoteImagesAsync(tileData);
-                CreateTile(navigationUri, tileData, supportsWideTile);
-            }
+            return false;
         }
 
         /// <summary>
@@ -162,27 +155,81 @@ namespace PhoneKit.Framework.Tile
             _downloadManager.Clear();
         }
 
+        /// <summary>
+        /// Checks the remote images.
+        /// </summary>
+        /// <param name="tileData">The live tile data.</param>
+        /// <returns></returns>
+        public static async Task CheckRemoteImagesAsync(StandardTileData tileData)
+        {
+            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackBackgroundImage);
+
+            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackgroundImage);
+        }
+
+        /// <summary>
+        /// Checks the remote images.
+        /// </summary>
+        /// <param name="tileData">The live tile data.</param>
+        /// <returns></returns>
+        public static async Task CheckRemoteImagesAsync(CycleTileData tileData)
+        {
+            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.SmallBackgroundImage);
+
+            IList<Uri> cycleImages = new List<Uri>(tileData.CycleImages);
+            for (int i = 0; i < cycleImages.Count; ++i)
+            {
+                if (_downloadManager.IsWebFile(cycleImages[i]))
+                    cycleImages[i] = await _downloadManager.LoadFileAsync(
+                        cycleImages[i]);
+            }
+            tileData.CycleImages = cycleImages;
+        }
+
+        /// <summary>
+        /// Checks the remote images.
+        /// </summary>
+        /// <param name="tileData">The live tile data.</param>
+        /// <returns></returns>
+        public static async Task CheckRemoteImagesAsync(FlipTileData tileData)
+        {
+            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
+                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.SmallBackgroundImage);
+
+            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
+                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackBackgroundImage);
+
+            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
+                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.BackgroundImage);
+
+            if (_downloadManager.IsWebFile(tileData.WideBackgroundImage))
+                tileData.WideBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.WideBackgroundImage);
+
+            if (_downloadManager.IsWebFile(tileData.WideBackBackgroundImage))
+                tileData.WideBackBackgroundImage = await _downloadManager.LoadFileAsync(
+                    tileData.WideBackBackgroundImage);
+        }
+
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Creates a live tile.
-        /// </summary>
-        /// <param name="navigationUri">The navigation URI.</param>
-        /// <param name="tileData">The tile data.</param>
-        /// <param name="supportsWideTile">Whether the tile supports the wide mode.</param>
-        private static void CreateTile(Uri navigationUri, ShellTileData tileData, bool supportsWideTile)
-        {
-            ShellTile.Create(navigationUri, tileData, supportsWideTile);
-        }
 
         /// <summary>
         /// Updates a live tile.
         /// </summary>
         /// <param name="navigationUri">The navigation URI.</param>
         /// <param name="tileData">The live tile data.</param>
-        private static void UpdateTile(Uri navigationUri, ShellTileData tileData)
+        private static void UpdateTileInternal(Uri navigationUri, ShellTileData tileData)
         {
             var activeTile = GetTile(navigationUri);
             
@@ -204,71 +251,6 @@ namespace PhoneKit.Framework.Tile
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Checks the remote images.
-        /// </summary>
-        /// <param name="tileData">The live tile data.</param>
-        /// <returns></returns>
-        private static async Task CheckRemoteImagesAsync(StandardTileData tileData)
-        {
-            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
-                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.BackBackgroundImage);
-
-            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
-                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.BackgroundImage);
-        }
-
-        /// <summary>
-        /// Checks the remote images.
-        /// </summary>
-        /// <param name="tileData">The live tile data.</param>
-        /// <returns></returns>
-        private static async Task CheckRemoteImagesAsync(CycleTileData tileData)
-        {
-            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
-                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.SmallBackgroundImage);
-
-            IList<Uri> cycleImages = new List<Uri>(tileData.CycleImages);
-            for (int i = 0; i < cycleImages.Count; ++i)
-            {
-                if (_downloadManager.IsWebFile(cycleImages[i]))
-                    cycleImages[i] = await _downloadManager.LoadFileAsync(
-                        cycleImages[i]);
-            }
-            tileData.CycleImages = cycleImages;
-        }
-
-        /// <summary>
-        /// Checks the remote images.
-        /// </summary>
-        /// <param name="tileData">The live tile data.</param>
-        /// <returns></returns>
-        private static async Task CheckRemoteImagesAsync(FlipTileData tileData)
-        {
-            if (_downloadManager.IsWebFile(tileData.SmallBackgroundImage))
-                tileData.SmallBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.SmallBackgroundImage);
-
-            if (_downloadManager.IsWebFile(tileData.BackBackgroundImage))
-                tileData.BackBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.BackBackgroundImage);
-
-            if (_downloadManager.IsWebFile(tileData.BackgroundImage))
-                tileData.BackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.BackgroundImage);
-
-            if (_downloadManager.IsWebFile(tileData.WideBackgroundImage))
-                tileData.WideBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.WideBackgroundImage);
-
-            if (_downloadManager.IsWebFile(tileData.WideBackBackgroundImage))
-                tileData.WideBackBackgroundImage = await _downloadManager.LoadFileAsync(
-                    tileData.WideBackBackgroundImage);
         }
 
         #endregion

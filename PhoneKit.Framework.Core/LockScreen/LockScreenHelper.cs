@@ -1,12 +1,12 @@
-using PhoneKit.Framework.Net;
-using PhoneKit.Framework.Storage;
+using PhoneKit.Framework.Core.Net;
+using PhoneKit.Framework.Core.Storage;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Phone.System.UserProfile;
 using UserProfile = Windows.Phone.System.UserProfile;
 
-namespace PhoneKit.Framework.LockScreen
+namespace PhoneKit.Framework.Core.LockScreen
 {
     /// <summary>
     /// Helper class for lock screen services.

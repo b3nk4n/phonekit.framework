@@ -1,4 +1,4 @@
-﻿using PhoneKit.Framework.MVVM;
+﻿using PhoneKit.Framework.Core.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;

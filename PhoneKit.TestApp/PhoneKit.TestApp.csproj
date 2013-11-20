@@ -259,6 +259,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PhoneKit.Framework.Core\PhoneKit.Framework.Core.csproj">
+      <Project>{0028AC27-312B-4F73-B8F2-C3B8D9740A86}</Project>
+      <Name>PhoneKit.Framework.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhoneKit.Framework\PhoneKit.Framework.csproj">
       <Project>{9274ED00-223E-41D1-A1BC-E7CDD8C8D34D}</Project>
       <Name>PhoneKit.Framework</Name>

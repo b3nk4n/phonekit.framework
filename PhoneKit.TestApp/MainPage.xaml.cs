@@ -9,10 +9,11 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
 using PhoneKit.Framework.Tile;
-using PhoneKit.Framework.LockScreen;
-using PhoneKit.Framework.Graphics;
+using PhoneKit.Framework.Core.LockScreen;
+using PhoneKit.Framework.Core.Graphics;
 using PhoneKit.TestApp.ImageControls;
-using PhoneKit.Framework.Storage;
+using PhoneKit.Framework.Core.Storage;
+using PhoneKit.Framework.Core.Tile;
 
 namespace PhoneKit.TestApp
 {
@@ -56,7 +57,7 @@ namespace PhoneKit.TestApp
                 wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test2.jpeg", wideImage));
                 wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test3.jpeg", wideImage));
 
-                LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
+                LiveTilePinningHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
                     new CycleTileData
                     {
                         Title = "TEST TILE",

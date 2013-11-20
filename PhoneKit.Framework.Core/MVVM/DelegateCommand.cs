@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace PhoneKit.Framework.MVVM
+namespace PhoneKit.Framework.Core.MVVM
 {
     /// <summary>
     /// Represents a command which is reusable among all the view models of the MVVM pattern.

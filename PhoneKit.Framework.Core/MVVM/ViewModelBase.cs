@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PhoneKit.Framework.MVVM
+namespace PhoneKit.Framework.Core.MVVM
 {
     /// <summary>
     /// The base class for every view model of the MVVM pattern.
