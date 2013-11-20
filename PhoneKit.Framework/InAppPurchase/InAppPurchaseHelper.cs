@@ -26,17 +26,23 @@ namespace PhoneKit.Framework.InAppPurchase
         /// Request a product purchase.
         /// </summary>
         /// <param name="productId">The product ID to purchase.</param>
-        public static async Task RequestProductPurchaseAsync(string productId)
+        /// <returns>
+        /// Returns true if the purchase was successful, and false
+        /// if the purchase was unsuccessful or the product has already been purchased.
+        /// </returns>
+        public static async Task<bool> RequestProductPurchaseAsync(string productId)
         {
             if (IsProductActive(productId))
-                return;
+                return false;
             try
             {
                 await Store.CurrentApp.RequestProductPurchaseAsync(productId, false);
+                return true;
             }
             catch (Exception)
             {
                 // thrown when the user cancels the pruchase...
+                return false;
             }
         }
 

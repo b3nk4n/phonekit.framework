@@ -41,6 +41,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
                 <framework:DoubleClickAdControl x:Name="StaticWebBanner" BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
@@ -54,6 +55,7 @@
                 <framework:MsDuplexAdControl IsTest="True" AdReceived="MsDuplexAdControl_AdReceived" />
                 <TextBlock x:Name="MsDuplexStatus" Text="Loading..." />
             </StackPanel>
+            <TextBlock x:Name="AdFreeStatus" Grid.Row="3" Text="Loading..." />
         </Grid>
     </Grid>
 

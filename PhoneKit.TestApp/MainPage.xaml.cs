@@ -51,16 +51,19 @@ namespace PhoneKit.TestApp
                 var image = GraphicsHelper.Create(new CusomTile());
                 Uri imageUri = StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test.jpeg", image);
 
+                var wideImage = GraphicsHelper.Create(new CustomWideControl());
+                IList<Uri> wideImages = new List<Uri>();
+                wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test2.jpeg", wideImage));
+                wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test3.jpeg", wideImage));
+
                 LiveTileHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
-                    new StandardTileData
+                    new CycleTileData
                     {
                         Title = "TEST TILE",
                         Count = 1,
-                        BackTitle = "TEST BACK",
-                        BackgroundImage = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative),
-                        //new Uri("http://bsautermeister.de/scribblehunter/images/branding/logo.png", UriKind.Absolute),
-                        BackBackgroundImage = imageUri
-                    });
+                        SmallBackgroundImage = imageUri,
+                        CycleImages = wideImages
+                    }, true);
             };
 
             ApplicationBarIconButton appBarButton2 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.settings.png", UriKind.Relative));

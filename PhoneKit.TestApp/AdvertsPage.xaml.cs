@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.Framework.Advertising;
+using PhoneKit.Framework.InAppPurchase;
 
 namespace PhoneKit.TestApp
 {
@@ -22,6 +23,10 @@ namespace PhoneKit.TestApp
         public AdvertsPage()
         {
             InitializeComponent();
+            Loaded += (s, e) =>
+                {
+                    AdFreeStatus.Text = InAppPurchaseHelper.IsProductActive("ad_free") ? "ad_free purchased" : "ad_free NOT purchased";
+                };
 
             LoadDynamic();
         }

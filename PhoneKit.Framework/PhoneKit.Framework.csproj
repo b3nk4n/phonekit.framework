@@ -114,6 +114,7 @@
     <Compile Include="Storage\StorageHelper.cs" />
     <Compile Include="Storage\PhoneStateHelper.cs" />
     <Compile Include="Storage\StoredObject.cs" />
+    <Compile Include="Tasks\BackgroundTaskHelper.cs" />
     <Compile Include="Tile\LiveTileHelper.cs" />
     <Compile Include="Tile\TileData.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />

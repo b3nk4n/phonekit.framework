@@ -104,6 +104,9 @@
     <Compile Include="ImageControls\CusomTile.xaml.cs">
       <DependentUpon>CusomTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImageControls\CustomWideControl.xaml.cs">
+      <DependentUpon>CustomWideControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InAppStorePage.xaml.cs">
       <DependentUpon>InAppStorePage.xaml</DependentUpon>
     </Compile>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ImageControls\CusomTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ImageControls\CustomWideControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
