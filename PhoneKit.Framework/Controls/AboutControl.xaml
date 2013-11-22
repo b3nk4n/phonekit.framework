@@ -33,6 +33,8 @@
                 <Button Content="{Binding ElementName=control, Path=PrivacyInfoText}" Click="PrivacyInfo_Click" Height="72"/>
                 <Button Content="{Binding ElementName=control, Path=RateAndReviewText}" Click="RateAndReview_Click" Height="72"/>
                 <Button Content="{Binding ElementName=control, Path=MoreAppsText}" Click="MoreApps_Click" Height="72"/>
+                <TextBlock x:Name="Branding" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                           HorizontalAlignment="Center"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

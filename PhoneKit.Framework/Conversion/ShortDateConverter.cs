@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Windows.Data;
 
 namespace PhoneKit.Framework.Conversion
@@ -16,7 +17,7 @@ namespace PhoneKit.Framework.Conversion
         /// <param name="parameter">The parameter.</param>
         /// <param name="culture">The culture information.</param>
         /// <returns>The short date time.</returns>
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is DateTime)
                 return ((DateTime) value).ToShortDateString();
@@ -26,7 +27,7 @@ namespace PhoneKit.Framework.Conversion
         /// <summary>
         /// Backwards conversion is not supported.
         /// </summary>
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

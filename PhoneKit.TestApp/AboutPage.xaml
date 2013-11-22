@@ -51,6 +51,7 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <framework:AboutControl ApplicationTitle="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+                ApplicationVersion="v 1.1"
                 ApplicationAuthor="{Binding Path=LocalizedResources.ApplicationAuthor, Source={StaticResource LocalizedStrings}}"
                 ApplicationDescription ="{Binding Path=LocalizedResources.ApplicationDescription, Source={StaticResource LocalizedStrings}}"
                 SupportAndFeedbackText="{Binding Path=LocalizedResources.SupportAndFeedback, Source={StaticResource LocalizedStrings}}" SupportAndFeedbackEmail="apps@bsautermeister.de"

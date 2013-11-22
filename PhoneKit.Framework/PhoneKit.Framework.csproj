@@ -106,8 +106,10 @@
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
     <Compile Include="Conversion\ShortDateConverter.cs" />
     <Compile Include="InAppPurchase\ProductItem.cs" />
+    <Compile Include="OS\SettingsLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\PhoneStateHelper.cs" />
+    <Compile Include="OS\VersionHelper.cs" />
     <Compile Include="Tasks\BackgroundTaskHelper.cs" />
     <Compile Include="Tile\LiveTilePinningHelper.cs" />
     <Compile Include="Voice\Speech.cs" />
@@ -162,6 +164,7 @@
       <Name>PhoneKit.Framework.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />

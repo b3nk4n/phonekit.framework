@@ -7,7 +7,7 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PhoneKit.TestApp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A light-weight Windows Phone 8 Framework.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("PhoneKit.TestApp")]

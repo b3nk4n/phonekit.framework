@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using System.Text;
 using Microsoft.Phone.Tasks;
+using PhoneKit.Framework.OS;
 
 namespace PhoneKit.Framework.Controls
 {
+    /// <summary>
+    /// The user control for the default about page.
+    /// </summary>
     public partial class AboutControl : UserControl
     {
         #region Members
@@ -19,7 +16,7 @@ namespace PhoneKit.Framework.Controls
         /// <summary>
         /// The applications version.
         /// </summary>
-        private string _applicationVersion = string.Empty;
+        private string _applicationVersion = "v 1.0";
 
         /// <summary>
         /// The localized application title as a dependency property.
@@ -106,9 +103,9 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         public AboutControl()
         {
-            LoadVersion();
-
             InitializeComponent();
+
+            SetFrameworkBranding();
         }
 
         #endregion
@@ -116,18 +113,11 @@ namespace PhoneKit.Framework.Controls
         #region Private Methods
 
         /// <summary>
-        /// Loads the current version from assembly.
+        /// Sets the framework branding.
         /// </summary>
-        private void LoadVersion()
+        private void SetFrameworkBranding()
         {
-            System.Reflection.AssemblyName an = new System.Reflection.AssemblyName(System.Reflection.Assembly
-                                                                                   .GetExecutingAssembly()
-                                                                                   .FullName);
-            _applicationVersion = new StringBuilder().Append("v ")
-                                                     .Append(an.Version.Major)
-                                                     .Append('.')
-                                                     .Append(an.Version.Minor)
-                                                     .ToString();
+            Branding.Text = "Created with PhoneKit Framwork v " + VersionHelper.GetFrameworkVersionText();
         }
 
         #endregion
@@ -188,13 +178,17 @@ namespace PhoneKit.Framework.Controls
         #region Properties
 
         /// <summary>
-        /// Gets the applications version.
+        /// Gets or sets the applications version.
         /// </summary>
         public string ApplicationVersion
         {
             get
             {
                 return _applicationVersion;
+            }
+            set
+            {
+                _applicationVersion = value;
             }
         }
 
@@ -207,6 +201,9 @@ namespace PhoneKit.Framework.Controls
             set { SetValue(ApplicationTitleProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the application icons source.
+        /// </summary>
         public string ApplicationIconSource
         {
             get

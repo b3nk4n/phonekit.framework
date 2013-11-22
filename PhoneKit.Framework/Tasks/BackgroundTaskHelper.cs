@@ -45,7 +45,7 @@ namespace PhoneKit.Framework.Tasks
 
                 // if debugging is enabled, use LaunchForTest to launch the agent in one minute
 #if(DEBUG)
-                ScheduledActionService.LaunchForTest(periodicTaskName, TimeSpan.FromSeconds(60));
+                ScheduledActionService.LaunchForTest(task.Name, TimeSpan.FromSeconds(60));
 #endif
             }
             catch (InvalidOperationException exception)
