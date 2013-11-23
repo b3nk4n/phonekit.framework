@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<VoiceCommands xmlns="http://schemas.microsoft.com/voicecommands/1.0">
+  <CommandSet xml:lang="en-GB">
+    <CommandPrefix>Test App</CommandPrefix>
+    <Example> play a new game </Example>
+
+    <Command Name="PlayGame">
+      <Example> play a new game </Example>
+      <ListenFor> [and] play [a] new game </ListenFor>
+      <ListenFor> [and] start [a] new game </ListenFor>
+      <Feedback> Starting a new game... </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="PlayLevel">
+      <Example> replay level two </Example>
+      <ListenFor> replay level {number} </ListenFor>
+      <Feedback> Going to level {number}... </Feedback>
+      <Navigate />
+    </Command>
+
+    <Command Name="PlayUnknownLevel">
+      <Example> replay level two </Example>
+      <ListenFor> [and] replay level {*} </ListenFor>
+      <Feedback> Unknown level; going to level selection... </Feedback>
+      <Navigate Target="LevelSelect.xaml" />
+    </Command>
+
+    <PhraseList Label="number">
+      <Item> one </Item>
+      <Item> two </Item>
+      <Item> three </Item>
+    </PhraseList>
+
+  </CommandSet>
+</VoiceCommands>
+
+<!-- Beispiel -->
+<!--
+
+    Das vorgehende Beispiel zeigt ein hypothetisches Spiel mit dem Namen "Contoso ROD3O!'" in dem zwei Befehle
+    definiert werden, die der Benutzer aussprechen kann, um entweder ein neues Spiel zu beginnen oder um eine von drei Spielebenen erneut auszuführen.  
+    Um den Befehl "PlayGame" auszuführen, kann der Benutzer "Contoso Rodeo play a new game" oder "Contoso Rodeo
+    play new game" sagen. Beide Sätze starten das Spiel. Um den zweiten Befehl auszuführen, kann der Benutzer
+    "Contoso Rodeo replay level one", "Contoso Rodeo replay level two" oder "Contoso Rodeo replay level 
+    three" sagen.
+    Der zweite Befehl zeigt, wie eine PhraseList zusammen mit einem Befehl verwendet wird. Eine PhraseList kann 
+    dynamisch durch die Anwendung aktualisiert werden (was nützlich ist, wenn der Benutzer neue Spielebenen oder Funktionen aktiviert 
+    und ihm dafür neue Befehle zur Verfügung stehen sollen, auch wenn bereits Sprachbefehle registriert wurden).
+    Der dritte Befehl zeigt, wie mit der Sequenz {*} ein anderer Befehl verfügbar gemacht werden kann, der Sprache erkennt,
+    die nicht im CommandSet definiert ist.
+
+  Hinweis:
+
+      [und] gibt an, dass "und" optional ist. Verbindungswörter wie dieses als optional zu definieren,
+            kann nützlich sein, um beispielsweise "Contoso Rodeo, play new game" und "open Contoso Rodeo and play
+            a new game" dem Sprachverhalten anzupassen.
+                 
+      {number} wird "one" oder "two" oder "three" zugeordnet (wenn getrennt vom Befehl definiert).
+
+-->

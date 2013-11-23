@@ -11,6 +11,7 @@ using PhoneKit.Framework.Core.Graphics;
 using PhoneKit.TestApp.ImageControls;
 using PhoneKit.Framework.Core.Storage;
 using PhoneKit.Framework.Core.Tile;
+using PhoneKit.Framework.Voice;
 
 namespace PhoneKit.TestApp
 {
@@ -26,8 +27,43 @@ namespace PhoneKit.TestApp
         {
             InitializeComponent();
 
+            Loaded += (s, e) =>
+            {
+                // register voice commands
+                Speech.Instance.InstallCommandSets(new Uri("ms-appx:///voicecommands.xml", UriKind.Absolute));
+            };
+
             // Sample code to localize the ApplicationBar
             BuildLocalizedApplicationBar();
+        }
+
+        /// <summary>
+        /// When main page gets active, disables idle detection (to not interrupt the speech)
+        /// and try to parse voce commands from query string.
+        /// </summary>
+        /// <param name="e">The navigation args.</param>
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            // disable idle detection
+            PhoneApplicationService.Current.UserIdleDetectionMode =
+                IdleDetectionMode.Disabled;
+
+            try
+            {
+                String commandName = NavigationContext.QueryString["voiceCommandName"];
+
+                if (!string.IsNullOrEmpty(commandName))
+                    await Speech.Instance.Synthesizer.SpeakTextAsync("The voice command was: +" + commandName);
+
+                // clear the QueryString or the page will retain the current value
+                NavigationContext.QueryString.Clear();
+            }
+            catch (Exception)
+            {
+                // this code block is reached if the app is accessed in a way other than voice commands, therefore, do nothing
+            }
         }
 
         /// <summary>

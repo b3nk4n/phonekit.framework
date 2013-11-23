@@ -37,10 +37,7 @@
                 <Button Content="Read" Click="Read_Click"/>
             </StackPanel>
             <StackPanel Grid.Row="1">
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Listen UI" Width="228" Click="ListenUI_Click" />
-                    <Button Content="Listen" Width="228" Click="Listen_Click" />
-                </StackPanel>
+                <Button Content="Listen UI" Click="ListenUI_Click" />
                 <TextBox x:Name="ListenText" TextWrapping="Wrap" Height="144" IsReadOnly="True" />
             </StackPanel>
         </Grid>

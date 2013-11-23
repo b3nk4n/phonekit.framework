@@ -41,21 +41,5 @@ namespace PhoneKit.TestApp
                 ListenText.Text = res.RecognitionResult.Text;
             }
         }
-
-        private async void Listen_Click(object sender, RoutedEventArgs e)
-        {
-            var text = string.Empty;
-            try
-            {
-                var res = await _speech.Recognizer.RecognizeAsync();
-                text = res.Text;
-            }
-            catch (Exception ex)
-            {
-                text = ex.Message;
-            }
-
-            ListenText.Text = text;
-        }
     }
 }

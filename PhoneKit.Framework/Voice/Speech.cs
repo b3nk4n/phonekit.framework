@@ -21,11 +21,6 @@ namespace PhoneKit.Framework.Voice
         private static Speech _instance;
 
         /// <summary>
-        /// The voice-to-text module.
-        /// </summary>
-        private SpeechRecognizer _recognizer;
-
-        /// <summary>
         /// The text-to-voice module.
         /// </summary>
         private SpeechSynthesizer _synthesizer;
@@ -86,14 +81,20 @@ namespace PhoneKit.Framework.Voice
         /// </summary>
         private void Initialize()
         {
-            _recognizer = new SpeechRecognizer();
-
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetVoice(InstalledVoices.Default);
             // TODO: check what happens if none of the app's supported languages is installed
             //       and how to implement a fallback to "en".
 
-            _recognizerUI = new SpeechRecognizerUI();
+            try
+            {
+                // speech recognition support depends on the installed languages
+                _recognizerUI = new SpeechRecognizerUI();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Instantiation of SpeechRecognizerFailed with error: " + ex.Message);
+            }
         }
 
         #endregion
@@ -117,17 +118,6 @@ namespace PhoneKit.Framework.Voice
         }
 
         /// <summary>
-        /// Gets the speech recognizer.
-        /// </summary>
-        public SpeechRecognizer Recognizer
-        {
-            get
-            {
-                return _recognizer;
-            }
-        }
-
-        /// <summary>
         /// Gets the speech synthesizer.
         /// </summary>
         public SpeechSynthesizer Synthesizer
@@ -141,11 +131,26 @@ namespace PhoneKit.Framework.Voice
         /// <summary>
         /// Gets the speech recognizer UI.
         /// </summary>
+        /// <remarks>
+        /// Verify whether speech recognizer can be accessed using <code>HasRecognizerUI</code>
+        /// </remarks>
         public SpeechRecognizerUI RecognizerUI
         {
             get
             {
                 return _recognizerUI;
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the RecognizerUI was initialized successfully
+        /// depending on the installed languages of the phone.
+        /// </summary>
+        public bool HasRecognizerUI
+        {
+            get
+            {
+                return _recognizerUI != null;
             }
         }
 
