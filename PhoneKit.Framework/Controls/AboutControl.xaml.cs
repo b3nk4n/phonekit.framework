@@ -117,7 +117,7 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         private void SetFrameworkBranding()
         {
-            Branding.Text = "Created with PhoneKit Framwork v " + VersionHelper.GetFrameworkVersionText();
+            Branding.Text = "Created with PhoneKit Framework " + VersionHelper.GetFrameworkVersionText();
         }
 
         #endregion

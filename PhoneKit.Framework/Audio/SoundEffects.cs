@@ -45,17 +45,26 @@ namespace PhoneKit.Framework.Audio
         #region Public Methods
 
         /// <summary>
-        /// Loads an sound effect.
+        /// Loads an sound effect whan the file has not been loaded before.
         /// </summary>
         /// <remarks>
         /// You can get resource stream with <code>App.GetResourceStream(new Uri("sound.wav", UriKind.Relative));</code>.
         /// </remarks>
         /// <param name="key">The sound effects key.</param>
         /// <param name="appResourceStream">The main applications resource stream.</param>
-        public void Load(string key, StreamResourceInfo appResourceStream)
+        /// <param name="overridePrevious">
+        /// Specifies if there is an exisitng sound for this key, whether it sould be overridden.
+        /// </param>
+        public void Load(string key, StreamResourceInfo appResourceStream, bool overridePrevious = false)
         {
+            // verify overriding of previous sound effect
             if (_soundEffects.ContainsKey(key))
-                Unload(key);
+            {
+                if (overridePrevious)
+                    Unload(key);
+                else
+                    return;
+            }
 
             // add sound effect from stream
             _soundEffects.Add(key, SoundEffect.FromStream(appResourceStream.Stream));
