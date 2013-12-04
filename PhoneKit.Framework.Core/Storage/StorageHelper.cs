@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Runtime.Serialization.Json;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 
@@ -17,12 +18,12 @@ namespace PhoneKit.Framework.Core.Storage
         /// <summary>
         /// The isolated storage scheme.
         /// </summary>
-        public const string ISTORAGE_SCHEME = "isostore://";
+        public const string ISTORAGE_SCHEME = "isostore:"; 
 
         /// <summary>
         /// The local resource scheme.
         /// </summary>
-        public const string APPX_SCHEME = "ms-appx://";
+        public const string APPX_SCHEME = "ms-appx://"; 
 
         /// <summary>
         /// The local appdata scheme.
@@ -126,7 +127,7 @@ namespace PhoneKit.Framework.Core.Storage
 
             try
             {
-                using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+                using (var store = IsolatedStorageFile.GetUserStoreForApplication())
                 {
                     // verify directory exists
                     string directory = Path.GetDirectoryName(path);
@@ -135,10 +136,10 @@ namespace PhoneKit.Framework.Core.Storage
                         store.CreateDirectory(directory);
                     }
 
-                    using (IsolatedStorageFileStream fileStream = store.OpenFile(path, FileMode.Create, FileAccess.Write))
+                    using (var fileStream = store.OpenFile(path, FileMode.Create, FileAccess.Write))
                     {
-                        XmlSerializer serializer = new XmlSerializer(typeof(T));
-                        serializer.Serialize(fileStream, data);
+                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+                        serializer.WriteObject(fileStream, data);
                         return true;
                     }
                 }
@@ -198,17 +199,19 @@ namespace PhoneKit.Framework.Core.Storage
         /// <returns>Returns the image URI in isolated storage when successful, else null.</returns>
         public static Uri SaveJpeg(string path, WriteableBitmap image)
         {
-            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
-            using (IsolatedStorageFileStream fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                try
+                using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
                 {
-                    image.SaveJpeg(fileStream, image.PixelWidth, image.PixelHeight, 0, 100);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
-                    return null;
+                    try
+                    {
+                        image.SaveJpeg(fileStream, image.PixelWidth, image.PixelHeight, 0, 100);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
+                        return null;
+                    }
                 }
             }
 
@@ -237,15 +240,21 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                if (!store.FileExists(path))
-                    return defaultValue;
-
-                using (IsolatedStorageFileStream fileStream = store.OpenFile(path, FileMode.Open, FileAccess.Read))
+                try
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(T));
-                    return (T)serializer.Deserialize(fileStream);
+                    if (!store.FileExists(path))
+                        return defaultValue;
+
+                    using (IsolatedStorageFileStream fileStream = store.OpenFile(path, FileMode.Open, FileAccess.Read))
+                    {
+                        DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+                        return (T)serializer.ReadObject(fileStream);
+                    }
                 }
+                catch (Exception) { }
             }
+
+            return defaultValue;
         }
 
         /// <summary>
@@ -257,8 +266,13 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                return store.FileExists(path);
+                try
+                {
+                    return store.FileExists(path);
+                }
+                catch (Exception) { }
             }
+            return false;
         }
 
         /// <summary>
@@ -269,8 +283,14 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                if (store.FileExists(path))
-                    store.DeleteFile(path);
+                try
+                {
+                    // safe delete
+                    if (store.FileExists(path))
+                        store.DeleteFile(path);
+                }
+                catch (Exception) { }
+                
             }
         }
 
@@ -283,9 +303,15 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                string directory = Path.GetDirectoryName(path);
-                return store.DirectoryExists(directory);
+                try
+                {
+                    string directory = Path.GetDirectoryName(path);
+                    return store.DirectoryExists(directory);
+                }
+                catch (Exception) { }
             }
+
+            return false;
         }
 
         /// <summary>
@@ -296,11 +322,15 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                string directory = Path.GetDirectoryName(path);
-                if (store.DirectoryExists(directory))
+                try
                 {
-                    store.DeleteDirectory(directory);
+                    string directory = Path.GetDirectoryName(path);
+                    if (store.DirectoryExists(directory))
+                    {
+                        store.DeleteDirectory(directory);
+                    }
                 }
+                catch (Exception) { }
             }
         }
 
@@ -312,10 +342,10 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                string directory = Path.GetDirectoryName(path);
-                if (store.DirectoryExists(directory))
+                try
                 {
-                    try
+                    string directory = Path.GetDirectoryName(path);
+                    if (store.DirectoryExists(directory))
                     {
                         string[] fileNames = store.GetFileNames(path);
 
@@ -328,10 +358,10 @@ namespace PhoneKit.Framework.Core.Storage
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Deleting all files failed. One file might be in use. Error: " + ex.Message);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Deleting all files failed. One file might be in use. Error: " + ex.Message);
                 }
             }
         }

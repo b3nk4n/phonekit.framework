@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
+using PhoneKit.Framework.Core.Support;
 
 namespace PhoneKit.TestApp
 {
@@ -84,6 +85,8 @@ namespace PhoneKit.TestApp
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
+            ErrorReportingManager.Instance.Save(e.Exception);
+
             if (Debugger.IsAttached)
             {
                 // A navigation has failed; break into the debugger
@@ -94,6 +97,8 @@ namespace PhoneKit.TestApp
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            ErrorReportingManager.Instance.Save(e.ExceptionObject);
+
             if (Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
@@ -136,6 +141,10 @@ namespace PhoneKit.TestApp
 
             // Remove this handler since it is no longer needed
             RootFrame.Navigated -= CompleteInitializePhoneApplication;
+
+            ErrorReportingManager.Instance.CheckAndReport(
+                "apps@bsautermeister.de",
+                "[PhoneKit-TestApp] Error Report");
         }
 
         private void CheckForResetNavigation(object sender, NavigationEventArgs e)

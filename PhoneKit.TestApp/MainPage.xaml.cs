@@ -12,6 +12,7 @@ using PhoneKit.TestApp.ImageControls;
 using PhoneKit.Framework.Core.Storage;
 using PhoneKit.Framework.Core.Tile;
 using PhoneKit.Framework.Voice;
+using PhoneKit.Framework.Core.Support;
 
 namespace PhoneKit.TestApp
 {
@@ -45,6 +46,16 @@ namespace PhoneKit.TestApp
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            StartupActionManager.Instance.Register(1, () =>
+                {
+                    MessageBox.Show("First startup.");
+                });
+            StartupActionManager.Instance.Register(3, () =>
+            {
+                MessageBox.Show("Third startup.");
+            });
+            StartupActionManager.Instance.Fire();
 
             // disable idle detection
             PhoneApplicationService.Current.UserIdleDetectionMode =
