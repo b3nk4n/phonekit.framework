@@ -7,7 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
-using PhoneKit.Framework.Core.Support;
+using PhoneKit.Framework.Support;
 
 namespace PhoneKit.TestApp
 {

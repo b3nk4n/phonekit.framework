@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace PhoneKit.Framework.Core.Support
+namespace PhoneKit.Framework.Support
 {
     /// <summary>
     /// The data of an exception log.

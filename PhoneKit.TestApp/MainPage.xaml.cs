@@ -12,7 +12,7 @@ using PhoneKit.TestApp.ImageControls;
 using PhoneKit.Framework.Core.Storage;
 using PhoneKit.Framework.Core.Tile;
 using PhoneKit.Framework.Voice;
-using PhoneKit.Framework.Core.Support;
+using PhoneKit.Framework.Support;
 
 namespace PhoneKit.TestApp
 {
@@ -47,13 +47,13 @@ namespace PhoneKit.TestApp
         {
             base.OnNavigatedTo(e);
 
-            StartupActionManager.Instance.Register(1, () =>
+            StartupActionManager.Instance.Register(2, ActionExecutionRule.LessOrEquals, () =>
                 {
-                    MessageBox.Show("First startup.");
+                    MessageBox.Show("Less or Equals 2.");
                 });
-            StartupActionManager.Instance.Register(3, () =>
+            StartupActionManager.Instance.Register(2, ActionExecutionRule.MoreOrEquals, () =>
             {
-                MessageBox.Show("Third startup.");
+                MessageBox.Show("More or Equals 2.");
             });
             StartupActionManager.Instance.Fire();
 

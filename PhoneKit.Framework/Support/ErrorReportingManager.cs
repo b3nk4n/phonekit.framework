@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PhoneKit.Framework.Core.Support
+namespace PhoneKit.Framework.Support
 {
     /// <summary>
     /// Exception logger and reporter.
