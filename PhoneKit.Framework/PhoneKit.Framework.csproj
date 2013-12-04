@@ -93,8 +93,8 @@
       <DependentUpon>MsDuplexAdControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Audio\SoundEffects.cs" />
-    <Compile Include="Controls\AboutControl.xaml.cs">
-      <DependentUpon>AboutControl.xaml</DependentUpon>
+    <Compile Include="Controls\AboutControlBase.xaml.cs">
+      <DependentUpon>AboutControlBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\InAppStoreControl.xaml.cs">
       <DependentUpon>InAppStoreControl.xaml</DependentUpon>
@@ -132,9 +132,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\AboutControl.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\AboutControlBase.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\InAppStoreControl.xaml">
       <SubType>Designer</SubType>

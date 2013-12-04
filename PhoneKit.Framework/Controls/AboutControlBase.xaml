@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PhoneKit.Framework.Controls.AboutControl"
+﻿<UserControl x:Class="PhoneKit.Framework.Controls.AboutControlBase"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,26 +15,26 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Border Background="{StaticResource PhoneAccentBrush}" Margin="12">
-                        <Image Source="{Binding ElementName=control, Path=ApplicationIconSource}" Width="99" Height="99" />
+                        <Image x:Name="ApplicationIconElement" Width="99" Height="99" />
                     </Border>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="{Binding ElementName=control, Path=ApplicationTitle}" 
+                        <TextBlock x:Name="ApplicationTitleElement" Text="App Name"
                            FontWeight="Bold" Style="{StaticResource PhoneTextTitle2Style}"/>
-                        <TextBlock Text="{Binding ElementName=control, Path=ApplicationAuthor}"
+                        <TextBlock x:Name="ApplicationAuthorElement" Text="by Firstname Lastname"
                            Style="{StaticResource PhoneTextSmallStyle}"/>
-                        <TextBlock Text="{Binding ElementName=control, Path=ApplicationVersion}"
+                        <TextBlock x:Name="ApplicationVersionElement" Text="v1.0"
                            Style="{StaticResource PhoneTextTitle3Style}"/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Text="{Binding ElementName=control, Path=ApplicationDescription}"
+                <TextBlock x:Name="ApplicationDescriptionElement" Text="A short localized description text about the application goes here."
                            Style="{StaticResource PhoneTextSubtleStyle}" TextWrapping="Wrap" Margin="12,32"
                            HorizontalAlignment="Center" MinHeight="72"/>
-                <Button Content="{Binding ElementName=control, Path=SupportAndFeedbackText}" Click="SupportAndFeedback_Click" Height="72" />
-                <Button Content="{Binding ElementName=control, Path=PrivacyInfoText}" Click="PrivacyInfo_Click" Height="72"/>
-                <Button Content="{Binding ElementName=control, Path=RateAndReviewText}" Click="RateAndReview_Click" Height="72"/>
-                <Button Content="{Binding ElementName=control, Path=MoreAppsText}" Click="MoreApps_Click" Height="72"/>
-                <TextBlock x:Name="Branding" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
-                           HorizontalAlignment="Center"/>
+                <Button x:Name="SupportAndFeedbackElement" Height="72" Content="feedback" />
+                <Button x:Name="PrivacyInfoElement" Height="72" Content="privacty information"/>
+                <Button x:Name="RateAndReviewElement" Height="72" Content="rate and review" />
+                <Button x:Name="MoreAppsElement" Height="72" Content="more apps"/>
+                <TextBlock x:Name="BrandingElement" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                           HorizontalAlignment="Center" Text="powered by PhoneKit Framework"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

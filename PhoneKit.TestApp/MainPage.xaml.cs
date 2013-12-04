@@ -34,6 +34,16 @@ namespace PhoneKit.TestApp
                 Speech.Instance.InstallCommandSets(new Uri("ms-appx:///voicecommands.xml", UriKind.Absolute));
             };
 
+            // register startup actions
+            StartupActionManager.Instance.Register(2, ActionExecutionRule.LessOrEquals, () =>
+            {
+                MessageBox.Show("Less or Equals 2.");
+            });
+            StartupActionManager.Instance.Register(2, ActionExecutionRule.MoreOrEquals, () =>
+            {
+                MessageBox.Show("More or Equals 2.");
+            });
+
             // Sample code to localize the ApplicationBar
             BuildLocalizedApplicationBar();
         }
@@ -47,14 +57,6 @@ namespace PhoneKit.TestApp
         {
             base.OnNavigatedTo(e);
 
-            StartupActionManager.Instance.Register(2, ActionExecutionRule.LessOrEquals, () =>
-                {
-                    MessageBox.Show("Less or Equals 2.");
-                });
-            StartupActionManager.Instance.Register(2, ActionExecutionRule.MoreOrEquals, () =>
-            {
-                MessageBox.Show("More or Equals 2.");
-            });
             StartupActionManager.Instance.Fire();
 
             // disable idle detection
