@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:lc="clr-namespace:PhoneKit.TestApp.Controls"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -60,6 +61,9 @@
         <!-- Test allignment grid -->
         <Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480"
                Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />
+
+        <!-- Feedback dialog -->
+        <lc:MyFeedbackDialogControl Grid.RowSpan="2" EnableAnimation="True" />
     </Grid>
 
 </phone:PhoneApplicationPage>

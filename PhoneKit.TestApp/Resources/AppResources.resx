@@ -173,4 +173,71 @@
     <value>This is a test application for the PhoneKit Framework.</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="FeedbackBodyText" xml:space="preserve">
+    <value>[Your feedback here]
+
+
+---------------------------------
+Device Name: {0}
+Device Manufacturer: {1}
+Device Firmware Version: {2}
+Device Hardware Version: {3}
+Application Version: {4}
+---------------------------------</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackEmail" xml:space="preserve">
+    <value>support@myapp.com</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackMessageText" xml:space="preserve">
+    <value>Sorry to hear you didn't want to rate MyApp.
+
+Tell us about your experience or suggest how we can make it even better.</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackNoText" xml:space="preserve">
+    <value>no thanks</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackSubject" xml:space="preserve">
+    <value>MyApp Customer Feedback </value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackTitleText" xml:space="preserve">
+    <value>Can we make it better?</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="FeedbackYesText" xml:space="preserve">
+    <value>give feedback</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="RatingMessage10Text" xml:space="preserve">
+    <value>You look to be getting a lot of use out of our application!
+
+Why not give us a 5 star rating to show your appreciation?</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="RatingMessage5Text" xml:space="preserve">
+    <value>We'd love you to rate our app 5 stars
+
+Showing us some love on the store helps us to continue to work on the app and make things even better!</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="RatingNoText" xml:space="preserve">
+    <value>no thanks</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="RatingTitleText" xml:space="preserve">
+    <value>Enjoying MyApp?</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="RatingYesText" xml:space="preserve">
+    <value>rate 5 stars</value>
+    <comment>FeedbackDialogControl</comment>
+  </data>
+  <data name="ApplicationVersion" xml:space="preserve">
+    <value>1.0</value>
+    <comment>General</comment>
+  </data>
 </root>

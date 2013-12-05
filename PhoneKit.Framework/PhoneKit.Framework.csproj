@@ -96,6 +96,9 @@
     <Compile Include="Controls\AboutControlBase.xaml.cs">
       <DependentUpon>AboutControlBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FeedbackDialogControlBase.xaml.cs">
+      <DependentUpon>FeedbackDialogControlBase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\InAppStoreControlBase.xaml.cs">
       <DependentUpon>InAppStoreControlBase.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,7 @@
     <Compile Include="OS\VersionHelper.cs" />
     <Compile Include="Support\ErrorReport.cs" />
     <Compile Include="Support\ErrorReportingManager.cs" />
+    <Compile Include="Support\FeedbackManager.cs" />
     <Compile Include="Support\StartupAction.cs" />
     <Compile Include="Support\StartupActionManager.cs" />
     <Compile Include="Tasks\BackgroundTaskHelper.cs" />
@@ -135,6 +139,10 @@
     <Page Include="Controls\AboutControlBase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\FeedbackDialogControlBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\InAppStoreControlBase.xaml">
       <SubType>Designer</SubType>

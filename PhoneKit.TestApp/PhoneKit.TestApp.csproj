@@ -102,6 +102,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MyAboutControl.cs" />
+    <Compile Include="Controls\MyFeedbackDialogControl.cs" />
     <Compile Include="Controls\MyInAppStoreControl.cs" />
     <Compile Include="ImageControls\CusomTile.xaml.cs">
       <DependentUpon>CusomTile.xaml</DependentUpon>

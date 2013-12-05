@@ -37,11 +37,11 @@ namespace PhoneKit.TestApp
             // register startup actions
             StartupActionManager.Instance.Register(2, ActionExecutionRule.LessOrEquals, () =>
             {
-                MessageBox.Show("Less or Equals 2.");
+                MessageBox.Show("Less or Equals 2 startups of the app.");
             });
-            StartupActionManager.Instance.Register(2, ActionExecutionRule.MoreOrEquals, () =>
+            StartupActionManager.Instance.Register(7, ActionExecutionRule.Equals, () =>
             {
-                MessageBox.Show("More or Equals 2.");
+                MessageBox.Show("Equals 7 startups of the app.");
             });
 
             // Sample code to localize the ApplicationBar
@@ -131,8 +131,6 @@ namespace PhoneKit.TestApp
                     LockScreenHelper.ClearStorage();
 
                     LockScreenHelper.SetLockScreenImage(new Uri("http://imagelib.de/forum/colorscale_n.png", UriKind.Absolute));
-                    //LockScreenHelper.SetLockScreenImage(new Uri("/Assets/MetroAlignmentGrid.png"));
-                    //LockScreenHelper.SetLockScreenImage(new Uri("ms-appdata:///Assets/MetroAlignmentGrid.png"));
                 }
             };
 

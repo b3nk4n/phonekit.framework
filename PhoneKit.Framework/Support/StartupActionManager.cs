@@ -120,31 +120,45 @@ namespace PhoneKit.Framework.Support
         /// </summary>
         public void Fire()
         {
+            // equals
             foreach (var key in _actionsEquals.Keys)
             {
-                List<StartupAction> actions = null;
-
+                if (key == Count)
+                    FireActions(_actionsEquals[key]);
+            }
+            // less
+            foreach (var key in _actionsLessThan.Keys)
+            {
                 if (key > Count)
-                    actions = _actionsLessThan[key];
-                else if (key == Count)
-                    actions = _actionsEquals[key];
-                else if (key < Count)
-                    actions = _actionsMoreThan[key];
+                    FireActions(_actionsLessThan[key]);
+            }
+            // more
+            foreach (var key in _actionsMoreThan.Keys)
+            {
+                if (key < Count)
+                    FireActions(_actionsMoreThan[key]);
+            }
+        }
 
-                if (actions == null)
+        /// <summary>
+        /// Fires all active actions.
+        /// </summary>
+        /// <param name="actions">The actions list</param>
+        private void FireActions(List<StartupAction> actions)
+        {
+            if (actions == null)
+                return;
+
+            foreach (var action in actions)
+            {
+                if (!action.IsActive)
                     continue;
 
-                foreach (var action in actions)
-                {
-                    if (!action.IsActive)
-                        continue;
+                if (!action.IsPersistent)
+                    action.IsActive = false;
 
-                    if (!action.IsPersistent)
-                        action.IsActive = false;
-
-                    // fire action
-                    action.Action();
-                }
+                // fire action
+                action.Action();
             }
         }
 

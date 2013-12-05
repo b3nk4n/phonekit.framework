@@ -97,6 +97,89 @@ namespace PhoneKit.TestApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 1.0.
+        /// </summary>
+        public static string ApplicationVersion {
+            get {
+                return ResourceManager.GetString("ApplicationVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Your feedback here]
+        ///
+        ///
+        ///---------------------------------
+        ///Device Name: {0}
+        ///Device Manufacturer: {1}
+        ///Device Firmware Version: {2}
+        ///Device Hardware Version: {3}
+        ///Application Version: {4}
+        ///---------------------------------.
+        /// </summary>
+        public static string FeedbackBodyText {
+            get {
+                return ResourceManager.GetString("FeedbackBodyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to support@myapp.com.
+        /// </summary>
+        public static string FeedbackEmail {
+            get {
+                return ResourceManager.GetString("FeedbackEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sorry to hear you didn&apos;t want to rate MyApp.
+        ///
+        ///Tell us about your experience or suggest how we can make it even better..
+        /// </summary>
+        public static string FeedbackMessageText {
+            get {
+                return ResourceManager.GetString("FeedbackMessageText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no thanks.
+        /// </summary>
+        public static string FeedbackNoText {
+            get {
+                return ResourceManager.GetString("FeedbackNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MyApp Customer Feedback .
+        /// </summary>
+        public static string FeedbackSubject {
+            get {
+                return ResourceManager.GetString("FeedbackSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can we make it better?.
+        /// </summary>
+        public static string FeedbackTitleText {
+            get {
+                return ResourceManager.GetString("FeedbackTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to give feedback.
+        /// </summary>
+        public static string FeedbackYesText {
+            get {
+                return ResourceManager.GetString("FeedbackYesText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
         public static string InAppStoreLoading {
@@ -156,6 +239,55 @@ namespace PhoneKit.TestApp.Resources {
         public static string RateAndReview {
             get {
                 return ResourceManager.GetString("RateAndReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You look to be getting a lot of use out of our application!
+        ///
+        ///Why not give us a 5 star rating to show your appreciation?.
+        /// </summary>
+        public static string RatingMessage10Text {
+            get {
+                return ResourceManager.GetString("RatingMessage10Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;d love you to rate our app 5 stars
+        ///
+        ///Showing us some love on the store helps us to continue to work on the app and make things even better!.
+        /// </summary>
+        public static string RatingMessage5Text {
+            get {
+                return ResourceManager.GetString("RatingMessage5Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to no thanks.
+        /// </summary>
+        public static string RatingNoText {
+            get {
+                return ResourceManager.GetString("RatingNoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enjoying MyApp?.
+        /// </summary>
+        public static string RatingTitleText {
+            get {
+                return ResourceManager.GetString("RatingTitleText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to rate 5 stars.
+        /// </summary>
+        public static string RatingYesText {
+            get {
+                return ResourceManager.GetString("RatingYesText", resourceCulture);
             }
         }
         
