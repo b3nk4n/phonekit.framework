@@ -10,33 +10,24 @@ namespace PhoneKit.Framework.Controls
     /// <summary>
     /// The in-app store control
     /// </summary>
-    public partial class InAppStoreControl : UserControl
+    public abstract partial class InAppStoreControlBase : UserControl
     {
         #region Members
 
         /// <summary>
-        /// The localized loading text as a dependency property.
+        /// The localized loading text.
         /// </summary>
-        public static readonly DependencyProperty InAppStoreLoadingTextProperty =
-            DependencyProperty.Register("InAppLoadingProductsText",
-            typeof(string), typeof(InAppStoreControl),
-            new PropertyMetadata("Loading..."));
+        private string _inAppStoreLoadingText = "Loading...";
 
         /// <summary>
-        /// The localized no products text as a dependency property.
+        /// The localized no products text.
         /// </summary>
-        public static readonly DependencyProperty InAppStoreNoProductsTextProperty =
-            DependencyProperty.Register("InAppStoreNoProductsText",
-            typeof(string), typeof(InAppStoreControl),
-            new PropertyMetadata("No in-app product available."));
+        private string _inAppStoreNoProductsText = "No in-app product available.";
 
         /// <summary>
         /// The localized purchased text as a dependency property.
-        /// </summary>
-        public static readonly DependencyProperty InAppStorePurchasedTextProperty =
-            DependencyProperty.Register("InAppStorePurchasedText",
-            typeof(string), typeof(InAppStoreControl),
-            new PropertyMetadata("Purchased"));
+        /// </summary
+        private string _inAppStorePurchasedText = "Purchased";
 
         /// <summary>
         /// The list of loaded products.
@@ -55,21 +46,29 @@ namespace PhoneKit.Framework.Controls
         /// <summary>
         /// Creates an InAppStoreControl instance.
         /// </summary>
-        public InAppStoreControl()
+        public InAppStoreControlBase()
         {
             InitializeComponent();
+            LocalizeContent();
             
-            ShowMessage(InAppStoreLoadingText);
+            ShowMessage(_inAppStoreLoadingText);
 
-            // shoe loading message und update products when page has loaded
+            // show loading message und update products when page has loaded
             Loaded += (s, e) => {
                 UpdateProducts();
             };
+
+            ProductItemsList.SelectionChanged += ProductItemsList_SelectionChanged;
         }
 
         #endregion
 
-        #region Private Methods
+        #region Methods
+
+        /// <summary>
+        /// Localizes the user control content and texts.
+        /// </summary>
+        protected abstract void LocalizeContent();
 
         /// <summary>
         /// Updates the products of the in-app store.
@@ -84,7 +83,7 @@ namespace PhoneKit.Framework.Controls
 
             // load products
             _loadedProducts = await InAppPurchaseHelper.LoadProductsAsync(_supportedProductIds.Split(',').ToList(),
-                InAppStorePurchasedText);
+                _inAppStorePurchasedText);
 
             if (_loadedProducts.Count > 0)
             {
@@ -95,7 +94,7 @@ namespace PhoneKit.Framework.Controls
             }
             else
             {
-                ShowMessage(InAppStoreNoProductsText);
+                ShowMessage(_inAppStoreNoProductsText);
             }
         }
 
@@ -157,8 +156,10 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         public string InAppStoreLoadingText
         {
-            get { return (string)GetValue(InAppStoreLoadingTextProperty); }
-            set { SetValue(InAppStoreLoadingTextProperty, value); }
+            set
+            {
+                _inAppStoreLoadingText = value;
+            }
         }
 
         /// <summary>
@@ -166,8 +167,10 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         public string InAppStorePurchasedText
         {
-            get { return (string)GetValue(InAppStorePurchasedTextProperty); }
-            set { SetValue(InAppStorePurchasedTextProperty, value); }
+            set
+            {
+                _inAppStorePurchasedText = value;
+            }
         }
 
         /// <summary>
@@ -175,8 +178,10 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         public string InAppStoreNoProductsText
         {
-            get { return (string)GetValue(InAppStoreNoProductsTextProperty); }
-            set { SetValue(InAppStoreNoProductsTextProperty, value); }
+            set
+            {
+                _inAppStoreNoProductsText = value;
+            }
         }
 
         /// <summary>

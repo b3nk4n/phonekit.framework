@@ -40,6 +40,8 @@ namespace PhoneKit.Framework.Controls
         public AboutControlBase()
         {
             InitializeComponent();
+            LocalizeContent();
+            SetFrameworkBranding();
 
             // Note: register events in code and not in XAML because this
             //       is not allowed when inheritance is used
@@ -68,17 +70,16 @@ namespace PhoneKit.Framework.Controls
                     searchTask.ContentType = MarketplaceContentType.Applications;
                     searchTask.Show();
                 };
-
-            InitializeContent();
-
-            SetFrameworkBranding();
         }
+
+        /// <summary>
+        /// Localizes the user control content and texts.
+        /// </summary>
+        protected abstract void LocalizeContent();
 
         #endregion
 
         #region Methods
-
-        protected abstract void InitializeContent();
 
         /// <summary>
         /// Sets the framework branding.

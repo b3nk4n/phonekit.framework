@@ -101,7 +101,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Assets\Controls\MyAboutControl.cs" />
+    <Compile Include="Controls\MyAboutControl.cs" />
+    <Compile Include="Controls\MyInAppStoreControl.cs" />
     <Compile Include="ImageControls\CusomTile.xaml.cs">
       <DependentUpon>CusomTile.xaml</DependentUpon>
     </Compile>

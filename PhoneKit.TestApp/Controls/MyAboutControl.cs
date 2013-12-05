@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PhoneKit.TestApp.Assets.Controls
+namespace PhoneKit.TestApp.Controls
 {
     public class MyAboutControl : AboutControlBase
     {
-        protected override void InitializeContent()
+        protected override void LocalizeContent()
         {
             ApplicationIconSource = new Uri("/Assets/ApplicationIcon.png", UriKind.Relative);
             ApplicationTitle = AppResources.ApplicationTitle;

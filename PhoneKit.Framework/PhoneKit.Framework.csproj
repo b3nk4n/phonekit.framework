@@ -96,8 +96,8 @@
     <Compile Include="Controls\AboutControlBase.xaml.cs">
       <DependentUpon>AboutControlBase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\InAppStoreControl.xaml.cs">
-      <DependentUpon>InAppStoreControl.xaml</DependentUpon>
+    <Compile Include="Controls\InAppStoreControlBase.xaml.cs">
+      <DependentUpon>InAppStoreControlBase.xaml</DependentUpon>
     </Compile>
     <Compile Include="Conversion\BooleanNegationConverter.cs" />
     <Compile Include="Conversion\BooleanToVisibilityConverter.cs" />
@@ -136,7 +136,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\InAppStoreControl.xaml">
+    <Page Include="Controls\InAppStoreControlBase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
