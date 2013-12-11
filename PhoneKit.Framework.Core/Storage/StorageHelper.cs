@@ -113,13 +113,14 @@ namespace PhoneKit.Framework.Core.Storage
         #region Isolated Storage File
 
         /// <summary>
-        /// Saves an object as an XML serialized value into isolated storage.
+        /// Saves an object as an JSON serialized value into isolated storage.
         /// </summary>
+        /// <remarks>DataContract class and members of model required.</remarks>
         /// <typeparam name="T">The data type to store.</typeparam>
         /// <param name="path">The file path.</param>
         /// <param name="data">The data to store.</param>
         /// <returns>Returns true, if the value has been saved, else false.</returns>
-        public static bool SaveFile<T>(string path, T data)
+        public static bool SaveAsSerializedFile<T>(string path, T data)
         {
             // validate data
             if (data == null)
@@ -224,9 +225,9 @@ namespace PhoneKit.Framework.Core.Storage
         /// <typeparam name="T">The data type to store.</typeparam>
         /// <param name="path">The files path.</param>
         /// <returns>The loaded data or its types default value.</returns>
-        public static T LoadFile<T>(string path)
+        public static T LoadSerializedFile<T>(string path)
         {
-            return LoadFile<T>(path, default(T));
+            return LoadSerializedFile<T>(path, default(T));
         }
 
         /// <summary>
@@ -236,7 +237,7 @@ namespace PhoneKit.Framework.Core.Storage
         /// <param name="path">The files path.</param>
         /// <param name="defaultValue">The default value, if no value was stored.</param>
         /// <returns>The loaded data or the default value.</returns>
-        public static T LoadFile<T>(string path, T defaultValue)
+        public static T LoadSerializedFile<T>(string path, T defaultValue)
         {
             using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
             {
@@ -255,6 +256,31 @@ namespace PhoneKit.Framework.Core.Storage
             }
 
             return defaultValue;
+        }
+
+        /// <summary>
+        /// Gets the stream of a file in isolated storage.
+        /// </summary>
+        /// <param name="path">The local isolated storage path to store the file.</param>
+        public static Stream GetFileStream(string path)
+        {
+            try
+            {
+                // verify file exists
+                if (!FileExists(path))
+                    return null;
+
+                using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+                {
+                    return store.OpenFile(path, FileMode.Open, FileAccess.Read);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Retrieving the file stream failed with error: " + ex.Message);
+            }
+
+            return null;
         }
 
         /// <summary>

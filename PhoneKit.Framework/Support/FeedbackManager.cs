@@ -27,19 +27,9 @@ namespace PhoneKit.Framework.Support
     public class FeedbackManager
     {
         /// <summary>
-        /// The number of start ups for the first rating request.
-        /// </summary>
-        private const int FIRST_COUNT = 5;
-
-        /// <summary>
-        /// The number of start ups for the second rating request.
-        /// </summary>
-        private const int SECOND_COUNT = 10;
-
-        /// <summary>
         /// The singleton instance.
         /// </summary>
-        public static FeedbackManager _instance;
+        private static FeedbackManager _instance;
 
         /// <summary>
         /// The persistent launch counter.
@@ -64,37 +54,36 @@ namespace PhoneKit.Framework.Support
         }
 
         /// <summary>
-        /// This should only be called when the app is Launching
+        /// Launches the first review question.
         /// </summary>
-        public void Launching()
+        public void StartFirst()
         {
             var license = new Microsoft.Phone.Marketplace.LicenseInformation();
 
             // Only load state if not trial
             if (!license.IsTrial())
-                this.LoadState();
-        }
-
-        /// <summary>
-        /// Loads last state from storage and works out the new state
-        /// </summary>
-        private void LoadState()
-        {
-            try
             {
                 if (!_reviewed.Value)
                 {
-                    _launchCount.Value++;
-
-                    if (_launchCount.Value == FIRST_COUNT)
-                        this._state = FeedbackState.FirstReview;
-                    else if (_launchCount.Value == SECOND_COUNT)
-                        this._state = FeedbackState.SecondReview;
+                    this._state = FeedbackState.FirstReview;
                 }
             }
-            catch (Exception ex)
+        }
+
+        /// <summary>
+        /// Launches the second review question.
+        /// </summary>
+        public void StartSecond()
+        {
+            var license = new Microsoft.Phone.Marketplace.LicenseInformation();
+
+            // Only load state if not trial
+            if (!license.IsTrial())
             {
-                Debug.WriteLine(string.Format("FeedbackHelper.LoadState - Failed to load state, Exception: {0}", ex.ToString()));
+                if (!_reviewed.Value)
+                {
+                    this._state = FeedbackState.SecondReview;
+                }
             }
         }
 

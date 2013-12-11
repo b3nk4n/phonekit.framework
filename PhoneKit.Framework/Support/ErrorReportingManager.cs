@@ -57,7 +57,7 @@ namespace PhoneKit.Framework.Support
 
             var logData = new ErrorReport(e);
 
-            StorageHelper.SaveFile<ErrorReport>(EXCEPTION_LOG_FILE_NAME, logData);
+            StorageHelper.SaveAsSerializedFile<ErrorReport>(EXCEPTION_LOG_FILE_NAME, logData);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace PhoneKit.Framework.Support
             if (!StorageHelper.FileExists(EXCEPTION_LOG_FILE_NAME))
                 return;
 
-            ErrorReport content = StorageHelper.LoadFile<ErrorReport>(EXCEPTION_LOG_FILE_NAME);
+            ErrorReport content = StorageHelper.LoadSerializedFile<ErrorReport>(EXCEPTION_LOG_FILE_NAME);
 
             if (MessageBox.Show("A problem occurred the last time you ran this application. Would you like to send an email to report it?",
                 "Problem Report", MessageBoxButton.OKCancel) == MessageBoxResult.OK)

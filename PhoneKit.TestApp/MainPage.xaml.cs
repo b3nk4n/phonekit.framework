@@ -37,11 +37,13 @@ namespace PhoneKit.TestApp
             // register startup actions
             StartupActionManager.Instance.Register(2, ActionExecutionRule.LessOrEquals, () =>
             {
-                MessageBox.Show("Less or Equals 2 startups of the app.");
+                //MessageBox.Show("Less or Equals 2 startups of the app.");
+                FeedbackManager.Instance.StartFirst();
             });
             StartupActionManager.Instance.Register(7, ActionExecutionRule.Equals, () =>
             {
-                MessageBox.Show("Equals 7 startups of the app.");
+                //MessageBox.Show("Equals 7 startups of the app.");
+                FeedbackManager.Instance.StartSecond();
             });
 
             // Sample code to localize the ApplicationBar

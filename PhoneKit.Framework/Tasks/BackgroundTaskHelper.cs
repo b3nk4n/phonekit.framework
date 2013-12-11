@@ -78,7 +78,10 @@ namespace PhoneKit.Framework.Tasks
         {
             try
             {
-                ScheduledActionService.Remove(name);
+                var service = ScheduledActionService.Find(name);
+
+                if (service != null)
+                    ScheduledActionService.Remove(name);
             }
             catch (Exception)
             {

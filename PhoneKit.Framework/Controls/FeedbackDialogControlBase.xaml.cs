@@ -246,6 +246,7 @@ namespace PhoneKit.Framework.Controls
             }
             else
             {
+                FeedbackManager.Instance.State = FeedbackState.Inactive;
                 this.SetVisibility(false);
             }
         }
