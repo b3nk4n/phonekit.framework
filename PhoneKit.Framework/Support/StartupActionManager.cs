@@ -48,6 +48,11 @@ namespace PhoneKit.Framework.Support
         /// </summary>
         private Dictionary<int, List<StartupAction>> _actionsMoreThan = new Dictionary<int, List<StartupAction>>();
 
+        /// <summary>
+        /// Indicates whether the actions have already been fired.
+        /// </summary>
+        private bool _hasFired = false;
+
         #endregion
 
         #region Constructors
@@ -117,12 +122,17 @@ namespace PhoneKit.Framework.Support
         /// Checks and fires the appropriate action if there is any
         /// matching action for the current startup count.
         /// <remarks>
-        /// Only fire one per app lifetime, because each fire is equivalent to a startup.
+        /// Ensures only one action firing per app lifetime, because each fire is equivalent to a startup.
         /// </remarks>
         /// </summary>
         public void Fire()
         {
-            _count.Value += 1;
+            // verify has not already been fired
+            if (_hasFired)
+                return;
+
+            _count.Value += 1; 
+            _hasFired = true;
 
             // equals
             foreach (var key in _actionsEquals.Keys)
@@ -191,6 +201,17 @@ namespace PhoneKit.Framework.Support
             get
             {
                 return _count.Value;
+            }
+        }
+
+        /// <summary>
+        /// Gets whether the startup actions have already been fired or not.
+        /// </summary>
+        public bool HasFired
+        {
+            get
+            {
+                return _hasFired;
             }
         }
 

@@ -16,12 +16,17 @@ namespace PhoneKit.Framework.Conversion
         /// </summary>
         /// <param name="value">The boolean value.</param>
         /// <param name="targetType">The target conversion type.</param>
-        /// <param name="parameter">The parameter.</param>
+        /// <param name="parameter">The parameter. Use "!" to negate the result.</param>
         /// <param name="culture">The culture information.</param>
         /// <returns>The converted visibility value.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (value is bool && (bool)value) ? Visibility.Visible : Visibility.Collapsed;
+            var paramString = parameter as string;
+
+            if (paramString != null && paramString == "!")
+                return (value is bool && (bool)value) ? Visibility.Collapsed : Visibility.Visible;
+            else
+                return (value is bool && (bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         /// <summary>
@@ -29,12 +34,17 @@ namespace PhoneKit.Framework.Conversion
         /// </summary>
         /// <param name="value">The datetime value.</param>
         /// <param name="targetType">The target conversion type.</param>
-        /// <param name="parameter">The parameter.</param>
+        /// <param name="parameter">The parameter. Use "!" to negate the result.</param>
         /// <param name="culture">The culture information.</param>
         /// <returns>The converted boolean value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility && (Visibility)value == Visibility.Visible;
+            var paramString = parameter as string;
+
+            if (paramString != null && paramString == "!")
+                return value is Visibility && (Visibility)value == Visibility.Collapsed;
+            else
+                return value is Visibility && (Visibility)value == Visibility.Visible;
         }
     }
 }
