@@ -57,7 +57,6 @@ namespace PhoneKit.Framework.Support
         /// </summary>
         private StartupActionManager()
         {
-            _count.Value += 1;
         }
 
         #endregion
@@ -117,9 +116,14 @@ namespace PhoneKit.Framework.Support
         /// <summary>
         /// Checks and fires the appropriate action if there is any
         /// matching action for the current startup count.
+        /// <remarks>
+        /// Only fire one per app lifetime, because each fire is equivalent to a startup.
+        /// </remarks>
         /// </summary>
         public void Fire()
         {
+            _count.Value += 1;
+
             // equals
             foreach (var key in _actionsEquals.Keys)
             {
