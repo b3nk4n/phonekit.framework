@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Phone.Speech.Recognition;
 using Windows.Phone.Speech.Synthesis;
 using Windows.Phone.Speech.VoiceCommands;
@@ -72,6 +73,47 @@ namespace PhoneKit.Framework.Voice
             }
         }
 
+        /// <summary>
+        /// Speaks a text which code is secured with a try-catch block.
+        /// </summary>
+        /// <remarks>
+        /// Use this method to ensure that the synthesazion will not cause
+        /// any exceptions, e.g. HRESULT: 0x80045508.
+        /// </remarks>
+        /// <param name="content">The content text to speak.</param>
+        public async Task TrySpeakTextAsync(string content)
+        {
+            try
+            {
+                await _instance.Synthesizer.SpeakTextAsync(content);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Speaking text failed with error: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Speaks a text which code is secured with a try-catch block.
+        /// </summary>
+        /// <remarks>
+        /// Use this method to ensure that the synthesazion will not cause
+        /// any exceptions, e.g. HRESULT: 0x80045508.
+        /// </remarks>
+        /// <param name="content">The content text to speak.</param>
+        /// <param name="userState">The optional parameter for the completed event.</param>
+        public async Task TrySpeakTextAsync(string content, object userState)
+        {
+            try
+            {
+                await _instance.Synthesizer.SpeakTextAsync(content, userState);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Speaking text failed with error: " + ex.Message);
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -83,8 +125,6 @@ namespace PhoneKit.Framework.Voice
         {
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetVoice(InstalledVoices.Default);
-            // TODO: check what happens if none of the app's supported languages is installed
-            //       and how to implement a fallback to "en".
 
             try
             {
