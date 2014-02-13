@@ -2,7 +2,8 @@ using System;
 using System.Windows.Media;
 using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using System.IO;
 
 namespace PhoneKit.Framework.Audio
 {
@@ -48,14 +49,15 @@ namespace PhoneKit.Framework.Audio
         /// Loads an sound effect whan the file has not been loaded before.
         /// </summary>
         /// <remarks>
-        /// You can get resource stream with <code>App.GetResourceStream(new Uri("sound.wav", UriKind.Relative));</code>.
+        /// You can get resource stream with <code>App.GetResourceStream(new Uri("sound.wav", UriKind.Relative));</code>
+        /// or <code> TitleContainer.OpenStream("sound.wav");</code>.
         /// </remarks>
         /// <param name="key">The sound effects key.</param>
-        /// <param name="appResourceStream">The main applications resource stream.</param>
+        /// <param name="stream">The main applications resource stream or any other stream.</param>
         /// <param name="overridePrevious">
         /// Specifies if there is an exisitng sound for this key, whether it sould be overridden.
         /// </param>
-        public void Load(string key, StreamResourceInfo appResourceStream, bool overridePrevious = false)
+        public void Load(string key, Stream stream, bool overridePrevious = false)
         {
             // verify overriding of previous sound effect
             if (_soundEffects.ContainsKey(key))
@@ -67,7 +69,7 @@ namespace PhoneKit.Framework.Audio
             }
 
             // add sound effect from stream
-            _soundEffects.Add(key, SoundEffect.FromStream(appResourceStream.Stream));
+            _soundEffects.Add(key, SoundEffect.FromStream(stream));
 
             // mark that at least on file has been loaded.
             _hasLoaded = true;

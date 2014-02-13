@@ -96,6 +96,7 @@
     <Compile Include="Controls\AboutControlBase.xaml.cs">
       <DependentUpon>AboutControlBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ContributorModel.cs" />
     <Compile Include="Controls\FeedbackDialogControlBase.xaml.cs">
       <DependentUpon>FeedbackDialogControlBase.xaml</DependentUpon>
     </Compile>

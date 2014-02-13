@@ -5,6 +5,7 @@ using Microsoft.Phone.Tasks;
 using PhoneKit.Framework.OS;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 namespace PhoneKit.Framework.Controls
 {
@@ -70,6 +71,18 @@ namespace PhoneKit.Framework.Controls
                     searchTask.ContentType = MarketplaceContentType.Applications;
                     searchTask.Show();
                 };
+        }
+
+        /// <summary>
+        /// Sets the contributors to the list.
+        /// </summary>
+        /// <remarks>
+        /// Do not forget <code>ContributorsListVisibility = Visible;</code>
+        /// </remarks>
+        /// <param name="contributors"></param>
+        public void SetContributorsList(IEnumerable<ContributorModel> contributors)
+        {
+            ContributorsList.ItemsSource = contributors;
         }
 
         /// <summary>
@@ -139,7 +152,7 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the application icons source.
+        /// Sets the application icons source.
         /// </summary>
         public Uri ApplicationIconSource
         {
@@ -161,7 +174,7 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the application author.
+        /// Sets the application author.
         /// </summary>
         public string ApplicationAuthor
         {
@@ -183,7 +196,7 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the application description.
+        /// Sets the application description.
         /// </summary>
         public string ApplicationDescription
         {
@@ -205,7 +218,7 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the privacy info button text.
+        /// Sets the privacy info button text.
         /// </summary>
         public string PrivacyInfoText
         {
@@ -216,7 +229,7 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the rate and review button text.
+        /// Sets the rate and review button text.
         /// </summary>
         public string RateAndReviewText
         {
@@ -227,13 +240,24 @@ namespace PhoneKit.Framework.Controls
         }
 
         /// <summary>
-        /// Gets or sets the more apps button text.
+        /// Sets the more apps button text.
         /// </summary>
         public string MoreAppsText
         {
             set
             {
                 MoreAppsElement.Content = value;
+            }
+        }
+
+        /// <summary>
+        /// Sets the contributors list visiblility to show or hide the contributors list.
+        /// </summary>
+        public Visibility ContributorsListVisibility
+        {
+            set
+            {
+                ContributorsContainer.Visibility = value;
             }
         }
         

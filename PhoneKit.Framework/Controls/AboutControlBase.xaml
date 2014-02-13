@@ -33,6 +33,21 @@
                 <Button x:Name="PrivacyInfoElement" Height="72" Content="privacty information"/>
                 <Button x:Name="RateAndReviewElement" Height="72" Content="rate and review" />
                 <Button x:Name="MoreAppsElement" Height="72" Content="more apps"/>
+                <StackPanel x:Name="ContributorsContainer" Margin="10" HorizontalAlignment="Center">
+                    <TextBlock Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                           HorizontalAlignment="Center" Text="Contributors"/>
+                    <ItemsControl x:Name="ContributorsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="4">
+                                    <Image Height="50" Width="50" Source="{Binding IconPath}" />
+                                    <TextBlock Text="{Binding Name}" Margin="20, 0, 0, 0" VerticalAlignment="Center" 
+                                               Style="{StaticResource PhoneTextNormalStyle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
                 <TextBlock x:Name="BrandingElement" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
                            HorizontalAlignment="Center" Text="powered by PhoneKit Framework"/>
             </StackPanel>
