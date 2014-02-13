@@ -240,4 +240,8 @@ Showing us some love on the store helps us to continue to work on the app and ma
     <value>1.0</value>
     <comment>General</comment>
   </data>
+  <data name="Contributors" xml:space="preserve">
+    <value>Contributors</value>
+    <comment>AboutPage</comment>
+  </data>
 </root>

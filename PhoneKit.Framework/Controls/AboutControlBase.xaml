@@ -35,7 +35,7 @@
                 <Button x:Name="MoreAppsElement" Height="72" Content="more apps"/>
                 <StackPanel x:Name="ContributorsContainer" Margin="10" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
-                           HorizontalAlignment="Center" Text="Contributors"/>
+                           HorizontalAlignment="Center" Text="{Binding Path=LocalizedResources.Contributors, Source={StaticResource LocalizedStrings}}"/>
                     <ItemsControl x:Name="ContributorsList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
