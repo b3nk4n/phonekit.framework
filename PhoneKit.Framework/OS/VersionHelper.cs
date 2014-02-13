@@ -47,5 +47,25 @@ namespace PhoneKit.Framework.OS
             var version = GetVersion(assembly);
             return string.Format("{0}.{1}", version.Major, version.Minor);
         }
+
+        /// <summary>
+        /// Gets the version of the PhoneKit Framework.
+        /// </summary>
+        /// <returns>The version of the assembly.</returns>
+        public static Version GetFrameworkVersion()
+        {
+            AssemblyName an = new AssemblyName(Assembly.GetExecutingAssembly().FullName);
+            return an.Version;
+        }
+
+        /// <summary>
+        /// Gets the version text of the PhoneKit Framework in the format 'X.Y' with major and minor.
+        /// </summary>
+        /// <returns>The version text of the assembly.</returns>
+        public static string GetFrameworkVersionText()
+        {
+            var version = GetFrameworkVersion();
+            return string.Format("{0}.{1}", version.Major, version.Minor);
+        }
     }
 }

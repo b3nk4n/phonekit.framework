@@ -42,6 +42,7 @@ namespace PhoneKit.Framework.Controls
         {
             InitializeComponent();
             LocalizeContent();
+            SetFrameworkBranding();
 
             // Note: register events in code and not in XAML because this
             //       is not allowed when inheritance is used
@@ -88,6 +89,18 @@ namespace PhoneKit.Framework.Controls
         /// Localizes the user control content and texts.
         /// </summary>
         protected abstract void LocalizeContent();
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Sets the framework branding.
+        /// </summary>
+        private void SetFrameworkBranding()
+        {
+            BrandingElement.Text = "powered by PhoneKit Framework " + VersionHelper.GetFrameworkVersionText();
+        }
 
         #endregion
 

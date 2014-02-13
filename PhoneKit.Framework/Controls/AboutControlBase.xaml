@@ -48,7 +48,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </StackPanel>
-                <TextBlock Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
+                <TextBlock x:Name="BrandingElement" Style="{StaticResource PhoneTextSubtleStyle}" Margin="12"
                            HorizontalAlignment="Center" Text="powered by PhoneKit Framework 1.1"/>
             </StackPanel>
         </ScrollViewer>
