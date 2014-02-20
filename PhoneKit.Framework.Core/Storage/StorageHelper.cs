@@ -145,7 +145,10 @@ namespace PhoneKit.Framework.Core.Storage
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Saving serialized file with error: " + ex.Message);
+            }
 
             return false;
         }
@@ -252,7 +255,10 @@ namespace PhoneKit.Framework.Core.Storage
                         return (T)serializer.ReadObject(fileStream);
                     }
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Loading serialized file with error: " + ex.Message);
+                }
             }
 
             return defaultValue;
@@ -296,7 +302,10 @@ namespace PhoneKit.Framework.Core.Storage
                 {
                     return store.FileExists(path);
                 }
-                catch (Exception) { }
+                catch (Exception ex) 
+                {
+                    Debug.WriteLine("Checking for file with error: " + ex.Message);
+                }
             }
             return false;
         }
@@ -315,7 +324,10 @@ namespace PhoneKit.Framework.Core.Storage
                     if (store.FileExists(path))
                         store.DeleteFile(path);
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Deleting file with error: " + ex.Message);
+                }
                 
             }
         }
@@ -334,7 +346,10 @@ namespace PhoneKit.Framework.Core.Storage
                     string directory = Path.GetDirectoryName(path);
                     return store.DirectoryExists(directory);
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Checking for directory with error: " + ex.Message);
+                }
             }
 
             return false;
@@ -356,7 +371,10 @@ namespace PhoneKit.Framework.Core.Storage
                         store.DeleteDirectory(directory);
                     }
                 }
-                catch (Exception) { }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Deleting directory with error: " + ex.Message);
+                }
             }
         }
 
