@@ -156,6 +156,18 @@ namespace PhoneKit.Framework.Core.Tile
         }
 
         /// <summary>
+        /// Removes a pinned secondary tile in case it exists.
+        /// </summary>
+        /// <param name="navigationUri">The unique navigation URI of the pinned tile.</param>
+        public static void RemoveTile(Uri navigationUri)
+        {
+            var activeTile = GetTile(navigationUri);
+
+            if (activeTile != null)
+                activeTile.Delete();
+        }
+
+        /// <summary>
         /// Checks the remote images.
         /// </summary>
         /// <param name="tileData">The live tile data.</param>
