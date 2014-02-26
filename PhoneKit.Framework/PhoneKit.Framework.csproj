@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Conversion\BooleanNegationConverter.cs" />
     <Compile Include="Conversion\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Conversion\ShortTimeConverter.cs" />
     <Compile Include="Conversion\StringListConverter.cs" />
     <Compile Include="Conversion\TimeToShapeConverter.cs" />
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
