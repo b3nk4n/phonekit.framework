@@ -32,8 +32,11 @@ namespace PhoneKit.Framework.Core.Graphics
             var wbmp = new WriteableBitmap(width, height);
 
             // Force the content to layout itself properly
+            element.UpdateLayout();
             element.Measure(new Size(width, height));
+            element.UpdateLayout();
             element.Arrange(new Rect(0, 0, width, height));
+
 
             wbmp.Render(element, null);
             wbmp.Invalidate();

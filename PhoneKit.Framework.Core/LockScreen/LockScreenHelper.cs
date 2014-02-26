@@ -31,7 +31,18 @@ namespace PhoneKit.Framework.Core.LockScreen
         /// </summary>
         /// <remarks>Remark, that the lock screen access must be requested before.</remarks>
         /// <param name="imageUri">The lock key.</param>
-        public static async void SetLockScreenImage(Uri imageUri)
+        public static void SetLockScreenImage(Uri imageUri)
+        {
+            SetLockScreenImage(imageUri, false);
+        }
+
+        /// <summary>
+        /// Sets the lock screen image.
+        /// </summary>
+        /// <remarks>Remark, that the lock screen access must be requested before.</remarks>
+        /// <param name="imageUri">The lock key.</param>
+        /// <param name="isLocalImage">Whether the image is local (LOCAL APPDATA/ISOSTORE) or an app resource (APPX).</param>
+        public static async void SetLockScreenImage(Uri imageUri, bool isLocalImage)
         {
             // verify lock screen access is permitted
             if (HasAccess())
@@ -60,8 +71,14 @@ namespace PhoneKit.Framework.Core.LockScreen
                 }
                 else
                 {
-                    if (!imageUri.OriginalString.StartsWith(StorageHelper.APPX_SCHEME))
-                        sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                    if (!imageUri.OriginalString.StartsWith(StorageHelper.APPX_SCHEME) ||
+                        !imageUri.OriginalString.StartsWith(StorageHelper.APPDATA_LOCAL_SCHEME))
+                    {
+                        if (isLocalImage)
+                            sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.AbsolutePath, UriKind.Absolute);
+                        else
+                            sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);           
+                    }
                     else
                         sourceUri = new Uri(imageUri.OriginalString, UriKind.Absolute);
                 }
