@@ -195,6 +195,7 @@
     <Content Include="Assets\AppBar\appbar.calendar.png" />
     <Content Include="Assets\AppBar\appbar.camera.png" />
     <Content Include="Assets\AppBar\appbar.cancel.png" />
+    <Content Include="Assets\AppBar\appbar.cellular.png" />
     <Content Include="Assets\AppBar\appbar.check.png" />
     <Content Include="Assets\AppBar\appbar.close.png" />
     <Content Include="Assets\AppBar\appbar.delete.png" />
@@ -212,6 +213,8 @@
     <Content Include="Assets\AppBar\appbar.minus.png" />
     <Content Include="Assets\AppBar\appbar.new.png" />
     <Content Include="Assets\AppBar\appbar.next.png" />
+    <Content Include="Assets\AppBar\appbar.nocellular.png" />
+    <Content Include="Assets\AppBar\appbar.paperclip.png" />
     <Content Include="Assets\AppBar\appbar.pause.png" />
     <Content Include="Assets\AppBar\appbar.phone.png" />
     <Content Include="Assets\AppBar\appbar.pin.png" />
