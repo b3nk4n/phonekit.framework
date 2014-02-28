@@ -13,6 +13,12 @@ namespace PhoneKit.Framework.Core.MVVM
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
+        /// Creates a ViewModelBaseInstance.
+        /// </summary>
+        /// <remarks>Required for deserialization.</remarks>
+        public ViewModelBase() { }
+
+        /// <summary>
         /// Notifies the binding system that the specified property was changed.
         /// </summary>
         /// <param name="propertyName">The name of the changed property.</param>
