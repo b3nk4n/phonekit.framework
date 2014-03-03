@@ -167,5 +167,10 @@ namespace PhoneKit.TestApp
         {
             NavigationService.Navigate(new Uri("/MvvmPage.xaml", UriKind.Relative));
         }
+
+        private void Connectivity_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/ConnectivityPage.xaml", UriKind.Relative));
+        }
     }
 }

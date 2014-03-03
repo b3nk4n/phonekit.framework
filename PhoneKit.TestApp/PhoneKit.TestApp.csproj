@@ -101,6 +101,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConnectivityPage.xaml.cs">
+      <DependentUpon>ConnectivityPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MyAboutControl.cs" />
     <Compile Include="Controls\MyFeedbackDialogControl.cs" />
     <Compile Include="Controls\MyInAppStoreControl.cs" />
@@ -145,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdvertsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConnectivityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
