@@ -197,6 +197,7 @@
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\appbar.add.png" />
     <Content Include="Assets\AppBar\appbar.alarm.png" />
+    <Content Include="Assets\AppBar\appbar.append.png" />
     <Content Include="Assets\AppBar\appbar.back.png" />
     <Content Include="Assets\AppBar\appbar.bell.png" />
     <Content Include="Assets\AppBar\appbar.calendar.png" />
@@ -226,8 +227,10 @@
     <Content Include="Assets\AppBar\appbar.phone.png" />
     <Content Include="Assets\AppBar\appbar.pin.png" />
     <Content Include="Assets\AppBar\appbar.play.png" />
+    <Content Include="Assets\AppBar\appbar.prepend.png" />
     <Content Include="Assets\AppBar\appbar.questionmark.png" />
     <Content Include="Assets\AppBar\appbar.refresh.png" />
+    <Content Include="Assets\AppBar\appbar.replace.png" />
     <Content Include="Assets\AppBar\appbar.rew.png" />
     <Content Include="Assets\AppBar\appbar.save.png" />
     <Content Include="Assets\AppBar\appbar.search.png" />
