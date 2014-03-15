@@ -25,7 +25,7 @@ namespace PhoneKit.Framework.Core.OS
         /// <summary>
         /// Indicates whether the light theme is active.
         /// </summary>
-        /// <returns>Returns true if the dark theme is active.</returns>
+        /// <returns>Returns true if the light theme is active.</returns>
         public static bool IsLightThemeActive
         {
             get
