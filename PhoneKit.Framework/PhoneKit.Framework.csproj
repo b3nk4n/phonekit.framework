@@ -111,6 +111,7 @@
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
     <Compile Include="Conversion\ShortDateConverter.cs" />
     <Compile Include="InAppPurchase\ProductItem.cs" />
+    <Compile Include="OS\DisplayHelper.cs" />
     <Compile Include="OS\ShakeGeastures\AccelerometerHelper\AccelerometerHelper.cs" />
     <Compile Include="OS\ShakeGeastures\AccelerometerHelper\ApplicationSettingHelper.cs" />
     <Compile Include="OS\ShakeGeastures\AccelerometerHelper\Simple3DVector.cs" />
