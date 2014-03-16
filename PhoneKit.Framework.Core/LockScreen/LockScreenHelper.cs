@@ -75,7 +75,13 @@ namespace PhoneKit.Framework.Core.LockScreen
                         !imageUri.OriginalString.StartsWith(StorageHelper.APPDATA_LOCAL_SCHEME))
                     {
                         if (isLocalImage)
-                            sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.AbsolutePath, UriKind.Absolute);
+                        {
+                            // ensure to remove the isostore prefix
+                            if (imageUri.OriginalString.StartsWith(StorageHelper.ISTORAGE_SCHEME))
+                                sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.AbsolutePath, UriKind.Absolute);
+                            else
+                                sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                        }
                         else
                             sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);           
                     }

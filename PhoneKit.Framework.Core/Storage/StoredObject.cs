@@ -107,7 +107,7 @@ namespace PhoneKit.Framework.Core.Storage
             }
             set
             {
-                if (this._value.Equals(value))
+                if (this._value != null && this._value.Equals(value))
                     return;
 
                 // store the value in isolated storage
