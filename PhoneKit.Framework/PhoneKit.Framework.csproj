@@ -119,6 +119,7 @@
     <Compile Include="OS\ShakeGeastures\ShakeGesturesHelper.cs" />
     <Compile Include="OS\ShakeGeastures\ShakeType.cs" />
     <Compile Include="OS\ShakeGeastures\Simulation.cs" />
+    <Compile Include="OS\VibrationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\PhoneStateHelper.cs" />
     <Compile Include="OS\VersionHelper.cs" />
