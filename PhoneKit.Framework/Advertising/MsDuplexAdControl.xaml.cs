@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using System.Diagnostics;
 
 namespace PhoneKit.Framework.Advertising
 {
@@ -72,16 +73,23 @@ namespace PhoneKit.Framework.Advertising
                 LayoutRoot.Children.RemoveAt(0);
 
                 // add new adduplex banner.
-                AdDuplex.AdControl adDuplex = new AdDuplex.AdControl();
-                adDuplex.Width = 480;
-                adDuplex.Height = 80;
-                adDuplex.AppId = _adDuplexAppId;
-                adDuplex.AdLoaded += (s, e) =>
+                try
                 {
-                    OnAdReceived(EventArgs.Empty);
-                };
+                    AdDuplex.AdControl adDuplex = new AdDuplex.AdControl();
+                    adDuplex.Width = 480;
+                    adDuplex.Height = 80;
+                    adDuplex.AppId = _adDuplexAppId;
+                    adDuplex.AdLoaded += (s, e) =>
+                    {
+                        OnAdReceived(EventArgs.Empty);
+                    };
 
-                LayoutRoot.Children.Add(adDuplex);
+                    LayoutRoot.Children.Add(adDuplex);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Creation of AdDuplex banner failed with error: " + e.Message);
+                }
             }
         }
 
