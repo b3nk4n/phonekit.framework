@@ -90,7 +90,15 @@ namespace PhoneKit.Framework.Core.LockScreen
                 }
 
                 // set the lock screen image
-                UserProfile.LockScreen.SetImageUri(sourceUri);
+                try
+                {
+                    UserProfile.LockScreen.SetImageUri(sourceUri);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Setting the lock screen failed with error: " + e.Message);
+                }
+                
             }
         }
 
