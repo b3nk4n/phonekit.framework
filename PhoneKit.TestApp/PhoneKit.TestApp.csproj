@@ -194,6 +194,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Adverts\pocketBRAIN_adduplex.png" />
+    <Content Include="Assets\Adverts\voiceTIMER_adduplex.png" />
     <Content Include="Assets\AlignmentGrid.png" />
     <Content Include="Assets\AppBar\appbar.add.png" />
     <Content Include="Assets\AppBar\appbar.alarm.png" />

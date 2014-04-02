@@ -29,6 +29,7 @@ namespace PhoneKit.TestApp
                 };
 
             LoadDynamic();
+            InitOfflineAdControl();
         }
 
         /// <summary>
@@ -53,6 +54,26 @@ namespace PhoneKit.TestApp
 
                 DynamicContainer.Children.Insert(0, adControl);
             }
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            OfflineAdControl.Start();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            OfflineAdControl.Stop();
+        }
+
+        /// <summary>
+        /// Initializes the offline adverts control.
+        /// </summary>
+        private void InitOfflineAdControl()
+        {
+            OfflineAdControl.AddAdvert(new AdvertData(new Uri("/Assets/Adverts/pocketBRAIN_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.Website, "http://bsautermeister.de"));
+            OfflineAdControl.AddAdvert(new AdvertData(new Uri("/Assets/Adverts/voiceTIMER_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.StoreSearchTerm, "Benjamin Sautermeister"));
+            OfflineAdControl.Start();
         }
 
         /// <summary>

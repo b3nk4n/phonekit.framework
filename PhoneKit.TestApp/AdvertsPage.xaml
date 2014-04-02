@@ -37,25 +37,28 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
-                <framework:DoubleClickAdControl x:Name="StaticWebBanner" BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
+            <ScrollViewer>
+                <StackPanel>
+                    
+                    <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                        <framework:DoubleClickAdControl x:Name="StaticWebBanner" BannerUri="http://bsautermeister.de/phonekit/adverts/test_sc.html"
                                                 AdReceived="DoubleClickAdControl_AdReceived" Height="0" AutoStart="True" />
-                <TextBlock x:Name="DoubleClickStatus" Text="Loading..." />
-            </StackPanel>
-            <StackPanel x:Name="DynamicContainer" Grid.Row="1" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
-                <TextBlock x:Name="DoubleClickDynamicStatus" Text="Loading..." />
-            </StackPanel>
-            <StackPanel Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
-                <framework:MsDuplexAdControl IsTest="True" AdReceived="MsDuplexAdControl_AdReceived" />
-                <TextBlock x:Name="MsDuplexStatus" Text="Loading..." />
-            </StackPanel>
-            <TextBlock x:Name="AdFreeStatus" Grid.Row="3" Text="Loading..." />
+                        <TextBlock x:Name="DoubleClickStatus" Text="Loading..." />
+                    </StackPanel>
+                    <StackPanel x:Name="DynamicContainer" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                        <TextBlock x:Name="DoubleClickDynamicStatus" Text="Loading..." />
+                    </StackPanel>
+                    <StackPanel Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                        <framework:MsDuplexAdControl IsTest="True" AdReceived="MsDuplexAdControl_AdReceived" />
+                        <TextBlock x:Name="MsDuplexStatus" Text="Loading..." />
+                    </StackPanel>
+                    <TextBlock x:Name="AdFreeStatus" Text="Loading..." />
+                    <StackPanel Grid.Row="2" Background="{StaticResource PhoneChromeBrush}" Margin="0,6,0,6">
+                        <framework:OfflineAdControl x:Name="OfflineAdControl" /> 
+                        <TextBlock x:Name="OfflineStatus" Text="Loading..." />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 

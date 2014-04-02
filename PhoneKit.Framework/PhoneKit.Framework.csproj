@@ -85,12 +85,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Advertising\AdvertData.cs" />
     <Compile Include="Advertising\DoubleClickAdControl.xaml.cs">
       <DependentUpon>DoubleClickAdControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Advertising\Extensions\LinqToVisualTree.cs" />
     <Compile Include="Advertising\MsDuplexAdControl.xaml.cs">
       <DependentUpon>MsDuplexAdControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Advertising\OfflineAdControl.xaml.cs">
+      <DependentUpon>OfflineAdControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Audio\SoundEffects.cs" />
     <Compile Include="Controls\AboutControlBase.xaml.cs">
@@ -144,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Advertising\MsDuplexAdControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Advertising\OfflineAdControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
