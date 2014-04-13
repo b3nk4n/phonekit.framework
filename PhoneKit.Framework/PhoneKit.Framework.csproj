@@ -107,6 +107,7 @@
     <Compile Include="Controls\InAppStoreControlBase.xaml.cs">
       <DependentUpon>InAppStoreControlBase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Conversion\DoubleToStringConverter.cs" />
     <Compile Include="Conversion\BooleanNegationConverter.cs" />
     <Compile Include="Conversion\BooleanToVisibilityConverter.cs" />
     <Compile Include="Conversion\ShortTimeConverter.cs" />

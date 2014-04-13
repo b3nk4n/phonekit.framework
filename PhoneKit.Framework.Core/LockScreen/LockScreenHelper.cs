@@ -44,61 +44,74 @@ namespace PhoneKit.Framework.Core.LockScreen
         /// <param name="isLocalImage">Whether the image is local (LOCAL APPDATA/ISOSTORE) or an app resource (APPX).</param>
         public static async void SetLockScreenImage(Uri imageUri, bool isLocalImage)
         {
-            // verify lock screen access is permitted
-            if (HasAccess())
+            try
             {
-                Uri sourceUri;
-                if (_downloadManager.IsWebFile(imageUri))
+                // verify lock screen access is permitted
+                if (HasAccess())
                 {
-                    Uri previousLockScreenImageUri = null;
+                    Uri sourceUri;
+                    if (_downloadManager.IsWebFile(imageUri))
+                    {
+                        Uri previousLockScreenImageUri = null;
 
-                    try
-                    {
-                        // try to get the previous lockscreen image, if this app is the owner.
-                        previousLockScreenImageUri = UserProfile.LockScreen.GetImageUri();
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Debug.WriteLine("Retrieving previous lock screen image failed caused by unauthorized acces with error: "
-                            + ex.Message);
-                    }
-                    catch(Exception ex)
-                    {
-                        Debug.WriteLine("Retrieving previous lock screen image failed with error: " + ex.Message);
-                    }
-
-                    sourceUri = await _downloadManager.LoadFileAsync(imageUri, previousLockScreenImageUri);
-                }
-                else
-                {
-                    if (!imageUri.OriginalString.StartsWith(StorageHelper.APPX_SCHEME) ||
-                        !imageUri.OriginalString.StartsWith(StorageHelper.APPDATA_LOCAL_SCHEME))
-                    {
-                        if (isLocalImage)
+                        try
                         {
-                            // ensure to remove the isostore prefix
-                            if (imageUri.OriginalString.StartsWith(StorageHelper.ISTORAGE_SCHEME))
-                                sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.AbsolutePath, UriKind.Absolute);
-                            else
-                                sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                            // try to get the previous lockscreen image, if this app is the owner.
+                            previousLockScreenImageUri = UserProfile.LockScreen.GetImageUri();
                         }
-                        else
-                            sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);           
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Debug.WriteLine("Retrieving previous lock screen image failed caused by unauthorized acces with error: "
+                                + ex.Message);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine("Retrieving previous lock screen image failed with error: " + ex.Message);
+                        }
+
+                        sourceUri = await _downloadManager.LoadFileAsync(imageUri, previousLockScreenImageUri);
                     }
                     else
-                        sourceUri = new Uri(imageUri.OriginalString, UriKind.Absolute);
-                }
+                    {
+                        if (!imageUri.OriginalString.StartsWith(StorageHelper.APPX_SCHEME) ||
+                            !imageUri.OriginalString.StartsWith(StorageHelper.APPDATA_LOCAL_SCHEME))
+                        {
+                            if (isLocalImage)
+                            {
+                                // ensure to remove the isostore prefix
+                                if (imageUri.OriginalString.StartsWith(StorageHelper.ISTORAGE_SCHEME))
+                                    sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.AbsolutePath, UriKind.Absolute);
+                                else
+                                    sourceUri = new Uri(StorageHelper.APPDATA_LOCAL_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                            }
+                            else
+                                sourceUri = new Uri(StorageHelper.APPX_SCHEME + imageUri.OriginalString, UriKind.Absolute);
+                        }
+                        else
+                            sourceUri = new Uri(imageUri.OriginalString, UriKind.Absolute);
+                    }
 
-                // set the lock screen image
-                try
-                {
+                    // set the lock screen image
                     UserProfile.LockScreen.SetImageUri(sourceUri);
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Setting the lock screen failed with error: " + e.Message);
-                }
-                
+            }
+            catch (Exception e)
+            {
+                /* note: the whole method is wrapped, because on time there was an exception with the following error:
+                <trace>
+                   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+                   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+                   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+                   at PhoneKit.Framework.Core.LockScreen.LockScreenHelper.<VerifyAccessAsync>d__5.MoveNext()
+                --- End of stack trace from previous location where exception was thrown ---
+                   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+                   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+                   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+                   at PocketBrain.App.ViewModel.NoteListViewModel.<<.ctor>b__0>d__c.MoveNext()
+                --- End of stack trace from previous location where exception was thrown ---
+                   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.<ThrowAsync>b__0(Object state)
+                </trace>*/
+                Debug.WriteLine("Setting the lock screen failed with error: " + e.Message);
             }
         }
 
