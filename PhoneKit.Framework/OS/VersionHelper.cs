@@ -18,10 +18,23 @@ namespace PhoneKit.Framework.OS
         public static readonly Version VersionGDR3 = new Version(8, 0, 10492);
 
         /// <summary>
+        /// The initial version of Windows Phone 8.1 realease.
+        /// </summary>
+        public static readonly Version Version8_1 = new Version(8, 10);
+
+        /// <summary>
         /// Indicates whether the phone is GDR3 update compatible, which is required
-        /// for some 
+        /// for some features.
         /// </summary>
         public static bool IsPhoneGDR3
+        {
+            get { return Environment.OSVersion.Version >= VersionGDR3; }
+        }
+
+        /// <summary>
+        /// Indicates whether the phone is Windows Phone 8.1 compatible.
+        /// </summary>
+        public static bool IsPhoneWP8_1
         {
             get { return Environment.OSVersion.Version >= VersionGDR3; }
         }

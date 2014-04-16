@@ -86,7 +86,7 @@ namespace PhoneKit.TestApp
         // Code to execute if a navigation fails
         private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
         {
-            ErrorReportingManager.Instance.Save(e.Exception);
+            ErrorReportingManager.Instance.Save(e.Exception, AppResources.ApplicationVersion, AppResources.ResourceLanguage);
 
             if (Debugger.IsAttached)
             {
@@ -98,7 +98,7 @@ namespace PhoneKit.TestApp
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            ErrorReportingManager.Instance.Save(e.ExceptionObject);
+            ErrorReportingManager.Instance.Save(e.ExceptionObject, AppResources.ApplicationVersion, AppResources.ResourceLanguage);
 
             if (Debugger.IsAttached)
             {

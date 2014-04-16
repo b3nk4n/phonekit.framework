@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Phone.Info;
+using System;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Xml.Serialization;
@@ -36,6 +37,18 @@ namespace PhoneKit.Framework.Support
         private DateTime Time { get; set; }
 
         /// <summary>
+        /// Gets or sets the application version of the logged exception.
+        /// </summary>
+        [DataMember(Name = "applicationVersion")]
+        private string ApplicationVersion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the application language of the logged exception.
+        /// </summary>
+        [DataMember(Name = "applicationLanguage")]
+        private string ApplicationLanguage { get; set; }
+
+        /// <summary>
         /// Creates an empty log data object.
         /// </summary>
         public ErrorReport()
@@ -44,18 +57,24 @@ namespace PhoneKit.Framework.Support
             Message = string.Empty;
             StackTrace = string.Empty;
             Time = DateTime.Now;
+            ApplicationVersion = string.Empty;
+            ApplicationLanguage = string.Empty;
         }
 
         /// <summary>
         /// Creates a new exception log data object.
         /// </summary>
         /// <param name="exception"></param>
-        public ErrorReport(Exception exception)
+        /// <param name="applicationVersion">The application version.</param>
+        /// <param name="applicationLanguage">The application language.</param>
+        public ErrorReport(Exception exception, string applicationVersion, string applicationLanguage)
         {
             Type = exception.GetType().Name;
             Message = exception.Message;
             StackTrace = exception.StackTrace;
             Time = DateTime.Now;
+            ApplicationVersion = applicationVersion;
+            ApplicationLanguage = applicationLanguage;
         }
 
         /// <summary>
@@ -70,6 +89,12 @@ namespace PhoneKit.Framework.Support
             sb.AppendFormat("<time>\n{0:u}\n</time>\n", Time);
             sb.AppendFormat("<message>\n{0}\n</message>\n", Message);
             sb.AppendFormat("<trace>\n{0}\n</trace>\n", StackTrace);
+            sb.AppendFormat("<appVersion>\n{0}\n</appVersion>\n", ApplicationVersion);
+            sb.AppendFormat("<appLanguage>\n{0}\n</appLanguage>\n", ApplicationLanguage);
+            sb.AppendFormat("<deviceName>\n{0}\n</deviceName>\n", DeviceStatus.DeviceName);
+            sb.AppendFormat("<deviceManufacturer>\n{0}\n</deviceManufacturer>\n", DeviceStatus.DeviceManufacturer);
+            sb.AppendFormat("<deviceFirmwareVersion>\n{0}\n</deviceFirmwareVersion>\n", DeviceStatus.DeviceFirmwareVersion);
+            sb.AppendFormat("<deviceHardwareVersion>\n{0}\n</deviceHardwareVersion>\n", DeviceStatus.DeviceHardwareVersion);
             sb.AppendLine("</error>");
             return sb.ToString();
         }

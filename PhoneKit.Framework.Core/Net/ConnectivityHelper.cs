@@ -15,6 +15,7 @@ namespace PhoneKit.Framework.Core.Net
         /// <summary>
         /// Gets whether the phone might be in airplane mode.
         /// </summary>
+        /// <remarks>The result is not very reliable.</remarks>
         /// <returns>True if the phone seems to be in airplane mode, else false.</returns>
         public static bool IsAirplaneMode
         {

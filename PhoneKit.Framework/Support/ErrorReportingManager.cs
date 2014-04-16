@@ -51,11 +51,13 @@ namespace PhoneKit.Framework.Support
         /// before the <code>Debugger.IsAttached</code> checks in the App.cs file.
         /// </remarks>
         /// <param name="e">The exception.</param>
-        public void Save(Exception e)
+        /// <param name="applicationVersion">The application version.</param>
+        /// <param name="applicationLanguage">The applications used language</param>
+        public void Save(Exception e, string applicationVersion, string applicationLanguage)
         {
             StorageHelper.DeleteFile(EXCEPTION_LOG_FILE_NAME);
 
-            var logData = new ErrorReport(e);
+            var logData = new ErrorReport(e, applicationVersion, applicationLanguage);
 
             StorageHelper.SaveAsSerializedFile<ErrorReport>(EXCEPTION_LOG_FILE_NAME, logData);
         }
