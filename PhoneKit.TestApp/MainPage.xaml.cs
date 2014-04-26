@@ -89,32 +89,6 @@ namespace PhoneKit.TestApp
             // Set the page's ApplicationBar to a new instance of ApplicationBar.
             ApplicationBar = new ApplicationBar();
 
-            // Create a new button and set the text value to the localized string from AppResources.
-            ApplicationBarIconButton appBarButton1 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.pin.png", UriKind.Relative));
-            appBarButton1.Text = "Pin Custom";
-            ApplicationBar.Buttons.Add(appBarButton1);
-            appBarButton1.Click += (s, e) =>
-            {
-                LiveTileHelper.ClearStorage();
-
-                var image = GraphicsHelper.Create(new CusomTile());
-                Uri imageUri = StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test.jpeg", image);
-
-                var wideImage = GraphicsHelper.Create(new CustomWideControl());
-                IList<Uri> wideImages = new List<Uri>();
-                wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test2.jpeg", wideImage));
-                wideImages.Add(StorageHelper.SaveJpeg(LiveTileHelper.SHARED_SHELL_CONTENT_PATH + "test3.jpeg", wideImage));
-
-                LiveTilePinningHelper.PinOrUpdateTile(new Uri("/AboutPage.xaml", UriKind.Relative),
-                    new CycleTileData
-                    {
-                        Title = "TEST TILE",
-                        Count = 1,
-                        SmallBackgroundImage = imageUri,
-                        CycleImages = wideImages
-                    }, true);
-            };
-
             ApplicationBarIconButton appBarButton2 = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.settings.png", UriKind.Relative));
             appBarButton2.Text = "Settings";
             ApplicationBar.Buttons.Add(appBarButton2);
@@ -171,6 +145,11 @@ namespace PhoneKit.TestApp
         private void Connectivity_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/ConnectivityPage.xaml", UriKind.Relative));
+        }
+
+        private void TilesGraphics_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/TilesGraphicsPage.xaml", UriKind.Relative));
         }
     }
 }

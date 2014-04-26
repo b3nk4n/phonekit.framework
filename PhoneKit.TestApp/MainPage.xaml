@@ -56,6 +56,7 @@
                 <Button Content="Voice" Click="Voice_Click" />
                 <Button Content="MVVM" Click="Mvvm_Click" />
                 <Button Content="Connectivity" Click="Connectivity_Click" />
+                <Button Content="Tiles and Graphics" Click="TilesGraphics_Click" />
             </StackPanel>
         </Grid>
 

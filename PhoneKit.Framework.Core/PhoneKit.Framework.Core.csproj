@@ -84,6 +84,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graphics\GraphicsHelper.cs" />
+    <Compile Include="Graphics\ToolStackCRCLib.cs" />
+    <Compile Include="Graphics\ToolStackPNGWriterLib.cs" />
+    <Compile Include="Graphics\ToolStackPNGWriterWBext.cs" />
     <Compile Include="LockScreen\LockScreenHelper.cs" />
     <Compile Include="MVVM\DelegateCommand.cs" />
     <Compile Include="MVVM\ViewModelBase.cs" />

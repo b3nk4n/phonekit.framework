@@ -10,7 +10,7 @@
     d:DesignHeight="336" d:DesignWidth="336"
     Width="336" Height="336">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneAccentBrush}">
+    <Grid x:Name="LayoutRoot">
         <Border  Margin="10">
             <StackPanel Margin="10">
                 <TextBlock FontWeight="Bold" Text="Title" Style="{StaticResource PhoneTextLargeStyle}" />

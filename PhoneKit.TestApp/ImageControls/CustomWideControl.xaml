@@ -10,15 +10,14 @@
     d:DesignHeight="336" d:DesignWidth="691"
     Width="430" Height="210">
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneAccentBrush}">
+    <Grid x:Name="LayoutRoot">
         <Border  Margin="10">
             <StackPanel>
                 <TextBlock FontWeight="Bold" Text="Title" Style="{StaticResource PhoneTextLargeStyle}" HorizontalAlignment="Center" />
                 <StackPanel Margin="90,0,90,0">
                     <TextBlock>Test 123</TextBlock>
                     <TextBlock>Test 123</TextBlock>
-                    <TextBlock>Test 123</TextBlock>
-                    
+                    <TextBlock>Test 123</TextBlock>    
                 </StackPanel>
             </StackPanel>
         </Border>

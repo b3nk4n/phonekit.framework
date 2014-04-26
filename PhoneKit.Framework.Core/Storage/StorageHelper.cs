@@ -5,6 +5,7 @@ using System.IO.IsolatedStorage;
 using System.Runtime.Serialization.Json;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using PhoneKit.Framework.Core.Graphics;
 
 namespace PhoneKit.Framework.Core.Storage
 {
@@ -214,6 +215,33 @@ namespace PhoneKit.Framework.Core.Storage
                     catch (Exception ex)
                     {
                         Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
+                        return null;
+                    }
+                }
+            }
+
+            return new Uri(ISTORAGE_SCHEME + path, UriKind.Absolute);
+        }
+
+        /// <summary>
+        /// Saves an PNG image to isolated storage.
+        /// </summary>
+        /// <param name="path">The full image path of the PNG image.</param>
+        /// <param name="image">The image to save.</param>
+        /// <returns>Returns the image URI in isolated storage when successful, else null.</returns>
+        public static Uri SavePng(string path, WriteableBitmap image)
+        {
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+                {
+                    try
+                    {
+                        image.WritePNG(fileStream);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Saving png image failed with error: " + ex.Message);
                         return null;
                     }
                 }
