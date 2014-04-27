@@ -11,7 +11,7 @@
     x:Name="control">
     
     <Grid x:Name="LayoutRoot">
-        <ScrollViewer Margin="12,0,12,0" >
+        <ScrollViewer Margin="12,0,12,0" VerticalScrollBarVisibility="Hidden" >
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Border Background="{StaticResource PhoneAccentBrush}" Margin="12">
