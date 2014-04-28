@@ -111,6 +111,7 @@
     <Compile Include="Conversion\BooleanNegationConverter.cs" />
     <Compile Include="Conversion\BooleanToVisibilityConverter.cs" />
     <Compile Include="Conversion\ShortTimeConverter.cs" />
+    <Compile Include="Conversion\StringFormatConverter.cs" />
     <Compile Include="Conversion\StringListConverter.cs" />
     <Compile Include="Conversion\TimeToShapeConverter.cs" />
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
@@ -171,12 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Advertising\test_sc.html" />
-    <Content Include="README_FIRST.txt" />
-    <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
-    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AdDuplex.WindowsPhone">
@@ -184,7 +179,7 @@
     </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\WPtoolkit.4.2013.08.16\lib\wp8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
