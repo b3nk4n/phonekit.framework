@@ -8,6 +8,8 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
 using PhoneKit.Framework.Support;
+using PhoneKit.Framework.Core.Themeing;
+using System.Windows.Media;
 
 namespace PhoneKit.TestApp
 {
@@ -33,6 +35,9 @@ namespace PhoneKit.TestApp
             // Phone-specific initialization
             InitializePhoneApplication();
 
+            // Intialize themeing
+            InitializeThemeColors();
+
             // Language display initialization
             InitializeLanguage();
 
@@ -56,6 +61,14 @@ namespace PhoneKit.TestApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+        }
+
+        /// <summary>
+        /// Overrides the accent theme colors.
+        /// </summary>
+        private void InitializeThemeColors()
+        {
+            PhoneThemeHelper.OverridePhoneBackground("MyPhoneChrome", Color.FromArgb(0xFF, 0xBB, 0xBB, 0xBB));
         }
 
         // Code to execute when the application is launching (eg, from Start)

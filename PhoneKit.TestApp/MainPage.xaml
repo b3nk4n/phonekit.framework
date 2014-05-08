@@ -57,6 +57,7 @@
                 <Button Content="MVVM" Click="Mvvm_Click" />
                 <Button Content="Connectivity" Click="Connectivity_Click" />
                 <Button Content="Tiles and Graphics" Click="TilesGraphics_Click" />
+                <Button Content="Theming" Click="Themeing_Click" />
             </StackPanel>
         </Grid>
 

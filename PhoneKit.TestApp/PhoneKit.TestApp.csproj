@@ -120,6 +120,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Misc\ThemedImageSource.cs" />
     <Compile Include="MvvmPage.xaml.cs">
       <DependentUpon>MvvmPage.xaml</DependentUpon>
     </Compile>
@@ -131,6 +132,9 @@
     </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ThemeingPage.xaml.cs">
+      <DependentUpon>ThemeingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="TilesGraphicsPage.xaml.cs">
       <DependentUpon>TilesGraphicsPage.xaml</DependentUpon>
@@ -179,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ThemeingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,6 +262,8 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\dark\next.png" />
+    <Content Include="Assets\Images\light\next.png" />
     <Content Include="Assets\Languages\brazil.png" />
     <Content Include="Assets\Languages\french.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

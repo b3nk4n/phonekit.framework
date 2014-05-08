@@ -8,6 +8,9 @@
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:PhoneKit.TestApp" x:Key="LocalizedStrings"/>
+
+        <Color x:Key="MyPhoneChromeColor">#FF333333</Color>
+        <SolidColorBrush x:Key="MyPhoneChromeBrush" Color="{StaticResource MyPhoneChromeColor}" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

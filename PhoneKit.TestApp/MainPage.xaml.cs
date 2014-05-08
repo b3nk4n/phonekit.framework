@@ -151,5 +151,10 @@ namespace PhoneKit.TestApp
         {
             NavigationService.Navigate(new Uri("/TilesGraphicsPage.xaml", UriKind.Relative));
         }
+
+        private void Themeing_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/ThemeingPage.xaml", UriKind.Relative));
+        }
     }
 }

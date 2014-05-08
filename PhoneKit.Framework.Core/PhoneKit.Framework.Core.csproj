@@ -92,10 +92,11 @@
     <Compile Include="MVVM\ViewModelBase.cs" />
     <Compile Include="Net\ConnectivityHelper.cs" />
     <Compile Include="Net\DownloadManager.cs" />
-    <Compile Include="OS\PhoneThemeHelper.cs" />
+    <Compile Include="Themeing\PhoneThemeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\StorageHelper.cs" />
     <Compile Include="Storage\StoredObject.cs" />
+    <Compile Include="Themeing\ThemedImageSourceBase.cs" />
     <Compile Include="Tile\LiveTileHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
