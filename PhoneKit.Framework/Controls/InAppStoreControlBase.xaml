@@ -26,7 +26,7 @@
                             <Grid HorizontalAlignment="Stretch" Margin="5,5" Width="420">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="48"/>
-                                    <RowDefinition Height="64"/>
+                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="64"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Grid.Row="0" Text="{Binding Name}" Style="{StaticResource PhoneTextLargeStyle}"
