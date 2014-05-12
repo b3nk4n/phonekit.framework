@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.Framework.Advertising;
 using PhoneKit.Framework.InAppPurchase;
+using PhoneKit.Framework.Core.Collections;
 
 namespace PhoneKit.TestApp
 {
@@ -71,8 +72,15 @@ namespace PhoneKit.TestApp
         /// </summary>
         private void InitOfflineAdControl()
         {
-            OfflineAdControl.AddAdvert(new AdvertData(new Uri("/Assets/Adverts/pocketBRAIN_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.Website, "http://bsautermeister.de"));
-            OfflineAdControl.AddAdvert(new AdvertData(new Uri("/Assets/Adverts/voiceTIMER_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.StoreSearchTerm, "Benjamin Sautermeister"));
+            List<AdvertData> advertsList = new List<AdvertData>();
+            advertsList.Add(new AdvertData(new Uri("/Assets/Adverts/pocketBRAIN_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.Website, "http://bsautermeister.de"));
+            advertsList.Add(new AdvertData(new Uri("/Assets/Adverts/voiceTIMER_adduplex.png", UriKind.Relative), AdvertData.ActionTypes.StoreSearchTerm, "Benjamin Sautermeister"));
+
+            advertsList.ShuffleList();
+            foreach (var advert in advertsList)
+            {
+                OfflineAdControl.AddAdvert(advert);
+            }
             OfflineAdControl.Start();
         }
 

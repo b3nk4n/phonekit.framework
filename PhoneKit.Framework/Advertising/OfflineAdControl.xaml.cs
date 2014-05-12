@@ -30,6 +30,9 @@ namespace PhoneKit.Framework.Advertising
         /// </summary>
         private DispatcherTimer _timer;
 
+        /// <summary>
+        /// Creates an OfflineAdControl.
+        /// </summary>
         public OfflineAdControl()
         {
             InitializeComponent();
@@ -126,6 +129,17 @@ namespace PhoneKit.Framework.Advertising
             set
             {
                 _timer.Interval = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of adverts.
+        /// </summary>
+        public int AdvertsCount
+        {
+            get
+            {
+                return _advertsCount;
             }
         }
     }

@@ -31,6 +31,19 @@ namespace PhoneKit.Framework.Controls
         /// </summary>
         private string _moreAppsSearchTerms = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the background theme color.
+        /// </summary>
+        public SolidColorBrush BackgroundTheme
+        {
+            get { return (SolidColorBrush)GetValue(BackgroundThemeProperty); }
+            set { SetValue(BackgroundThemeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BackgroundTheme.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BackgroundThemeProperty =
+            DependencyProperty.Register("BackgroundTheme", typeof(SolidColorBrush), typeof(InAppStoreControlBase), new PropertyMetadata(Application.Current.Resources["PhoneAccentBrush"]));
+
         #endregion
 
         #region Constructors

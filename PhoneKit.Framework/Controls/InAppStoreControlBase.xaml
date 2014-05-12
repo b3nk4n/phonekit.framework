@@ -8,7 +8,8 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="480"
+    x:Name="ElementRoot">
     
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
@@ -20,7 +21,7 @@
                      HorizontalAlignment="Center">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="{StaticResource PhoneAccentBrush}"
+                        <Border Background="{Binding Path=BackgroundTheme, ElementName=ElementRoot}"
                                 toolkit:TiltEffect.IsTiltEnabled="True" Margin="0,6">
                             <Grid HorizontalAlignment="Stretch" Margin="5,5" Width="420">
                                 <Grid.RowDefinitions>

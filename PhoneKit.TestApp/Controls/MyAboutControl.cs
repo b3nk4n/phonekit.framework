@@ -2,6 +2,7 @@
 using PhoneKit.TestApp.Resources;
 using System;
 using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace PhoneKit.TestApp.Controls
 {
@@ -10,6 +11,11 @@ namespace PhoneKit.TestApp.Controls
     /// </summary>
     public class MyAboutControl : AboutControlBase
     {
+        public MyAboutControl()
+        {
+            BackgroundTheme.Color = Colors.Green;
+        }
+
         /// <summary>
         /// Localizes the user controls contents and texts.
         /// </summary>

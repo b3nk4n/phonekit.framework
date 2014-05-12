@@ -1,13 +1,19 @@
 ﻿using PhoneKit.Framework.Controls;
 using PhoneKit.TestApp.Resources;
+using System.Windows.Media;
 
 namespace PhoneKit.TestApp.Controls
 {
     /// <summary>
     /// The localized in-app store control.
     /// </summary>
-    class MyInAppStoreControl : InAppStoreControlBase
+    public class MyInAppStoreControl : InAppStoreControlBase
     {
+        public MyInAppStoreControl()
+        {
+            BackgroundTheme = new SolidColorBrush(Colors.Yellow);
+        }
+
         /// <summary>
         /// Localizes the user control content and texts.
         /// </summary>

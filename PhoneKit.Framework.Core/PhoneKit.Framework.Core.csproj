@@ -83,6 +83,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\KeyedList.cs" />
+    <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Graphics\GraphicsHelper.cs" />
     <Compile Include="Graphics\ToolStackCRCLib.cs" />
     <Compile Include="Graphics\ToolStackPNGWriterLib.cs" />
