@@ -4,6 +4,7 @@ using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 
 namespace PhoneKit.Framework.Audio
 {
@@ -60,7 +61,7 @@ namespace PhoneKit.Framework.Audio
         public void Load(string key, Stream stream, bool overridePrevious = false)
         {
             // verify overriding of previous sound effect
-            if (_soundEffects.ContainsKey(key))
+            if (ContainsKey(key))
             {
                 if (overridePrevious)
                     Unload(key);
@@ -69,7 +70,18 @@ namespace PhoneKit.Framework.Audio
             }
 
             // add sound effect from stream
-            _soundEffects.Add(key, SoundEffect.FromStream(stream));
+            SoundEffect sound = null;
+            try
+            {
+                sound = SoundEffect.FromStream(stream);
+            }
+            catch(InvalidOperationException ioe) 
+            {
+                Debug.WriteLine("Sound loading error: " + ioe.Message);
+                return;
+            }
+
+            _soundEffects.Add(key, sound);
 
             // mark that at least on file has been loaded.
             _hasLoaded = true;
@@ -81,8 +93,8 @@ namespace PhoneKit.Framework.Audio
         /// <param name="key">The sound effects key.</param>
         public void Unload(string key)
         {
-            if (!_soundEffects.ContainsKey(key))
-                throw new KeyNotFoundException("The specified key does not exist");
+            if (!ContainsKey(key))
+                return;
 
             // free resources and remove the sound effect
             _soundEffects[key].Dispose();
@@ -128,6 +140,16 @@ namespace PhoneKit.Framework.Audio
         }
 
         /// <summary>
+        /// Gets whether the there is a sound associated with the given key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>TRUE if the sound was loaded and exists, else FALSE.</returns>
+        public bool ContainsKey(string key)
+        {
+            return _soundEffects.ContainsKey(key);
+        }
+
+        /// <summary>
         /// Gets a loaded sound effect.
         /// </summary>
         /// <param name="key">The key of the sound effect.</param>
@@ -136,8 +158,10 @@ namespace PhoneKit.Framework.Audio
         {
             get
             {
-                if (!_soundEffects.ContainsKey(key))
-                    throw new KeyNotFoundException("The specified key does not exist");
+                if (!ContainsKey(key))
+                {
+                    return null;
+                }
 
                 return _soundEffects[key];
             }
