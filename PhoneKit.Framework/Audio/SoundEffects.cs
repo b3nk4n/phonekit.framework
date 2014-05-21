@@ -77,6 +77,7 @@ namespace PhoneKit.Framework.Audio
             }
             catch(InvalidOperationException ioe) 
             {
+                // BUSENSE: [15 May 2014 10:16 - 17 May 2014 01:49; 4 times] An unexpected error has occurred
                 Debug.WriteLine("Sound loading error: " + ioe.Message);
                 return;
             }

@@ -4,6 +4,7 @@ using Microsoft.Phone.Shell;
 using System.Collections.Generic;
 using PhoneKit.Framework.Core.Net;
 using PhoneKit.Framework.Core.Tile;
+using System.Diagnostics;
 
 
 namespace PhoneKit.Framework.Tile
@@ -86,7 +87,15 @@ namespace PhoneKit.Framework.Tile
         /// <param name="supportsWideTile">Whether the tile supports the wide mode.</param>
         private static void CreateTile(Uri navigationUri, ShellTileData tileData, bool supportsWideTile)
         {
-            ShellTile.Create(navigationUri, tileData, supportsWideTile);
+            try
+            {
+                ShellTile.Create(navigationUri, tileData, supportsWideTile);
+            }
+            catch (InvalidOperationException ioe)
+            {
+                // BUGSENSE: [15 May 2014 14:50; 1 time] Tiles can only be created when the application is in the foreground
+                Debug.WriteLine("Createing or updating tile failed: " + ioe.Message);
+            }
         }
 
         #endregion

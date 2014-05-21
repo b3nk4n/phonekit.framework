@@ -206,17 +206,20 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+                // probably related to the same issue in StorageHelper.SavePng()
+                // BUGSENSE: [19 May 2014 16:33 - 20 May 2014 19:05; 2 times] Operation not permitted on IsolatedStorageFileStream.
+                // moved try-catch to this level because of the reported issue.
+                try
                 {
-                    try
+                    using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
                     {
                         image.SaveJpeg(fileStream, image.PixelWidth, image.PixelHeight, 0, 100);
                     }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
-                        return null;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Saving jpeg image failed with error: " + ex.Message);
+                    return null;
                 }
             }
 
@@ -233,17 +236,19 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+                // BUGSENSE: [19 May 2014 16:33 - 20 May 2014 19:05; 2 times] Operation not permitted on IsolatedStorageFileStream.
+                // moved try-catch to this level because of the reported issue.
+                try
                 {
-                    try
+                    using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
                     {
                         image.WritePNG(fileStream);
                     }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine("Saving png image failed with error: " + ex.Message);
-                        return null;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Saving png image failed with error: " + ex.Message);
+                    return null;
                 }
             }
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
 using System.Collections.Generic;
 using PhoneKit.Framework.Core.Net;
+using System.Diagnostics;
 
 
 namespace PhoneKit.Framework.Core.Tile
@@ -164,7 +165,19 @@ namespace PhoneKit.Framework.Core.Tile
             var activeTile = GetTile(navigationUri);
 
             if (activeTile != null)
-                activeTile.Delete();
+            {
+                try
+                {
+                    activeTile.Delete();
+                }
+                catch (InvalidOperationException ioe)
+                {
+                    // BUGSENSE: could be related to the following tile issue
+                    // [15 May 2014 14:50; 1 time] Tiles can only be created when the application is in the foreground
+                    Debug.WriteLine("Deleting tile failed: " + ioe.Message);
+                }
+            }
+
         }
 
         /// <summary>
@@ -246,7 +259,18 @@ namespace PhoneKit.Framework.Core.Tile
             var activeTile = GetTile(navigationUri);
             
             if (activeTile != null)
-                activeTile.Update(tileData);
+            {
+                try
+                {
+                    activeTile.Update(tileData);
+                }
+                catch (InvalidOperationException ioe)
+                {
+                    // BUGSENSE: could be related to the following tile issue
+                    // [15 May 2014 14:50; 1 time] Tiles can only be created when the application is in the foreground
+                    Debug.WriteLine("Deleting tile failed: " + ioe.Message);
+                }
+            }
         }
 
         /// <summary>
