@@ -130,6 +130,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\PhoneStateHelper.cs" />
     <Compile Include="OS\VersionHelper.cs" />
+    <Compile Include="OS\DeviceHelper.cs" />
     <Compile Include="Support\ErrorReport.cs" />
     <Compile Include="Support\ErrorReportingManager.cs" />
     <Compile Include="Support\FeedbackManager.cs" />
