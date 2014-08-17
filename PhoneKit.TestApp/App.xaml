@@ -11,6 +11,8 @@
 
         <Color x:Key="MyPhoneChromeColor">#FF333333</Color>
         <SolidColorBrush x:Key="MyPhoneChromeBrush" Color="{StaticResource MyPhoneChromeColor}" />
+
+        <FontFamily x:Key="AppFont">/Assets/Fonts/Comfortaa_Thin.ttf#Comfortaa</FontFamily>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

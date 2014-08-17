@@ -200,6 +200,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Fonts\Comfortaa_Thin.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml">
       <SubType>Designer</SubType>
