@@ -42,20 +42,7 @@ namespace PhoneKit.Framework.Controls
 
         // Using a DependencyProperty as the backing store for BackgroundTheme.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BackgroundThemeProperty =
-            DependencyProperty.Register("BackgroundTheme", typeof(SolidColorBrush), typeof(InAppStoreControlBase), new PropertyMetadata(Application.Current.Resources["PhoneAccentBrush"]));
-
-        ///// <summary>
-        ///// Gets or sets the font theme.
-        ///// </summary>
-        //public FontFamily FontTheme
-        //{
-        //    get { return (SolidColorBrush)GetValue(BackgroundThemeProperty); }
-        //    set { SetValue(BackgroundThemeProperty, value); }
-        //}
-
-        //// Using a DependencyProperty as the backing store for BackgroundTheme.  This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty BackgroundThemeProperty =
-        //    DependencyProperty.Register("BackgroundTheme", typeof(SolidColorBrush), typeof(InAppStoreControlBase), new PropertyMetadata(Application.Current.Resources["PhoneAccentBrush"]));
+            DependencyProperty.Register("BackgroundTheme", typeof(SolidColorBrush), typeof(AboutControlBase), new PropertyMetadata(Application.Current.Resources["PhoneAccentBrush"]));
 
         #endregion
 

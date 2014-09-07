@@ -59,7 +59,7 @@ namespace PhoneKit.TestApp
         {
             base.OnNavigatedTo(e);
 
-            StartupActionManager.Instance.Fire();
+            StartupActionManager.Instance.Fire(e);
 
             // disable idle detection
             PhoneApplicationService.Current.UserIdleDetectionMode =

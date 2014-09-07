@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace PhoneKit.Framework.Support
 {
@@ -124,11 +125,12 @@ namespace PhoneKit.Framework.Support
         /// <remarks>
         /// Ensures only one action firing per app lifetime, because each fire is equivalent to a startup.
         /// </remarks>
+        /// <param name="e">The navigation event args.</param>
         /// </summary>
-        public void Fire()
+        public void Fire(NavigationEventArgs e)
         {
             // verify has not already been fired
-            if (_hasFired)
+            if (_hasFired || e.NavigationMode != NavigationMode.New)
                 return;
 
             _count.Value += 1; 

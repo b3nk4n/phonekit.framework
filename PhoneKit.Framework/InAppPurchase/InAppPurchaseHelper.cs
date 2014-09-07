@@ -19,7 +19,17 @@ namespace PhoneKit.Framework.InAppPurchase
         /// </returns>
         public static bool IsProductActive(string productId)
         {
-            return Store.CurrentApp.LicenseInformation.ProductLicenses[productId].IsActive;
+            try
+            {
+                return Store.CurrentApp.LicenseInformation.ProductLicenses[productId].IsActive;
+            }
+            // BugSense: Exception from HRESULT: 0xD0000022
+            // 03.09.2014
+            catch (Exception e)
+            {
+                Debug.WriteLine("Checking product licence failed with error: " + e.Message);
+                return false;
+            }      
         }
 
         /// <summary>
