@@ -156,5 +156,10 @@ namespace PhoneKit.TestApp
         {
             NavigationService.Navigate(new Uri("/ThemeingPage.xaml", UriKind.Relative));
         }
+
+        private void Backup_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BackupPage.xaml", UriKind.Relative));
+        }
     }
 }

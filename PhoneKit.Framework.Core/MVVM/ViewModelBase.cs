@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 
 namespace PhoneKit.Framework.Core.MVVM
 {
     /// <summary>
     /// The base class for every view model of the MVVM pattern.
     /// </summary>
+    [DataContract]
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
         /// <summary>

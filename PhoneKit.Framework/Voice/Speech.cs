@@ -1,3 +1,4 @@
+using PhoneKit.Framework.Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,7 +30,15 @@ namespace PhoneKit.Framework.Voice
         /// <summary>
         /// The voice-to-text user interface.
         /// </summary>
+        /// <remarks>
+        /// IS GOING TO BE LAZY LOADED SINCE VERSION 1.7, CAUSED BY THE FACT THAT THERE IS AN ERROR IN THE OS.
+        /// </remarks>
         private SpeechRecognizerUI _recognizerUI;
+
+        /// <summary>
+        /// Persistent flag to indicate the Speech recognizer UI error on the active device.
+        /// </summary>
+        private StoredObject<bool> _recognizerUiErrorIndicator = new StoredObject<bool>("_speechrec_error_", false);
 
         /// <summary>
         /// Indicates whether voice commands have been installed.
@@ -125,16 +134,6 @@ namespace PhoneKit.Framework.Voice
         {
             _synthesizer = new SpeechSynthesizer();
             _synthesizer.SetVoice(InstalledVoices.Default);
-
-            try
-            {
-                // speech recognition support depends on the installed languages
-                _recognizerUI = new SpeechRecognizerUI();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Instantiation of SpeechRecognizerFailed with error: " + ex.Message);
-            }
         }
 
         #endregion
@@ -178,6 +177,21 @@ namespace PhoneKit.Framework.Voice
         {
             get
             {
+                if (_recognizerUI == null)
+                {
+                    try
+                    {
+                        _recognizerUiErrorIndicator.Value = true;
+                        // speech recognition support depends on the installed languages
+                        _recognizerUI = new SpeechRecognizerUI();
+                        _recognizerUiErrorIndicator.Value = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("Instantiation of SpeechRecognizerFailed with error: " + ex.Message);
+                    }
+                }
+
                 return _recognizerUI;
             }
         }
@@ -191,6 +205,17 @@ namespace PhoneKit.Framework.Voice
             get
             {
                 return _recognizerUI != null;
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the app crashed with instantiating the RecognizerUI before.
+        /// </summary>
+        public bool HasRecognizerUIError
+        {
+            get
+            {
+                return _recognizerUiErrorIndicator.Value;
             }
         }
 

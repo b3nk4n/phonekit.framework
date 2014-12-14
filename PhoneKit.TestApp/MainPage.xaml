@@ -58,6 +58,7 @@
                 <Button Content="Connectivity" Click="Connectivity_Click" />
                 <Button Content="Tiles and Graphics" Click="TilesGraphics_Click" />
                 <Button Content="Theming" Click="Themeing_Click" />
+                <Button Content="Backup" Click="Backup_Click" />
             </StackPanel>
         </Grid>
 

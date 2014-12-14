@@ -244,4 +244,68 @@ Showing us some love on the store helps us to continue to work on the app and ma
     <value>Contributors</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="AttentionTitle" xml:space="preserve">
+    <value>Attention:</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="BackupInfoText" xml:space="preserve">
+    <value>You can create a backup of your data, which are going to be saved on you OneDrive. You can later restore the data on any device.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="BackupTitle" xml:space="preserve">
+    <value>backups</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="CommonBackupWarningText" xml:space="preserve">
+    <value>Keep this app active until the operation is finished. A stable internet connection is required.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="CreateBackupHeaderText" xml:space="preserve">
+    <value>create</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="MessageBoxBackupSuccessText" xml:space="preserve">
+    <value>Die Backup '{0}' has been created successfully.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="MessageBoxRestoreSuccessText" xml:space="preserve">
+    <value>Die Backup '{0}' has been restored successfully.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="NameOfBackupHintText" xml:space="preserve">
+    <value>Backup title</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="RestoreBackupHeaderText" xml:space="preserve">
+    <value>restore</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="RestoreInfoText" xml:space="preserve">
+    <value>You can restore you data here. Current notes and tiles are going to be removed.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="MessageBoxInfoTitle" xml:space="preserve">
+    <value>Information</value>
+    <comment>MessageBox</comment>
+  </data>
+  <data name="MessageBoxWarningTitle" xml:space="preserve">
+    <value>Warning</value>
+    <comment>MessageBox</comment>
+  </data>
+  <data name="MessageBoxBackupErrorText" xml:space="preserve">
+    <value>Die Backup '{0}' could not be created. Please check you internet connection.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="MessageBoxRestoreErrorText" xml:space="preserve">
+    <value>Die Backup '{0}' could ne be restored. Please check you internet connection.</value>
+    <comment>Backup</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>login</value>
+    <comment>General</comment>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>logout</value>
+    <comment>General</comment>
+  </data>
 </root>

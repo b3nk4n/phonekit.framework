@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Json;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
 using PhoneKit.Framework.Core.Graphics;
+using System.Collections.Generic;
 
 namespace PhoneKit.Framework.Core.Storage
 {
@@ -180,9 +181,10 @@ namespace PhoneKit.Framework.Core.Storage
                         {
                             // store loaded data in isolated storage
                             var dataBuffer = new byte[1024];
-                            while (responseStream.Read(dataBuffer, 0, dataBuffer.Length) > 0)
+                            int readBytes;
+                            while ((readBytes = responseStream.Read(dataBuffer, 0, dataBuffer.Length)) > 0)
                             {
-                                isoStoreFile.Write(dataBuffer, 0, dataBuffer.Length);
+                                isoStoreFile.Write(dataBuffer, 0, readBytes);
                             }
                         }
                     }
@@ -441,6 +443,28 @@ namespace PhoneKit.Framework.Core.Storage
                     Debug.WriteLine("Deleting all files failed. One file might be in use. Error: " + ex.Message);
                 }
             }
+        }
+
+        public static IList<string> GetFileNames(string path)
+        {
+            using (IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                try
+                {
+                    string directory = Path.GetDirectoryName(path);
+                    if (store.DirectoryExists(directory))
+                    {
+                        string[] fileNames = store.GetFileNames(path);
+
+                        return new List<string>(fileNames);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Could not retriev files. Error: " + ex.Message);
+                }
+            }
+            return null;
         }
 
         #endregion
