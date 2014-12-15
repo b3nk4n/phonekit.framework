@@ -184,7 +184,9 @@ namespace PhoneKit.Framework.Voice
                         _recognizerUiErrorIndicator.Value = true;
                         // speech recognition support depends on the installed languages
                         _recognizerUI = new SpeechRecognizerUI();
+                        var readToEnforceUpdateStoredObjectVariable = _recognizerUiErrorIndicator.Value;
                         _recognizerUiErrorIndicator.Value = false;
+                        Debug.WriteLine("New error indicator value: " + _recognizerUiErrorIndicator.Value);
                     }
                     catch (Exception ex)
                     {
