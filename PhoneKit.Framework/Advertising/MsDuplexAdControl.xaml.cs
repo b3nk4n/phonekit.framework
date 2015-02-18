@@ -79,6 +79,12 @@ namespace PhoneKit.Framework.Advertising
                     adDuplex.Width = 480;
                     adDuplex.Height = 80;
                     adDuplex.AppId = _adDuplexAppId;
+
+                    if (IsTest)
+                    {
+                        adDuplex.IsTest = true;
+                    }
+
                     adDuplex.AdLoaded += (s, e) =>
                     {
                         OnAdReceived(EventArgs.Empty);

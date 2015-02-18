@@ -6,6 +6,7 @@ using PhoneKit.Framework.Storage;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -155,31 +156,40 @@ namespace PhoneKit.Framework.Controls
 
                 foreach (var path in pathsAndFiles.Keys)
                 {
-                    string folderId = await OneDriveManager.Instance.CreateFolderPathAsync(baseFolderId, path);
-
-                    if (folderId != null)
+                    try
                     {
-                        foreach (var file in pathsAndFiles[path])
-                        {
-                            Stream dataStream = StorageHelper.GetFileStream(path + file);
+                        string folderId = await OneDriveManager.Instance.CreateFolderPathAsync(baseFolderId, path);
 
-                            if (dataStream != null)
+                        if (folderId != null)
+                        {
+                            foreach (var file in pathsAndFiles[path])
                             {
-                                if (!await OneDriveManager.Instance.UploadAsync(folderId, file, dataStream))
+                                Stream dataStream = StorageHelper.GetFileStream(path + file);
+
+                                if (dataStream != null)
+                                {
+                                    if (!await OneDriveManager.Instance.UploadAsync(folderId, file, dataStream))
+                                    {
+                                        success = false;
+                                        break;
+                                    }
+                                }
+                                else
                                 {
                                     success = false;
                                     break;
                                 }
                             }
-                            else
-                            {
-                                success = false;
-                                break;
-                            }
+                        }
+                        else
+                        {
+                            success = false;
+                            break;
                         }
                     }
-                    else
+                    catch(LiveConnectException lcex)
                     {
+                        Debug.WriteLine("Live connect exception: " + lcex.Message);
                         success = false;
                         break;
                     }
@@ -189,7 +199,6 @@ namespace PhoneKit.Framework.Controls
             {
                 success = false;
             }
-            
 
             AfterBackup(backupName, success);
             PhoneApplicationService.Current.UserIdleDetectionMode = preservedIdleState;
@@ -285,6 +294,11 @@ namespace PhoneKit.Framework.Controls
         private string ValidateBackupName(string backupName)
         {
             const char PLACEHOLDER = '_';
+
+            // added default name, because Persian default was (why ever) NULL
+            if (string.IsNullOrWhiteSpace(backupName)) {
+                return DEFAULT_BACKUP_NAME;
+            }
 
             // replace illegal chars with '_'
             foreach(var invalidChar in Path.GetInvalidPathChars())

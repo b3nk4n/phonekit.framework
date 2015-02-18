@@ -112,6 +112,7 @@ namespace PhoneKit.Framework.Core.Storage
 
                 // store the value in isolated storage
                 IsolatedStorageSettings.ApplicationSettings[this._name] = value;
+                this._value = value;
                 this._needRefresh = true;
             }
         }

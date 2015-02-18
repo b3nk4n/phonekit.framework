@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Phone.Speech.Recognition;
 using Windows.Phone.Speech.Synthesis;
@@ -182,8 +183,10 @@ namespace PhoneKit.Framework.Voice
                     try
                     {
                         _recognizerUiErrorIndicator.Value = true;
+                        Thread.Sleep(50);
                         // speech recognition support depends on the installed languages
                         _recognizerUI = new SpeechRecognizerUI();
+                        Thread.Sleep(50);
                         var readToEnforceUpdateStoredObjectVariable = _recognizerUiErrorIndicator.Value;
                         _recognizerUiErrorIndicator.Value = false;
                         Debug.WriteLine("New error indicator value: " + _recognizerUiErrorIndicator.Value);

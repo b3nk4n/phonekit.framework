@@ -116,8 +116,8 @@
         </Grid>
         <Grid Grid.RowSpan="2" Visibility="{Binding LoginRequired, Converter={StaticResource BoolToVisibilityConverter}}"
               Height="1000" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-200,0,0">
-            <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Opacity="0.75" />
-            <Button Grid.Row="0" Command="{Binding LoginCommand}" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Rectangle Fill="{StaticResource PhoneAccentBrush}" />
+            <Button Grid.Row="0" Command="{Binding LoginCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,64">
                 <StackPanel Orientation="Horizontal">
                     <Path Width="42" Height="24" Stretch="Fill" StrokeThickness="1" StrokeLineJoin="Round" Stroke="{StaticResource PhoneForegroundBrush}" Fill="{StaticResource PhoneForegroundBrush}" Data="F1 M 49.0833,33.25C 53.4555,33.25 57,36.7944 57,41.1666C 57,45.5389 53.3723,48.9999 49,49L 23,49.0001C 20.8139,49 19,47.3111 19,45.125C 19,43.1866 20.3931,41.5737 22.2327,41.233C 22.1892,40.9533 22.1667,40.6667 22.1667,40.3749C 22.1667,37.3993 24.5122,34.9712 27.4553,34.8389C 28.7579,31.1462 32.2782,28.4999 36.4167,28.4999C 40.3458,28.4999 43.7179,30.8853 45.1637,34.2868C 46.3193,33.627 47.6573,33.25 49.0833,33.25 Z "/>
                     <TextBlock x:Name="LoginButtonText" Text="Anmelden" Style="{StaticResource PhoneTextLargeStyle}" />
@@ -127,7 +127,7 @@
         <Grid Grid.RowSpan="2" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibilityConverter}}"
               Height="1000" Width="480" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-200,0,0">
             <Rectangle Fill="{StaticResource PhoneBackgroundBrush}" Opacity="0.75" />
-            <ProgressBar IsIndeterminate="{Binding IsBusy}" Margin="12" VerticalAlignment="Center" Width="400" />
+            <ProgressBar IsIndeterminate="{Binding IsBusy}" Margin="12,32,12,12" VerticalAlignment="Center" Width="400" />
         </Grid>
     </Grid>
 </UserControl>
