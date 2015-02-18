@@ -123,6 +123,7 @@
     <Compile Include="Conversion\StringListConverter.cs" />
     <Compile Include="Conversion\TimeToShapeConverter.cs" />
     <Compile Include="Conversion\ToUpperCaseConverter.cs" />
+    <Compile Include="Graphics\RobustPicture.cs" />
     <Compile Include="InAppPurchase\InAppPurchaseHelper.cs" />
     <Compile Include="Conversion\ShortDateConverter.cs" />
     <Compile Include="InAppPurchase\ProductItem.cs" />
@@ -188,12 +189,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\GermanBash.App\packages\AdDuplexWP8.2.8.1.0\lib\wp8\AdDuplex.WindowsPhone.dll</HintPath>
     </Reference>
+    <Reference Include="ExifLib">
+      <HintPath>..\..\PhotoNote\packages\ExifLib.1.6.3.0\lib\windowsphone8\ExifLib.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Advertising.Mobile, Version=6.2.960.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Advertising.Mobile.UI, Version=6.2.960.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Live, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.1.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="WriteableBitmapExWinPhone">
+      <HintPath>..\..\PhotoNote\packages\WriteableBitmapEx.1.0.14.0\lib\WindowsPhone8\WriteableBitmapExWinPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="WriteableBitmapExWinPhoneXnaDependant">
+      <HintPath>..\..\PhotoNote\packages\WriteableBitmapEx.1.0.14.0\lib\WindowsPhone8\WriteableBitmapExWinPhoneXnaDependant.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
