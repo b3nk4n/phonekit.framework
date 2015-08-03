@@ -17,12 +17,22 @@ namespace PhoneKit.Framework.Graphics
     /// in a different propotion.
     /// <seealso cref="http://sylvana.net/jpegcrop/exif_orientation.html"/>
     /// </summary>
-    public class RobustPicture
+    public class RobustPicture : IDisposable
     {
         public const ushort ORIENTATION_NORMAL = 1;
         public const ushort ORIENTATION_ABNORMAL_90 = 6;
         public const ushort ORIENTATION_ABNORMAL_180 = 3;
         public const ushort ORIENTATION_ABNORMAL_270 = 8;
+
+        /// <summary>
+        /// The cached width for better performance.
+        /// </summary>
+        private int _cachedWidth;
+
+        /// <summary>
+        /// The cached height for better performance.
+        /// </summary>
+        private int _cachedHeight;
 
         /// <summary>
         /// Creates a orientation aware photo.
@@ -32,6 +42,27 @@ namespace PhoneKit.Framework.Graphics
         {
             InternalPicture = picture;
             LoadExifData();
+
+            UpdateCachedImageSize(picture.Width, picture.Height);
+        }
+
+        /// <summary>
+        /// Updates the cached image size.
+        /// </summary>
+        /// <param name="width">The width</param>
+        /// <param name="height">The height.</param>
+        private void UpdateCachedImageSize(int width, int height)
+        {
+            if (IsOrientationFlipped)
+            {
+                _cachedHeight = width;
+                _cachedWidth = height;
+            }
+            else
+            {
+                _cachedHeight = height;
+                _cachedWidth = width;
+            }
         }
 
         /// <summary>
@@ -101,9 +132,18 @@ namespace PhoneKit.Framework.Graphics
         {
             WriteableBitmap image;
             if (IsOutOfMemoryPossible())
+            {
                 image = PictureDecoder.DecodeJpeg(InternalPicture.GetPreviewImage());
+            }
             else
-                image = PictureDecoder.DecodeJpeg(InternalPicture.GetImage());
+            {
+                //image = PictureDecoder.DecodeJpeg(InternalPicture.GetImage());
+                image = new WriteableBitmap(Width, Height); // TODO: in next version, if there is still a memory problem, reduce the image size for every phone (e.g. scale down to max. 2500x2500)
+                image.LoadJpeg(InternalPicture.GetImage());
+            }
+
+            UpdateCachedImageSize(image.PixelWidth, image.PixelHeight);
+
             return image;
         }
 
@@ -136,7 +176,16 @@ namespace PhoneKit.Framework.Graphics
         /// <returns>True, if OutOfMemoryException is possible.</returns>
         private bool IsOutOfMemoryPossible()
         {
-            return InternalPicture.Width > 4000 || InternalPicture.Height > 4000;
+            return InternalPicture.Width > 3600 || InternalPicture.Height > 3600;
+        }
+
+        /// <summary>
+        /// Disposes the image.
+        /// </summary>
+        public void Dispose()
+        {
+            if (!InternalPicture.IsDisposed)
+                InternalPicture.Dispose();
         }
 
         /// <summary>
@@ -156,23 +205,25 @@ namespace PhoneKit.Framework.Graphics
         }
 
         /// <summary>
+        /// Gets whether the orientation is changed.
+        /// </summary>
+        public bool IsOrientationFlipped
+        {
+            get
+            {
+                return ExifOrientation == ORIENTATION_ABNORMAL_90 ||
+                        ExifOrientation == ORIENTATION_ABNORMAL_270;
+            }
+        }
+
+        /// <summary>
         /// Get the orientation neutral width.
         /// </summary>
         public int Width
         {
             get
             {
-                if (ExifOrientation == ORIENTATION_ABNORMAL_90 || 
-                    ExifOrientation == ORIENTATION_ABNORMAL_270)
-                {
-                    if (IsOutOfMemoryPossible())
-                        return GetDecodedImage().PixelHeight;
-                    return InternalPicture.Height;
-                }
-
-                if (IsOutOfMemoryPossible())
-                    return GetDecodedImage().PixelWidth;
-                return InternalPicture.Width;
+                return _cachedWidth;
             }
         }
 
@@ -183,18 +234,8 @@ namespace PhoneKit.Framework.Graphics
         {
             get
             {
-                if (ExifOrientation == ORIENTATION_ABNORMAL_90 ||
-                    ExifOrientation == ORIENTATION_ABNORMAL_270)
-                {
-                    if (IsOutOfMemoryPossible())
-                        return GetDecodedImage().PixelWidth;
-                    return InternalPicture.Width;
-                }
-
-                if (IsOutOfMemoryPossible())
-                    return GetDecodedImage().PixelHeight;
-                return InternalPicture.Height;
+                return _cachedHeight;
             }
-        }
+        } 
     }
 }

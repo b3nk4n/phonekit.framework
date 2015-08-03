@@ -39,21 +39,6 @@ namespace PhoneKit.Framework.Advertising
         public string ActionParameter { get; set; }
 
         /// <summary>
-        /// The marketplace serach task.
-        /// </summary>
-        private static MarketplaceSearchTask searchTask = new MarketplaceSearchTask();
-
-        /// <summary>
-        /// The marketplace serach task.
-        /// </summary>
-        private static MarketplaceDetailTask detailTask = new MarketplaceDetailTask();
-
-        /// <summary>
-        /// The web browser task.
-        /// </summary>
-        private static WebBrowserTask browserTask = new WebBrowserTask();
-
-        /// <summary>
         /// Creates an AdvertData instance.
         /// </summary>
         /// <param name="imageUri">The advert image URI.</param>
@@ -78,16 +63,19 @@ namespace PhoneKit.Framework.Advertising
             switch (ActionType)
             {
                 case ActionTypes.StoreSearchTerm:
+                    var searchTask = new MarketplaceSearchTask();
                     searchTask.ContentType = MarketplaceContentType.Applications;
                     searchTask.SearchTerms = ActionParameter;
                     searchTask.Show();
                     break;
                 case ActionTypes.AppId:
+                    var detailTask = new MarketplaceDetailTask();
                     detailTask.ContentType = MarketplaceContentType.Applications;
                     detailTask.ContentIdentifier = ActionParameter;
                     detailTask.Show();
                     break;
                 case ActionTypes.Website:
+                    var browserTask = new WebBrowserTask();
                     browserTask.Uri = new Uri(ActionParameter, UriKind.Absolute);
                     break;
             }

@@ -84,7 +84,7 @@ namespace PhoneKit.Framework.Support
                 EmailComposeTask email = new EmailComposeTask();
                 email.To = supportEmail;
                 email.Subject = subject;
-                email.Body = content.ToString();
+                email.Body = (content != null) ? content.ToString() : "Unknown error has occured. The error message could not be fetched.";
                 email.Show();
             }
 

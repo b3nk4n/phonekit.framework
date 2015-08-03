@@ -118,6 +118,14 @@ namespace PhoneKit.Framework.Core.Storage
         }
 
         /// <summary>
+        /// Saves all changes immediately. Do not wait until the next page navigation.
+        /// </summary>
+        public void FlushSave()
+        {
+            IsolatedStorageSettings.ApplicationSettings.Save();
+        }
+
+        /// <summary>
         /// Gets the default value.
         /// </summary>
         public T DefaultValue

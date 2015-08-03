@@ -208,12 +208,21 @@ namespace PhoneKit.Framework.Core.Storage
         {
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             {
+                // verify directory exists
+                string directory = Path.GetDirectoryName(path);
+                if (!store.DirectoryExists(directory))
+                {
+                    store.CreateDirectory(directory);
+                }
+
                 // probably related to the same issue in StorageHelper.SavePng()
                 // BUGSENSE: [19 May 2014 16:33 - 20 May 2014 19:05; 2 times] Operation not permitted on IsolatedStorageFileStream.
                 // moved try-catch to this level because of the reported issue.
                 try
                 {
-                    using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+                    using (var fileStream = store.OpenFile(path, // this fixes the error above
+                            FileMode.Create,
+                            FileAccess.ReadWrite))
                     {
                         image.SaveJpeg(fileStream, image.PixelWidth, image.PixelHeight, 0, 100);
                     }
@@ -242,7 +251,9 @@ namespace PhoneKit.Framework.Core.Storage
                 // moved try-catch to this level because of the reported issue.
                 try
                 {
-                    using (var fileStream = new IsolatedStorageFileStream(path, FileMode.Create, store))
+                    using (var fileStream = store.OpenFile(path, // this fixes the error above
+                            FileMode.Create,
+                            FileAccess.ReadWrite))
                     {
                         image.WritePNG(fileStream);
                     }

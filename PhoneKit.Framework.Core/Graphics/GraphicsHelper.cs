@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -49,9 +51,9 @@ namespace PhoneKit.Framework.Core.Graphics
         /// </summary>
         /// <param name="bitmap">The existing renderable image data.</param>
         /// <param name="textBlock">The text to render.</param>
-        public static void RenderString(WriteableBitmap bitmap, TextBlock textBlock)
+        public static void RenderString(WriteableBitmap bitmap, TextBlock textBlock, Transform transform = null)
         {
-            bitmap.Render(textBlock, null);
+            bitmap.Render(textBlock, transform);
             bitmap.Invalidate();
         }
 
@@ -142,6 +144,13 @@ namespace PhoneKit.Framework.Core.Graphics
         {
             bitmap.Render(shape, null);
             bitmap.Invalidate();
+        }
+
+        public static void CleanUpMemory(WriteableBitmap bitmap)
+        {
+            bitmap = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

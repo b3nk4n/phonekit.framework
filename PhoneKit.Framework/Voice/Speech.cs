@@ -39,7 +39,8 @@ namespace PhoneKit.Framework.Voice
         /// <summary>
         /// Persistent flag to indicate the Speech recognizer UI error on the active device.
         /// </summary>
-        private StoredObject<bool> _recognizerUiErrorIndicator = new StoredObject<bool>("_speechrec_error_", false);
+        //private StoredObject<bool> _recognizerUiErrorIndicator = new StoredObject<bool>("_speechrec_error_", false);
+        // FIXME: is the error related to the textbox indead !?!
 
         /// <summary>
         /// Indicates whether voice commands have been installed.
@@ -182,14 +183,15 @@ namespace PhoneKit.Framework.Voice
                 {
                     try
                     {
-                        _recognizerUiErrorIndicator.Value = true;
-                        Thread.Sleep(50);
+                        //_recognizerUiErrorIndicator.Value = true;
+                        //_recognizerUiErrorIndicator.FlushSave();
+                        //Thread.Sleep(50);
                         // speech recognition support depends on the installed languages
                         _recognizerUI = new SpeechRecognizerUI();
-                        Thread.Sleep(50);
-                        var readToEnforceUpdateStoredObjectVariable = _recognizerUiErrorIndicator.Value;
-                        _recognizerUiErrorIndicator.Value = false;
-                        Debug.WriteLine("New error indicator value: " + _recognizerUiErrorIndicator.Value);
+                        //Thread.Sleep(50);
+                        //var readToEnforceUpdateStoredObjectVariable = _recognizerUiErrorIndicator.Value;
+                        //_recognizerUiErrorIndicator.Value = false;
+                        //Debug.WriteLine("New error indicator value: " + _recognizerUiErrorIndicator.Value);
                     }
                     catch (Exception ex)
                     {
@@ -216,13 +218,13 @@ namespace PhoneKit.Framework.Voice
         /// <summary>
         /// Indicates whether the app crashed with instantiating the RecognizerUI before.
         /// </summary>
-        public bool HasRecognizerUIError
-        {
-            get
-            {
-                return _recognizerUiErrorIndicator.Value;
-            }
-        }
+        //public bool HasRecognizerUIError
+        //{
+        //    get
+        //    {
+        //        return _recognizerUiErrorIndicator.Value;
+        //    }
+        //}
 
         /// <summary>
         /// Gets whether voice commands have been installed.
