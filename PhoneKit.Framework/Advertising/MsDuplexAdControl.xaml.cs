@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 using System.Diagnostics;
 
 namespace PhoneKit.Framework.Advertising
@@ -70,7 +63,9 @@ namespace PhoneKit.Framework.Advertising
             if (!string.IsNullOrEmpty(_adDuplexAppId))
             {
                 // remove previous banner.
-                LayoutRoot.Children.RemoveAt(0);
+                var control = LayoutRoot.Children[0];
+                //LayoutRoot.Children.Remove(control); <-- runs good on WP8.1, but crashes on WM10!
+                control.Visibility = System.Windows.Visibility.Collapsed; // works on BOTH :)
 
                 // add new adduplex banner.
                 try
@@ -78,7 +73,8 @@ namespace PhoneKit.Framework.Advertising
                     AdDuplex.AdControl adDuplex = new AdDuplex.AdControl();
                     adDuplex.Width = 480;
                     adDuplex.Height = 80;
-                    adDuplex.AppId = _adDuplexAppId;
+                    //adDuplex.AppId = _adDuplexAppId;
+                    adDuplex.AdUnitId = _adDuplexAppId;
 
                     if (IsTest)
                     {

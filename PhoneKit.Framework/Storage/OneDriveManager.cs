@@ -1,11 +1,8 @@
 ﻿using Microsoft.Live;
-using PhoneKit.Framework.Core.MVVM;
 using PhoneKit.Framework.Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PhoneKit.Framework.Storage

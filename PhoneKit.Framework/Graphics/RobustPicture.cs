@@ -137,12 +137,22 @@ namespace PhoneKit.Framework.Graphics
             }
             else
             {
-                //image = PictureDecoder.DecodeJpeg(InternalPicture.GetImage());
-                image = new WriteableBitmap(Width, Height); // TODO: in next version, if there is still a memory problem, reduce the image size for every phone (e.g. scale down to max. 2500x2500)
-                image.LoadJpeg(InternalPicture.GetImage());
+                image = PictureDecoder.DecodeJpeg(InternalPicture.GetImage());
             }
 
-            UpdateCachedImageSize(image.PixelWidth, image.PixelHeight);
+            // FIX 31.08: change orientation of parameters, because on some devices the preview image has correct height/width, where the full image has swapped values!
+            //UpdateCachedImageSize(image.PixelWidth, image.PixelHeight); 
+            var w = image.PixelWidth;
+            var h = image.PixelHeight;
+
+            if (InternalPicture.Width > InternalPicture.Height && h > w ||
+                InternalPicture.Width < InternalPicture.Height && h < w)
+            {
+                w = image.PixelHeight;
+                h = image.PixelWidth;
+            }
+
+            UpdateCachedImageSize(w, h);
 
             return image;
         }
