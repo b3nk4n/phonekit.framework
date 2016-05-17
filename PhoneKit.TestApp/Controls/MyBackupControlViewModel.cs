@@ -1,10 +1,8 @@
 ﻿using PhoneKit.Framework.Controls;
+using PhoneKit.Framework.Storage;
 using PhoneKit.TestApp.Resources;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace PhoneKit.TestApp.Controls
@@ -15,6 +13,11 @@ namespace PhoneKit.TestApp.Controls
             : base("000000004C119E36", AppResources.ApplicationTitle)
         {
             
+        }
+
+        protected override IEnumerable<string> GetScopes()
+        {
+            return OneDriveManager.SCOPES_PHOTOS;
         }
 
         protected override IDictionary<string, IList<string>> GetBackupDirectoriesAndFiles()
