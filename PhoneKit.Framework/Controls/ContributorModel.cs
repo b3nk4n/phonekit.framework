@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PhoneKit.Framework.Controls
+﻿namespace PhoneKit.Framework.Controls
 {
     /// <summary>
     /// The contributors model to add to the about page.

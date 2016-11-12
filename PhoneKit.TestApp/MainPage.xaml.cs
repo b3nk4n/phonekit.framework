@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using PhoneKit.TestApp.Resources;
-using PhoneKit.Framework.Tile;
 using PhoneKit.Framework.Core.LockScreen;
-using PhoneKit.Framework.Core.Graphics;
-using PhoneKit.TestApp.ImageControls;
-using PhoneKit.Framework.Core.Storage;
-using PhoneKit.Framework.Core.Tile;
 using PhoneKit.Framework.Voice;
 using PhoneKit.Framework.Support;
 

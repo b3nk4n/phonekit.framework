@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using PhoneKit.Framework.InAppPurchase;
-using System.Collections.ObjectModel;
-using Store = Windows.ApplicationModel.Store;
-using Windows.ApplicationModel.Store;
-using PhoneKit.TestApp.Resources;
+﻿using Microsoft.Phone.Controls;
 
 namespace PhoneKit.TestApp
 {

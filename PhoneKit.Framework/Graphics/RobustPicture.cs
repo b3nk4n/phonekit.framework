@@ -3,7 +3,6 @@ using Microsoft.Phone;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Media.PhoneExtensions;
 using System;
-using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 

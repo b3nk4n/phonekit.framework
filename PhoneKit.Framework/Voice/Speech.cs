@@ -1,9 +1,5 @@
-using PhoneKit.Framework.Core.Storage;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.Phone.Speech.Recognition;
 using Windows.Phone.Speech.Synthesis;

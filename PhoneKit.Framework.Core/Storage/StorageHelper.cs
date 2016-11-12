@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.IsolatedStorage;
 using System.Runtime.Serialization.Json;
 using System.Windows.Media.Imaging;
-using System.Xml.Serialization;
 using PhoneKit.Framework.Core.Graphics;
 using System.Collections.Generic;
 

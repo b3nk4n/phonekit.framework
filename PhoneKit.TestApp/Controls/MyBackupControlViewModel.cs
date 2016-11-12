@@ -1,7 +1,6 @@
 ﻿using PhoneKit.Framework.Controls;
 using PhoneKit.Framework.Storage;
 using PhoneKit.TestApp.Resources;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 

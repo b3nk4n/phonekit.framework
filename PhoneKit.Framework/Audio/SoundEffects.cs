@@ -1,6 +1,5 @@
 using System;
 using System.Windows.Media;
-using System.Windows.Resources;
 using Microsoft.Xna.Framework.Audio;
 using System.Collections.Generic;
 using System.IO;

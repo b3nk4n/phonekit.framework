@@ -1,8 +1,5 @@
 using System;
-using System.Threading.Tasks;
 using Microsoft.Phone.Shell;
-using System.Collections.Generic;
-using PhoneKit.Framework.Core.Net;
 using PhoneKit.Framework.Core.Tile;
 using System.Diagnostics;
 
