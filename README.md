@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/bsautermeister/uwpcore.framework/blob/master/Assets/phonekit.png" alt="PhoneKit Framework"><br>
+  <img src="https://github.com/bsautermeister/phonekit.framework/blob/master/Assets/phonekit.png" alt="PhoneKit Framework"><br>
 </div>
 -----------------
 
